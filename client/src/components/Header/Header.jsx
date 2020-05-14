@@ -14,17 +14,14 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import { FormattedMessage } from 'react-intl'
 import { locales } from '../../i18n'
 import useStyles from './style'
+import { useTheme } from '@material-ui/core'
 
-const Header = ({ locale, setLocale }) => {
+const Header = ({ locale, setLocale, darkModeChanged }) => {
     const classes = useStyles()
+    const theme = useTheme()
 
     const handleLanguage = () => {
         locale === locales.EN ? setLocale(locales.RU) : setLocale(locales.EN)
-    }
-
-    const [lightTheme, setLightTheme] = useState(true)
-    const handleTheme = () => {
-        setLightTheme(!lightTheme)
     }
 
     const [profile, setProfile] = useState(false)
@@ -32,10 +29,12 @@ const Header = ({ locale, setLocale }) => {
         setProfile(!profile)
     }
 
+    // createStyles
+
     return (
-        <AppBar>
+        <AppBar background='primary'>
             <Toolbar className={classes.toolbar}>
-                <Typography className={classes.title} variant='h6' noWrap>
+                <Typography className={classes.title} variant='h6'>
                     <NavLink to='/' className={classes.logoLink}>
                         <FormattedMessage id='header.companyName' />
                     </NavLink>
@@ -68,16 +67,16 @@ const Header = ({ locale, setLocale }) => {
                         <FormattedMessage id='header.language' />
                     </Button>
 
-                    <IconButton color='inherit' onClick={handleTheme}>
-                        {lightTheme ? <Brightness4Icon /> : <Brightness7Icon />}
+                    <IconButton color='inherit' onClick={darkModeChanged}>
+                        {theme.palette.type === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
                     </IconButton>
-                    
+
                     {profile ? (
                         <IconButton color='inherit' onClick={handleProfile}>
                             <AccountCircle />
                         </IconButton>
                     ) : (
-                        <Button color='inherit' onClick={handleProfile}>
+                        <Button color='inherit' size='large' onClick={handleProfile}>
                             <FormattedMessage id='header.login' />
                         </Button>
                     )}
