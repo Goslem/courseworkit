@@ -4,6 +4,13 @@ const useStyles = makeStyles((theme) => ({
     grow: {
         flexGrow: 1,
     },
+    toolbar: {
+        flexWrap: 'wrap',
+        minHeight: 128,
+        [theme.breakpoints.up('md')]: {
+            minHeight: 64,
+        },
+    },
     title: {
         display: 'none',
         [theme.breakpoints.up('sm')]: {
@@ -23,12 +30,14 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: fade(theme.palette.common.white, 0.25),
         },
-        marginRight: theme.spacing(2),
+        marginRight: theme.spacing(1),
         marginLeft: 0,
-        width: '100%',
+        flexGrow: 1,
+        [theme.breakpoints.up('md')]: {
+            marginRight: theme.spacing(2),
+        },
         [theme.breakpoints.up('sm')]: {
             marginLeft: theme.spacing(3),
-            width: 'auto',
         },
     },
     searchIcon: {
@@ -42,27 +51,21 @@ const useStyles = makeStyles((theme) => ({
     },
     inputRoot: {
         color: 'inherit',
+        width: '100%',
     },
     inputInput: {
         padding: theme.spacing(1, 1, 1, 0),
         paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
         transition: theme.transitions.create('width'),
         width: '100%',
-        [theme.breakpoints.up('md')]: {
-            width: '20ch',
-        },
     },
     sectionDesktop: {
-        display: 'none',
-        [theme.breakpoints.up('md')]: {
-            display: 'flex',
-            alignItems: 'center',
-        },
-    },
-    sectionMobile: {
         display: 'flex',
+        alignItems: 'center',
+        width: '100%',
+        justifyContent: 'flex-end',
         [theme.breakpoints.up('md')]: {
-            display: 'none',
+            width: 'auto',
         },
     },
 }))

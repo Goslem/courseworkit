@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -11,38 +11,30 @@ import IconButton from '@material-ui/core/IconButton'
 import Brightness4Icon from '@material-ui/icons/Brightness4'
 import Brightness7Icon from '@material-ui/icons/Brightness7'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import MoreIcon from '@material-ui/icons/MoreVert'
+import { FormattedMessage } from 'react-intl'
+import { locales } from '../../i18n'
 import useStyles from './style'
 
-import { FormattedMessage } from 'react-intl'
-
-const Header = ({ locales, setLocale }) => {
+const Header = ({ locale, setLocale }) => {
     const classes = useStyles()
 
-    const [englishLanguage, setEnglishLanguage] = React.useState(true)
     const handleLanguage = () => {
-        setEnglishLanguage(!englishLanguage)
-
-        if (englishLanguage) {
-            setLocale(locales.RU)
-        } else {
-            setLocale(locales.EN)
-        }
+        locale === locales.EN ? setLocale(locales.RU) : setLocale(locales.EN)
     }
 
-    const [lightTheme, setLightTheme] = React.useState(true)
+    const [lightTheme, setLightTheme] = useState(true)
     const handleTheme = () => {
         setLightTheme(!lightTheme)
     }
 
-    const [profile, setProfile] = React.useState(false)
+    const [profile, setProfile] = useState(false)
     const handleProfile = () => {
         setProfile(!profile)
     }
 
     return (
         <AppBar>
-            <Toolbar>
+            <Toolbar className={classes.toolbar}>
                 <Typography className={classes.title} variant='h6' noWrap>
                     <NavLink to='/' className={classes.logoLink}>
                         <FormattedMessage id='header.companyName' />
@@ -61,13 +53,10 @@ const Header = ({ locales, setLocale }) => {
                                     root: classes.inputRoot,
                                     input: classes.inputInput,
                                 }}
-                                inputProps={{ 'aria-label': 'search' }}
                             />
                         )}
                     </FormattedMessage>
                 </div>
-
-                <div className={classes.grow}></div>
 
                 <div className={classes.sectionDesktop}>
                     <Button
@@ -78,9 +67,11 @@ const Header = ({ locales, setLocale }) => {
                     >
                         <FormattedMessage id='header.language' />
                     </Button>
+
                     <IconButton color='inherit' onClick={handleTheme}>
                         {lightTheme ? <Brightness4Icon /> : <Brightness7Icon />}
                     </IconButton>
+                    
                     {profile ? (
                         <IconButton color='inherit' onClick={handleProfile}>
                             <AccountCircle />
@@ -90,11 +81,6 @@ const Header = ({ locales, setLocale }) => {
                             <FormattedMessage id='header.login' />
                         </Button>
                     )}
-                </div>
-                <div className={classes.sectionMobile}>
-                    <IconButton color='inherit'>
-                        <MoreIcon />
-                    </IconButton>
                 </div>
             </Toolbar>
         </AppBar>

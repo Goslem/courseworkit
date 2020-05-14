@@ -8,9 +8,9 @@ function App() {
     const [locale, setLocale] = useState(locales.EN)
 
     return (
-        <IntlProvider locale={locale} defaultLocale={locales.RU} messages={localeMessages[locale]}>
+        <IntlProvider locale={locale} messages={localeMessages[locale]}>
             <CssBaseline />
-            <Header locales={locales} setLocale={setLocale} />
+            <Header locale={locale} setLocale={setLocale} />
         </IntlProvider>
     )
 }
