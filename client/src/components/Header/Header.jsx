@@ -12,54 +12,40 @@ import Brightness4Icon from '@material-ui/icons/Brightness4'
 import Brightness7Icon from '@material-ui/icons/Brightness7'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import MoreIcon from '@material-ui/icons/MoreVert'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
 import useStyles from './style'
 
-import translate from '../../i18n/translate'
+import { FormattedMessage } from 'react-intl'
 
-const Header = ({ setLocale, locales }) => {
+const Header = ({ locales, setLocale }) => {
     const classes = useStyles()
 
     const [englishLanguage, setEnglishLanguage] = React.useState(true)
-    const handleLanguage = (event) => {
+    const handleLanguage = () => {
         setEnglishLanguage(!englishLanguage)
+
         if (englishLanguage) {
-            setLocale(locales.RUSSIAN)
+            setLocale(locales.RU)
         } else {
-            setLocale(locales.ENGLISH)
+            setLocale(locales.EN)
         }
     }
 
     const [lightTheme, setLightTheme] = React.useState(true)
-    const handleTheme = (event) => {
+    const handleTheme = () => {
         setLightTheme(!lightTheme)
     }
 
     const [profile, setProfile] = React.useState(false)
-    const handleProfile = (event) => {
+    const handleProfile = () => {
         setProfile(!profile)
     }
-
-    const [mobileMenu, setMobileMenu] = React.useState(false)
-    const handleMobileMenu = (event) => {
-        setMobileMenu(!mobileMenu)
-    }
-
-    const renderMobileMenu = (
-        <Menu id='mobile-menu' keepMounted open={mobileMenu} onClose={handleMobileMenu}>
-            <MenuItem>Hello</MenuItem>
-            <MenuItem>Hello</MenuItem>
-            <MenuItem>Hello</MenuItem>
-        </Menu>
-    )
 
     return (
         <AppBar>
             <Toolbar>
                 <Typography className={classes.title} variant='h6' noWrap>
                     <NavLink to='/' className={classes.logoLink}>
-                        {translate('companyName')}
+                        <FormattedMessage id='header.companyName' />
                     </NavLink>
                 </Typography>
 
@@ -67,14 +53,18 @@ const Header = ({ setLocale, locales }) => {
                     <div className={classes.searchIcon}>
                         <SearchIcon />
                     </div>
-                    <InputBase
-                        // placeholder={translate('search')}
-                        classes={{
-                            root: classes.inputRoot,
-                            input: classes.inputInput,
-                        }}
-                        inputProps={{ 'aria-label': 'search' }}
-                    />
+                    <FormattedMessage id='header.search'>
+                        {(msg) => (
+                            <InputBase
+                                placeholder={msg}
+                                classes={{
+                                    root: classes.inputRoot,
+                                    input: classes.inputInput,
+                                }}
+                                inputProps={{ 'aria-label': 'search' }}
+                            />
+                        )}
+                    </FormattedMessage>
                 </div>
 
                 <div className={classes.grow}></div>
@@ -86,7 +76,7 @@ const Header = ({ setLocale, locales }) => {
                         startIcon={<TranslateIcon />}
                         onClick={handleLanguage}
                     >
-                        {translate('lang')}
+                        <FormattedMessage id='header.language' />
                     </Button>
                     <IconButton color='inherit' onClick={handleTheme}>
                         {lightTheme ? <Brightness4Icon /> : <Brightness7Icon />}
@@ -97,17 +87,16 @@ const Header = ({ setLocale, locales }) => {
                         </IconButton>
                     ) : (
                         <Button color='inherit' onClick={handleProfile}>
-                            {translate('login')}
+                            <FormattedMessage id='header.login' />
                         </Button>
                     )}
                 </div>
                 <div className={classes.sectionMobile}>
-                    <IconButton color='inherit' onClick={handleMobileMenu}>
+                    <IconButton color='inherit'>
                         <MoreIcon />
                     </IconButton>
                 </div>
             </Toolbar>
-            {renderMobileMenu}
         </AppBar>
     )
 }
