@@ -15,8 +15,7 @@ import { FormattedMessage } from 'react-intl'
 import useStyles from './style'
 import { useTheme } from '@material-ui/core'
 
-// const Header = ({ toggleTheme, toggleLocale }) => {
-const Header = ({ toggleTheme }) => {
+const Header = ({ toggleTheme, toggleLocale }) => {
     const classes = useStyles()
     const theme = useTheme()
 
@@ -52,14 +51,14 @@ const Header = ({ toggleTheme }) => {
                 </div>
 
                 <div className={classes.sectionDesktop}>
-                    {/* <Button
+                    <Button
                         color='inherit'
                         size='large'
                         startIcon={<TranslateIcon />}
                         onClick={toggleLocale}
                     >
                         <FormattedMessage id='header.language' />
-                    </Button> */}
+                    </Button>
 
                     <IconButton color='inherit' onClick={toggleTheme}>
                         {theme.palette.type === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
