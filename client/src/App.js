@@ -24,16 +24,14 @@ const getPalette = (value) => ({
 
 const App = () => {
     const [theme, setTheme] = useState(getPalette(getInitialTheme()))
+    const [locale, setLocale] = useState(getInitialLanguage())
+    const muiTheme = createMuiTheme(theme)
 
     const toggleTheme = React.useCallback(() => {
-        let newPaletteType = theme.palette.type === 'light' ? 'dark' : 'light'
+        const newPaletteType = theme.palette.type === 'light' ? 'dark' : 'light'
         setTheme(getPalette(newPaletteType))
         localStorage.setItem('theme', newPaletteType)
     }, [theme, setTheme])
-
-    const muiTheme = createMuiTheme(theme)
-
-    const [locale, setLocale] = useState(getInitialLanguage())
 
     const toggleLocale = React.useCallback(() => {
         const language = locale === locales.EN ? locales.RU : locales.EN
