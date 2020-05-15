@@ -4,6 +4,9 @@ const useStyles = makeStyles((theme) => ({
     grow: {
         flexGrow: 1,
     },
+    AppBar: {
+        backgroundColor: theme.primary
+    },
     toolbar: {
         flexWrap: 'wrap',
         minHeight: 128,

@@ -32,7 +32,7 @@ const Header = ({ locale, setLocale, darkModeChanged }) => {
     // createStyles
 
     return (
-        <AppBar background='primary'>
+        <AppBar className={classes.AppBar}>
             <Toolbar className={classes.toolbar}>
                 <Typography className={classes.title} variant='h6'>
                     <NavLink to='/' className={classes.logoLink}>
