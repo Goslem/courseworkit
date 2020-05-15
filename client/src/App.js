@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Header from './components/Header/Header'
-import { IntlProvider } from 'react-intl'
 import { ThemeProvider } from '@material-ui/core'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { theme, toggleTheme } from './theme'
+import { IntlProvider } from 'react-intl'
 import { locales, localeMessages } from './i18n'
 
 function App() {
@@ -12,15 +12,16 @@ function App() {
 
     const [locale, setLocale] = useState(locales.EN)
 
-    const toggleLocale = React.useCallback(() => {
-        setLocale(locale === locales.EN ? locales.RU : locales.EN)
-    }, [locale, locales, setLocale])
+    // const toggleLocale = React.useCallback(() => {
+    //     setLocale(locale === locales.EN ? locales.RU : locales.EN)
+    // }, [locale, locales, setLocale])
 
     return (
         <ThemeProvider theme={muiTheme}>
             <IntlProvider locale={locale} messages={localeMessages[locale]}>
                 <CssBaseline />
-                <Header toggleTheme={toggleTheme} toggleLocale={toggleLocale} />
+                {/* <Header toggleTheme={toggleTheme} toggleLocale={toggleLocale} /> */}
+                <Header toggleTheme={toggleTheme} />
             </IntlProvider>
         </ThemeProvider>
     )

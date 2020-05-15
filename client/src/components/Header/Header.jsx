@@ -15,7 +15,8 @@ import { FormattedMessage } from 'react-intl'
 import useStyles from './style'
 import { useTheme } from '@material-ui/core'
 
-const Header = ({ toggleTheme, toggleLocale }) => {
+// const Header = ({ toggleTheme, toggleLocale }) => {
+const Header = ({ toggleTheme }) => {
     const classes = useStyles()
     const theme = useTheme()
 
