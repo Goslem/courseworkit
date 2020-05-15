@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     AppBar: {
-        backgroundColor: theme.primary
+        backgroundColor: theme.palette.type === 'dark' ? '#333333' : '#1976D2'
     },
     toolbar: {
         flexWrap: 'wrap',

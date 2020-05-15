@@ -16,7 +16,7 @@ import { locales } from '../../i18n'
 import useStyles from './style'
 import { useTheme } from '@material-ui/core'
 
-const Header = ({ locale, setLocale, darkModeChanged }) => {
+const Header = ({ locale, setLocale, toggleTheme }) => {
     const classes = useStyles()
     const theme = useTheme()
 
@@ -28,8 +28,6 @@ const Header = ({ locale, setLocale, darkModeChanged }) => {
     const handleProfile = () => {
         setProfile(!profile)
     }
-
-    // createStyles
 
     return (
         <AppBar className={classes.AppBar}>
@@ -67,7 +65,7 @@ const Header = ({ locale, setLocale, darkModeChanged }) => {
                         <FormattedMessage id='header.language' />
                     </Button>
 
-                    <IconButton color='inherit' onClick={darkModeChanged}>
+                    <IconButton color='inherit' onClick={toggleTheme}>
                         {theme.palette.type === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
                     </IconButton>
 

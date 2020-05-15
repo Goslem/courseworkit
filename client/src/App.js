@@ -4,22 +4,19 @@ import Header from './components/Header/Header'
 import { locales, localeMessages } from './i18n'
 import { IntlProvider } from 'react-intl'
 import { ThemeProvider } from '@material-ui/core'
-import darkTheme from './theme/dark'
-import lightTheme from './theme/light'
+import { createMuiTheme } from '@material-ui/core/styles'
+import { theme, toggleTheme } from './theme'
 
 function App() {
-    const [locale, setLocale] = useState(locales.EN)
-    const [darkMode, setDarkMode] = useState(false)
+    const muiTheme = createMuiTheme(theme)
 
-    const darkModeChanged = React.useCallback(() => {
-        setDarkMode(!darkMode)
-    }, [darkMode, setDarkMode])
+    const [locale, setLocale] = useState(locales.EN)
 
     return (
-        <ThemeProvider theme={darkMode ? darkTheme() : lightTheme()}>
+        <ThemeProvider theme={muiTheme}>
             <IntlProvider locale={locale} messages={localeMessages[locale]}>
                 <CssBaseline />
-                <Header locale={locale} setLocale={setLocale} darkModeChanged={darkModeChanged} />
+                <Header locale={locale} setLocale={setLocale} toggleTheme={toggleTheme} />
             </IntlProvider>
         </ThemeProvider>
     )
