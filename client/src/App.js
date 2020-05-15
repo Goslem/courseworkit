@@ -9,12 +9,12 @@ import { locales, localeMessages } from './i18n'
 
 function App() {
     const muiTheme = createMuiTheme(theme)
-    
+
     const [locale, setLocale] = useState(locales.EN)
 
     const toggleLocale = React.useCallback(() => {
         setLocale(locale === locales.EN ? locales.RU : locales.EN)
-    } ,[locale, setLocale])
+    }, [locale, locales, setLocale])
 
     return (
         <ThemeProvider theme={muiTheme}>
