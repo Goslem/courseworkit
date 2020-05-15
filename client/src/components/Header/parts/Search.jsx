@@ -1,31 +1,10 @@
+import React from 'react'
 import { makeStyles, fade } from '@material-ui/core/styles'
+import SearchIcon from '@material-ui/icons/Search'
+import { FormattedMessage } from 'react-intl'
+import InputBase from '@material-ui/core/InputBase'
 
 const useStyles = makeStyles((theme) => ({
-    grow: {
-        flexGrow: 1,
-    },
-    AppBar: {
-        backgroundColor: theme.palette.type === 'dark' ? '#333333' : '#1976D2'
-    },
-    toolbar: {
-        flexWrap: 'wrap',
-        minHeight: 128,
-        [theme.breakpoints.up('md')]: {
-            minHeight: 64,
-        },
-    },
-    title: {
-        display: 'none',
-        [theme.breakpoints.up('sm')]: {
-            display: 'block',
-        },
-    },
-    logoLink: {
-        color: 'white',
-        textDecoration: 'none',
-        textTransform: 'uppercase',
-        fontWeight: 'normal',
-    },
     search: {
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -62,15 +41,29 @@ const useStyles = makeStyles((theme) => ({
         transition: theme.transitions.create('width'),
         width: '100%',
     },
-    sectionDesktop: {
-        display: 'flex',
-        alignItems: 'center',
-        width: '100%',
-        justifyContent: 'flex-end',
-        [theme.breakpoints.up('md')]: {
-            width: 'auto',
-        },
-    },
 }))
 
-export default useStyles
+const Search = () => {
+    const classes = useStyles()
+
+    return (
+        <div className={classes.search}>
+            <div className={classes.searchIcon}>
+                <SearchIcon />
+            </div>
+            <FormattedMessage id='header.search'>
+                {(text) => (
+                    <InputBase
+                        placeholder={text}
+                        classes={{
+                            root: classes.inputRoot,
+                            input: classes.inputInput,
+                        }}
+                    />
+                )}
+            </FormattedMessage>
+        </div>
+    )
+}
+
+export default Search
