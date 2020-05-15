@@ -16,13 +16,9 @@ import { locales } from '../../i18n'
 import useStyles from './style'
 import { useTheme } from '@material-ui/core'
 
-const Header = ({ locale, setLocale, toggleTheme }) => {
+const Header = ({ toggleTheme, toggleLocale }) => {
     const classes = useStyles()
     const theme = useTheme()
-
-    const handleLanguage = () => {
-        locale === locales.EN ? setLocale(locales.RU) : setLocale(locales.EN)
-    }
 
     const [profile, setProfile] = useState(false)
     const handleProfile = () => {
@@ -60,7 +56,7 @@ const Header = ({ locale, setLocale, toggleTheme }) => {
                         color='inherit'
                         size='large'
                         startIcon={<TranslateIcon />}
-                        onClick={handleLanguage}
+                        onClick={toggleLocale}
                     >
                         <FormattedMessage id='header.language' />
                     </Button>
