@@ -1,12 +1,12 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
 import TranslateIcon from '@material-ui/icons/Translate'
-import { FormattedMessage } from 'react-intl'
+import translate from '../../../i18n/translate'
 
 const LanguageButton = ({ toggleLocale }) => {
     return (
         <Button color='inherit' size='large' startIcon={<TranslateIcon />} onClick={toggleLocale}>
-            <FormattedMessage id='header.language' />
+            {translate('header.language')}
         </Button>
     )
 }

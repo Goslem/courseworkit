@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Header from './components/Header'
+import { Switch, Route } from 'react-router-dom'
 import { ThemeProvider } from '@material-ui/core'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { IntlProvider } from 'react-intl'
 import { locales, localeMessages } from './i18n'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Header from './components/Header'
+import Login from './components/Login'
 
 const getInitialTheme = () => {
     const savedTheme = localStorage.getItem('theme')
@@ -44,6 +46,10 @@ const App = () => {
             <IntlProvider locale={locale} messages={localeMessages[locale]}>
                 <CssBaseline />
                 <Header toggleTheme={toggleTheme} toggleLocale={toggleLocale} />
+
+                <Switch>
+                    <Route path='/login' exact component={Login} />
+                </Switch>
             </IntlProvider>
         </ThemeProvider>
     )

@@ -10,7 +10,7 @@ import ProfileButton from './parts/ProfileButton'
 
 const useStyles = makeStyles((theme) => ({
     AppBar: {
-        backgroundColor: theme.palette.type === 'dark' ? '#333333' : '#1976D2',
+        backgroundColor: theme.palette.type === 'dark' ? '#2E2F32' : '#1976D2',
     },
     toolbar: {
         flexWrap: 'wrap',
@@ -42,7 +42,7 @@ const Header = ({ toggleTheme, toggleLocale }) => {
                 <div className={classes.sectionDesktop}>
                     <LanguageButton toggleLocale={toggleLocale} />
                     <ThemeButton toggleTheme={toggleTheme} />
-                    <ProfileButton />
+                    <ProfileButton login={false} />
                 </div>
             </Toolbar>
         </AppBar>

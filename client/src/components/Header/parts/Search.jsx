@@ -1,8 +1,8 @@
 import React from 'react'
 import { makeStyles, fade } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
-import { FormattedMessage } from 'react-intl'
 import InputBase from '@material-ui/core/InputBase'
+import { FormattedMessage } from 'react-intl'
 
 const useStyles = makeStyles((theme) => ({
     search: {
@@ -51,6 +51,7 @@ const Search = () => {
             <div className={classes.searchIcon}>
                 <SearchIcon />
             </div>
+
             <FormattedMessage id='header.search'>
                 {(text) => (
                     <InputBase
