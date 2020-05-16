@@ -9,23 +9,22 @@ import ThemeButton from './parts/ThemeButton'
 import ProfileButton from './parts/ProfileButton'
 
 const useStyles = makeStyles((theme) => ({
-    AppBar: {
-        backgroundColor: theme.palette.type === 'dark' ? '#2E2F32' : '#1976D2',
-    },
     toolbar: {
+        minHeight: 64,
         flexWrap: 'wrap',
-        minHeight: 128,
-        [theme.breakpoints.up('md')]: {
-            minHeight: 64,
+        color: theme.palette.default.contrastText,
+        backgroundColor: theme.palette.default.main,
+        [theme.breakpoints.down('sm')]: {
+            minHeight: 128,
         },
     },
     sectionDesktop: {
+        width: 'auto',
         display: 'flex',
         alignItems: 'center',
-        width: '100%',
         justifyContent: 'flex-end',
-        [theme.breakpoints.up('md')]: {
-            width: 'auto',
+        [theme.breakpoints.down('sm')]: {
+            width: '100%',
         },
     },
 }))
@@ -34,7 +33,7 @@ const Header = ({ toggleTheme, toggleLocale }) => {
     const classes = useStyles()
 
     return (
-        <AppBar className={classes.AppBar}>
+        <AppBar>
             <Toolbar className={classes.toolbar}>
                 <CompanyName />
                 <Search />

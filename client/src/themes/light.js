@@ -1,26 +1,30 @@
-import { createMuiTheme } from '@material-ui/core/styles'
-
-import lightGreen from '@material-ui/core/colors/lightGreen'
-import lime from '@material-ui/core/colors/lime'
-import teal from '@material-ui/core/colors/teal'
-import yellow from '@material-ui/core/colors/yellow'
-import deepOrange from '@material-ui/core/colors/deepOrange'
-
-export default createMuiTheme({
+export const lightTheme = {
     palette: {
-        primary: lime,
-        secondary: teal,
-        error: deepOrange,
-        action: {
-            disabledBackground: teal[400],
+        type: 'light',
+        default: {
+            light: '#000',
+            main: '#1976D2',
+            dark: '#000',
+            contrastText: '#fff',
+        },
+        primary: {
+            light: '#000',
+            main: '#1976D2',
+            dark: '#115293',
+            contrastText: '#fff',
+        },
+        secondary: {
+            light: '#000',
+            main: '#000',
+            dark: '#000',
+            contrastText: '#fff',
         },
         text: {
-            primary: lightGreen[900],
-            secondary: teal[700],
-            disabled: yellow[600],
+            primary: '#000',
+            secondary: '#000',
+        },
+        background: {
+            default: '#fff',
         },
     },
-    status: {
-        danger: 'orange',
-    },
-})
+}

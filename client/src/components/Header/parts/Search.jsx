@@ -6,25 +6,25 @@ import { FormattedMessage } from 'react-intl'
 
 const useStyles = makeStyles((theme) => ({
     search: {
+        marginLeft: theme.spacing(3),
+        marginRight: theme.spacing(2),
+        flexGrow: 1,
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
         backgroundColor: fade(theme.palette.common.white, 0.15),
         '&:hover': {
             backgroundColor: fade(theme.palette.common.white, 0.25),
         },
-        marginRight: theme.spacing(1),
-        marginLeft: 0,
-        flexGrow: 1,
-        [theme.breakpoints.up('md')]: {
-            marginRight: theme.spacing(2),
+        [theme.breakpoints.down('md')]: {
+            marginRight: theme.spacing(1),
         },
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(3),
+        [theme.breakpoints.down('xs')]: {
+            marginLeft: 0,
         },
     },
     searchIcon: {
-        padding: theme.spacing(0, 2),
         height: '100%',
+        padding: theme.spacing(0, 2),
         position: 'absolute',
         pointerEvents: 'none',
         display: 'flex',
@@ -32,14 +32,13 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
     },
     inputRoot: {
-        color: 'inherit',
         width: '100%',
+        color: 'inherit',
     },
     inputInput: {
-        padding: theme.spacing(1, 1, 1, 0),
-        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-        transition: theme.transitions.create('width'),
         width: '100%',
+        padding: theme.spacing(1, 1, 1, 6.1),
+        transition: theme.transitions.create('width'),
     },
 }))
 

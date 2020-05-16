@@ -6,9 +6,10 @@ import translate from '../../../i18n/translate'
 
 const useStyles = makeStyles((theme) => ({
     link: {
-        display: 'none',
-        [theme.breakpoints.up('sm')]: {
-            display: 'block',
+        display: 'block',
+        textTransform: 'uppercase',
+        [theme.breakpoints.down('xs')]: {
+            display: 'none',
         },
     },
 }))
@@ -25,8 +26,9 @@ const CompanyName = () => {
             underline='none'
             className={classes.link}
         >
-            {translate('header.companyName')}
+            {translate('companyName')}
         </Link>
     )
 }
+
 export default CompanyName

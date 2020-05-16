@@ -1,26 +1,30 @@
-import { createMuiTheme } from '@material-ui/core/styles'
-
-import lightBlue from '@material-ui/core/colors/lightBlue'
-import indigo from '@material-ui/core/colors/indigo'
-import purple from '@material-ui/core/colors/purple'
-import amber from '@material-ui/core/colors/amber'
-import deepOrange from '@material-ui/core/colors/deepOrange'
-
-export default createMuiTheme({
+export const darkTheme = {
     palette: {
-        primary: indigo,
-        secondary: purple,
-        error: deepOrange,
-        action: {
-            disabledBackground: amber[400],
+        type: 'dark',
+        default: {
+            light: '#000',
+            main: '#2E2F32',
+            dark: '#000',
+            contrastText: '#fff',
+        },
+        primary: {
+            light: '#eee',
+            main: '#90CAF9',
+            dark: '#638BAC',
+            contrastText: '#000',
+        },
+        secondary: {
+            light: '#000',
+            main: '#000',
+            dark: '#000',
+            contrastText: '#fff',
         },
         text: {
-            primary: indigo[600],
-            secondary: indigo[300],
-            disabled: lightBlue[100],
+            primary: '#fff',
+            secondary: '#fff',
+        },
+        background: {
+            default: '#202124',
         },
     },
-    status: {
-        danger: 'orange',
-    },
-})
+}

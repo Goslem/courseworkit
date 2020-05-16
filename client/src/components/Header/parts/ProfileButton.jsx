@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import Button from '@material-ui/core/Button'
@@ -14,7 +14,7 @@ const ProfileButton = (props) => {
                 </IconButton>
             ) : (
                 <Button color='inherit' size='large' component={RouterLink} to='/login'>
-                    {translate('header.login')}
+                    {translate('signIn')}
                 </Button>
             )}
         </>

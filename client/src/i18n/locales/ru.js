@@ -1,13 +1,11 @@
 const messages = {
-    'header.companyName': 'Кикстартер',
+    'companyName': 'Кикстартер',
+    'signIn': 'Войти',
+    'signUp': 'регистрация',
     'header.search': 'Поиск...',
     'header.language': 'русский',
-    'header.login': 'Войти',
-    'login.companyName': 'Кикстартер',
     'login.login': 'Логин',
     'login.password': 'Пароль',
-    'login.signUp': 'регистрация',
-    'login.signIn': 'войти',
 }
 
 export default messages

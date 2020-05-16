@@ -4,44 +4,40 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { Link as RouterLink } from 'react-router-dom'
 import translate from '../../i18n/translate'
+import Box from '@material-ui/core/Box'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        height: 'calc(100vh - 128px)',
+        height: 'calc(100vh - 64px)',
         minHeight: 400,
-        marginTop: 128,
+        marginTop: 64,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: theme.palette.type === 'dark' ? '#202124' : '#F5F5F5',
-        [theme.breakpoints.up('md')]: {
-            height: 'calc(100vh - 64px)',
-            marginTop: 64,
+        [theme.breakpoints.down('sm')]: {
+            height: 'calc(100vh - 128px)',
+            marginTop: 128,
         },
     },
     loginForm: {
-        width: '100%',
-        padding: 30,
+        width: 450,
+        padding: '42px 44px 38px',
         display: 'flex',
         flexDirection: 'column',
         border: 'none',
         borderRadius: 8,
-        [theme.breakpoints.up('sm')]: {
-            width: 450,
-            padding: '42px 44px 38px',
-            border: '1px solid',
-            borderColor:
-                theme.palette.type === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)',
+        [theme.breakpoints.down('xs')]: {
+            width: '100%',
+            padding: 30,
         },
     },
     logo: {
-        textAlign: 'center',
-        fontSize: '23px',
         marginTop: 0,
         marginBottom: '37px',
-        textTransform: 'uppercase',
+        fontSize: '23px',
         fontWeight: '500',
-        color: theme.palette.type === 'dark' ? '#EAEBEC' : '#404247',
+        textAlign: 'center',
+        textTransform: 'uppercase',
     },
     textField: {
         marginBottom: 20,
@@ -59,7 +55,7 @@ const Login = () => {
     return (
         <div className={classes.root}>
             <form noValidate autoComplete='off' className={classes.loginForm}>
-                <p className={classes.logo}>{translate('login.companyName')}</p>
+                <Box className={classes.logo}>{translate('companyName')}</Box>
 
                 <TextField
                     required
@@ -79,11 +75,11 @@ const Login = () => {
                 />
 
                 <div className={classes.buttonGroup}>
-                    <Button color='inherit' size='large' component={RouterLink} to='/'>
-                        {translate('login.signUp')}
+                    <Button color='inherit' size='large' component={RouterLink} to='/registration'>
+                        {translate('signUp')}
                     </Button>
                     <Button variant='contained' color='primary' size='large'>
-                        {translate('login.signIn')}
+                        {translate('signIn')}
                     </Button>
                 </div>
             </form>
