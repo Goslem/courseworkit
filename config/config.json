@@ -1,0 +1,26 @@
+{
+    "development": {
+        "username": "root",
+        "password": null,
+        "database": "course",
+        "host": "localhost",
+        "dialect": "mysql",
+        "operatorsAliases": 0
+    },
+    "test": {
+        "username": "root",
+        "password": null,
+        "database": "database_test",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "operatorsAliases": false
+    },
+    "production": {
+        "username": "b78549c62d4234",
+        "password": "f3dbd627",
+        "database": "heroku_9660cb14865f7f8",
+        "host": "eu-cdbr-west-03.cleardb.net",
+        "dialect": "mysql",
+        "operatorsAliases": 0
+    }
+}

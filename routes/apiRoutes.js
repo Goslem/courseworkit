@@ -1,12 +1,21 @@
 const express = require('express')
 const router = express.Router()
-
-router.get('/users', (req, res) => {
-    res.send('get')
-})
+const db = require('../models')
 
 router.post('/users', (req, res) => {
-    res.send(req.body.login + ' ' + req.body.password)
+    db.Users.findAll({
+        where: {
+            login: req.body.login || '',
+            password: req.body.password || '',
+        },
+    }).then((user) => res.send(user))
+})
+
+router.post('/addUsers', (req, res) => {
+    db.Users.create({
+        login: req.body.login || '',
+        password: req.body.password || '',
+    }).then((user) => res.send(user))
 })
 
 module.exports = router
