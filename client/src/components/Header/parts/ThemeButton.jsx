@@ -1,16 +1,24 @@
 import React from 'react'
-import { useTheme } from '@material-ui/core'
+import { connect } from 'react-redux'
+import { toggleTheme } from '../../../redux/themeReducer'
 import IconButton from '@material-ui/core/IconButton'
 import Brightness7Icon from '@material-ui/icons/Brightness7'
 import Brightness4Icon from '@material-ui/icons/Brightness4'
 
-const ThemeButton = ({ toggleTheme }) => {
-    const theme = useTheme()
+const ThemeButton = (props) => {
+    const onThemeChanged = () => {
+        props.toggleTheme(props.theme.title)
+    }
 
     return (
-        <IconButton color='inherit' onClick={toggleTheme}>
-            {theme.palette.type === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+        <IconButton color='inherit' onClick={onThemeChanged}>
+            {props.theme.title === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
         </IconButton>
     )
 }
-export default ThemeButton
+
+let mapStateToProps = (state) => ({
+    theme: state.theme,
+})
+
+export default connect(mapStateToProps, { toggleTheme })(ThemeButton)

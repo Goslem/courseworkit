@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const Header = ({ toggleTheme, toggleLocale }) => {
+const Header = () => {
     const classes = useStyles()
 
     return (
@@ -39,8 +39,8 @@ const Header = ({ toggleTheme, toggleLocale }) => {
                 <Search />
 
                 <div className={classes.sectionDesktop}>
-                    <LanguageButton toggleLocale={toggleLocale} />
-                    <ThemeButton toggleTheme={toggleTheme} />
+                    <LanguageButton />
+                    <ThemeButton />
                     <ProfileButton login={false} />
                 </div>
             </Toolbar>

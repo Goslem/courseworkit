@@ -6,6 +6,8 @@ import { Link as RouterLink } from 'react-router-dom'
 import translate from '../../i18n/translate'
 import Box from '@material-ui/core/Box'
 
+import axios from 'axios'
+
 const useStyles = makeStyles((theme) => ({
     root: {
         height: 'calc(100vh - 64px)',
@@ -52,6 +54,20 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
     const classes = useStyles()
 
+    const handleForm = (event) => {
+        // axios
+        //     .post('/api/users', {
+        //         login: login,
+        //         password: '123',
+        //     })
+        //     .then((response) => {
+        //         console.log(response)
+        //     })
+        //     .catch((error) => {
+        //         console.log(error)
+        //     })
+    }
+
     return (
         <div className={classes.root}>
             <form noValidate autoComplete='off' className={classes.loginForm}>
@@ -78,7 +94,7 @@ const Login = () => {
                     <Button color='inherit' size='large' component={RouterLink} to='/registration'>
                         {translate('signUp')}
                     </Button>
-                    <Button variant='contained' color='primary' size='large'>
+                    <Button variant='contained' color='primary' size='large' onClick={handleForm}>
                         {translate('signIn')}
                     </Button>
                 </div>
