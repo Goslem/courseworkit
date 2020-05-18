@@ -10,7 +10,7 @@ import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
 
 const useStyles = makeStyles((theme) => ({
-    loginForm: {
+    form: {
         display: 'flex',
         flexDirection: 'column',
     },
@@ -30,16 +30,16 @@ function Alert(props) {
     return <MuiAlert elevation={6} variant='filled' {...props} />
 }
 
-const LoginForm = (props) => {
+const RegistrationForm = (props) => {
     const classes = useStyles()
 
     return (
-        <form onSubmit={props.handleSubmit} className={classes.loginForm}>
+        <form onSubmit={props.handleSubmit} className={classes.form}>
             <Field
                 name='login'
                 autoComplete='off'
                 component={renderField}
-                label={translate('login.login')}
+                label={translate('registration.login')}
                 validate={[required, maxLength20]}
                 className={classes.textField}
             />
@@ -47,27 +47,26 @@ const LoginForm = (props) => {
                 name='password'
                 type='password'
                 component={renderField}
-                label={translate('login.password')}
+                label={translate('registration.password')}
                 validate={[required, maxLength20]}
                 className={classes.textField}
             />
-
             <div className={classes.buttonGroup}>
-                <Button color='inherit' size='large' component={RouterLink} to='/registration'>
-                    {translate('login.signUp')}
+                <Button color='inherit' size='large' component={RouterLink} to='/login'>
+                    {translate('registration.signIn')}
                 </Button>
                 <Button type='submit' variant='contained' color='primary' size='large'>
-                    {translate('login.signIn')}
+                    {translate('registration.signUp')}
                 </Button>
             </div>
 
             {props.error && (
                 <Snackbar open={true} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-                    <Alert severity='error'>{translate('login.error')}</Alert>
+                    <Alert severity='error'>{translate('registration.error')}</Alert>
                 </Snackbar>
             )}
         </form>
     )
 }
 
-export default reduxForm({ form: 'login' })(LoginForm)
+export default reduxForm({ form: 'registration' })(RegistrationForm)

@@ -41,7 +41,7 @@ const Header = () => {
                 <div className={classes.sectionDesktop}>
                     <LanguageButton />
                     <ThemeButton />
-                    <ProfileButton login={false} />
+                    <ProfileButton />
                 </div>
             </Toolbar>
         </AppBar>

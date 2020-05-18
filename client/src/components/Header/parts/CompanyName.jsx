@@ -26,7 +26,7 @@ const CompanyName = () => {
             underline='none'
             className={classes.link}
         >
-            {translate('companyName')}
+            {translate('header.companyName')}
         </Link>
     )
 }

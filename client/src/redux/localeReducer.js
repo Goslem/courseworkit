@@ -1,25 +1,25 @@
 import { locales } from '../i18n'
 const CHANGE_LOCALE = 'CHANGE_LOCALE'
 
-const initialLocaleState = {
+const initialState = {
     value: localStorage.getItem('locale') === locales.RU ? locales.RU : locales.EN,
 }
 
-export const localeReducer = (state = initialLocaleState, action) => {
+export const localeReducer = (state = initialState, action) => {
     switch (action.type) {
         case CHANGE_LOCALE:
             return {
                 ...state,
-                value: action.newLocale,
+                value: action.payload,
             }
         default:
             return state
     }
 }
 
-const setLocale = (newLocale) => ({
+const setLocale = (payload) => ({
     type: CHANGE_LOCALE,
-    newLocale,
+    payload,
 })
 
 export const toggleLocale = (locale) => (dispatch) => {

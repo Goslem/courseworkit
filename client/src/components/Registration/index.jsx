@@ -2,9 +2,9 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import translate from '../../i18n/translate'
 import Box from '@material-ui/core/Box'
-import LoginForm from './LoginForm'
+import RegistrationForm from './RegistrationForm'
 import { connect } from 'react-redux'
-import { login } from '../../redux/authReducer'
+import { registration } from '../../redux/authReducer'
 import { withLoginRedirect } from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
 
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
             marginTop: 128,
         },
     },
-    loginContainer: {
+    registrationContainer: {
         width: 450,
         padding: '42px 44px 38px',
         display: 'flex',
@@ -42,17 +42,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const Login = (props) => {
+const Registration = (props) => {
     const classes = useStyles()
 
     return (
         <div className={classes.root}>
-            <div className={classes.loginContainer}>
-                <Box className={classes.logo}>{translate('login.authorization')}</Box>
-                <LoginForm onSubmit={props.login} />
+            <div className={classes.registrationContainer}>
+                <Box className={classes.logo}>{translate('registration.registration')}</Box>
+                <RegistrationForm onSubmit={props.registration} />
             </div>
         </div>
     )
 }
 
-export default compose(connect(null, { login }), withLoginRedirect)(Login)
+export default compose(connect(null, { registration }), withLoginRedirect)(Registration)
