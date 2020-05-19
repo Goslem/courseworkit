@@ -6,6 +6,7 @@ import translate from '../../../i18n/translate'
 
 const useStyles = makeStyles((theme) => ({
     link: {
+        marginTop: 1,
         display: 'block',
         textTransform: 'uppercase',
         [theme.breakpoints.down('xs')]: {

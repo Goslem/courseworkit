@@ -10,21 +10,29 @@ import ProfileButton from './parts/ProfileButton'
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
-        minHeight: 64,
         flexWrap: 'wrap',
+        justifyContent: 'space-between',
         color: theme.palette.default.contrastText,
         backgroundColor: theme.palette.default.main,
+    },
+    sectionMain: {
+        flexGrow: 1,
+        marginTop: 0,
+        display: 'flex',
+        flexDirection: 'row',
         [theme.breakpoints.down('sm')]: {
-            minHeight: 128,
+            marginTop: 10,
         },
     },
-    sectionDesktop: {
+    sectionToolbar: {
         width: 'auto',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',
         [theme.breakpoints.down('sm')]: {
             width: '100%',
+            marginTop: 10,
+            marginBottom: 10,
         },
     },
 }))
@@ -35,10 +43,12 @@ const Header = () => {
     return (
         <AppBar>
             <Toolbar className={classes.toolbar}>
-                <CompanyName />
-                <Search />
+                <div className={classes.sectionMain}>
+                    <CompanyName />
+                    <Search />
+                </div>
 
-                <div className={classes.sectionDesktop}>
+                <div className={classes.sectionToolbar}>
                     <LanguageButton />
                     <ThemeButton />
                     <ProfileButton />

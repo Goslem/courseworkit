@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
             marginRight: theme.spacing(1),
         },
         [theme.breakpoints.down('xs')]: {
-            marginLeft: 0,
+            marginLeft: theme.spacing(1),
         },
     },
     searchIcon: {
