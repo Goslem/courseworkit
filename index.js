@@ -2,14 +2,14 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const db = require('./models')
-const apiRoutes = require('./routes/apiRoutes')
 const cookieParser = require('cookie-parser')
+const authRoute = require('./routes/auth')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-app.use('/api', apiRoutes)
+app.use('/api/user', authRoute)
 app.use(express.static(path.join(__dirname, 'client', 'build')))
 
 app.get('*', (req, res) => {

@@ -6,16 +6,16 @@ const instance = axios.create({
 
 export const authAPI = {
     login(login, password) {
-        return instance.post('auth/login', { login, password })
-    },
-    logout() {
-        return instance.post('auth/logout')
+        return instance.post('user/login', { login, password })
     },
     registration(login, password) {
-        return instance.post('auth/registration', { login, password })
+        return instance.post('user/registration', { login, password })
     },
     me() {
-        return instance.post('auth/me')
-    }
+        return instance.post('user/me')
+    },
+    logout() {
+        return instance.post('user/logout')
+    },
 }
 
