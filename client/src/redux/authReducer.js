@@ -30,23 +30,15 @@ export const login = ({ login, password }) => (dispatch) => {
     authAPI
         .login(login, password)
         .then((response) => {
-            if (response.data.length > 0) {
-                let { id, login } = response.data[0]
-                dispatch(setUserData(id, login, true))
-            } else {
-                dispatch(stopSubmit('login', { _error: true }))
+            switch (response.status) {
+                case 200:
+                    let { id, login } = response.data
+                    dispatch(setUserData(id, login, true))
+                    break
+                case 204:
+                    dispatch(stopSubmit('login', { _error: true }))
+                    break
             }
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-}
-
-export const logout = () => (dispatch) => {
-    authAPI
-        .logout()
-        .then((response) => {
-            dispatch(setUserData(null, null, false))
         })
         .catch((error) => console.log(error))
 }
@@ -55,12 +47,24 @@ export const registration = ({ login, password }) => (dispatch) => {
     authAPI
         .registration(login, password)
         .then((response) => {
-            if (true) {
-                let { id, login } = response.data
-                dispatch(setUserData(id, login, true))
-            } else {
-                dispatch(stopSubmit('registration', { _error: true }))
+            switch (response.status) {
+                case 200:
+                    let { id, login } = response.data
+                    dispatch(setUserData(id, login, true))
+                    break
+                case 204:
+                    dispatch(stopSubmit('registration', { _error: true }))
+                    break
             }
+        })
+        .catch((error) => console.log(error))
+}
+
+export const logout = () => (dispatch) => {
+    authAPI
+        .logout()
+        .then((response) => {
+            dispatch(setUserData(null, null, false))
         })
         .catch((error) => console.log(error))
 }

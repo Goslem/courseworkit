@@ -1,14 +1,13 @@
 const express = require('express')
-const app = express()
 const path = require('path')
 const db = require('./models')
-
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
-
 const apiRoutes = require('./routes/apiRoutes')
-app.use('/api', apiRoutes)
+const app = express()
 
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+
+app.use('/api', apiRoutes)
 app.use(express.static(path.join(__dirname, 'client', 'build')))
 
 app.get('*', (req, res) => {
