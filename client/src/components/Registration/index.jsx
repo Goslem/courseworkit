@@ -11,7 +11,7 @@ import { compose } from 'redux'
 const useStyles = makeStyles((theme) => ({
     root: {
         height: 'calc(100vh - 64px)',
-        minHeight: 400,
+        minHeight: 330,
         marginTop: 64,
         display: 'flex',
         alignItems: 'center',
@@ -22,14 +22,12 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     registrationContainer: {
-        width: 450,
-        padding: '42px 44px 38px',
+        width: 362,
         display: 'flex',
         flexDirection: 'column',
-        borderRadius: 8,
         [theme.breakpoints.down('xs')]: {
             width: '100%',
-            padding: 30,
+            padding: '0 30px',
         },
     },
     logo: {

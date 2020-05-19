@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
         width: 362,
         display: 'flex',
         flexDirection: 'column',
-        border: '1px solid red',
         [theme.breakpoints.down('xs')]: {
             width: '100%',
             padding: '0 30px',
