@@ -2,12 +2,19 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const db = require('./models')
-const cookieParser = require('cookie-parser')
+const session = require('express-session')
 const authRoute = require('./routes/auth')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use(cookieParser())
+app.use(
+    session({
+        secret: 'nqfKP7Gnq7',
+        resave: false,
+        saveUninitialized: true,
+        cookie: { secure: false },
+    })
+)
 
 app.use('/api/user', authRoute)
 app.use(express.static(path.join(__dirname, 'client', 'build')))
