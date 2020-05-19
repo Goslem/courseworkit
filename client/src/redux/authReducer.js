@@ -71,10 +71,9 @@ export const logout = () => (dispatch) => {
 
 export const getAuthUserData = () => (dispatch) => {
     return authAPI.me().then((response) => {
-        // if (response.data.resultCode === 0) {
-        //     let {id, login} = response.data[0]
-        //     dispatch(setUserData(id, login, true))
-        // }
-        console.log(response)
+        if (response.status === 200) {
+            let { id, login } = response.data
+            dispatch(setUserData(id, login, true))
+        }
     })
 }

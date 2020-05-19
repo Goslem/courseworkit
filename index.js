@@ -1,11 +1,13 @@
 const express = require('express')
+const app = express()
 const path = require('path')
 const db = require('./models')
 const apiRoutes = require('./routes/apiRoutes')
-const app = express()
+const cookieParser = require('cookie-parser')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.use(cookieParser())
 
 app.use('/api', apiRoutes)
 app.use(express.static(path.join(__dirname, 'client', 'build')))

@@ -27,22 +27,24 @@ const App = (props) => {
         props.initializeApp()
     }, [])
 
-    if (!props.initialized) {
-        return <div>Loading...</div>
-    }
-
     return (
         <ThemeProvider theme={createMuiTheme(theme)}>
             <IntlProvider locale={locale} messages={localeMessages[locale]}>
                 <CssBaseline />
-                <Header />
+                {!props.initialized ? (
+                    <LinearProgress />
+                ) : (
+                    <>
+                        <Header />
 
-                <Switch>
-                    <Route path='/login' exact component={Login} />
-                    <Route path='/registration' exact component={Registration} />
+                        <Switch>
+                            <Route path='/login' exact component={Login} />
+                            <Route path='/registration' exact component={Registration} />
 
-                    <Route path='/profile' exact component={Profile} />
-                </Switch>
+                            <Route path='/profile' exact component={Profile} />
+                        </Switch>
+                    </>
+                )}
             </IntlProvider>
         </ThemeProvider>
     )
