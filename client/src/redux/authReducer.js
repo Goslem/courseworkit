@@ -7,6 +7,7 @@ const initialState = {
     userId: null,
     name: null,
     isAuth: false,
+    isAdmin: false,
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -21,9 +22,9 @@ export const authReducer = (state = initialState, action) => {
     }
 }
 
-const setUserData = (userId, name, isAuth) => ({
+const setUserData = (userId, name, isAuth, isAdmin) => ({
     type: SET_USER_DATA,
-    payload: { userId, name, isAuth },
+    payload: { userId, name, isAuth, isAdmin },
 })
 
 export const login = ({ login, password }) => (dispatch) => {
@@ -32,8 +33,8 @@ export const login = ({ login, password }) => (dispatch) => {
         .then((response) => {
             switch (response.status) {
                 case 200:
-                    let { id, name } = response.data
-                    dispatch(setUserData(id, name, true))
+                    let { id, name, isAdmin } = response.data
+                    dispatch(setUserData(id, name, true, isAdmin))
                     break
                 case 204:
                     dispatch(stopSubmit('login', { _error: true }))
@@ -51,8 +52,8 @@ export const registration = ({ login, password }) => (dispatch) => {
         .then((response) => {
             switch (response.status) {
                 case 200:
-                    let { id, name } = response.data
-                    dispatch(setUserData(id, name, true))
+                    let { id, name, isAdmin } = response.data
+                    dispatch(setUserData(id, name, true, isAdmin))
                     break
                 case 204:
                     dispatch(stopSubmit('registration', { _error: true }))
@@ -69,13 +70,22 @@ export const socialLogin = (socialId, name) => (dispatch) => {
         .socialLogin(socialId, name)
         .then((response) => {
             if (response.status === 200) {
-                let { id, name } = response.data
-                dispatch(setUserData(id, name, true))
+                let { id, name, isAdmin } = response.data
+                dispatch(setUserData(id, name, true, isAdmin))
             } else {
                 console.log('Server error')
             }
         })
         .catch((error) => console.log(error))
+}
+
+export const getAuthUserData = () => (dispatch) => {
+    return authAPI.me().then((response) => {
+        if (response.status === 200) {
+            let { id, name, isAdmin } = response.data
+            dispatch(setUserData(id, name, true, isAdmin))
+        }
+    })
 }
 
 export const logout = () => (dispatch) => {
@@ -85,13 +95,4 @@ export const logout = () => (dispatch) => {
             dispatch(setUserData(null, null, false))
         })
         .catch((error) => console.log(error))
-}
-
-export const getAuthUserData = () => (dispatch) => {
-    return authAPI.me().then((response) => {
-        if (response.status === 200) {
-            let { id, name } = response.data
-            dispatch(setUserData(id, name, true))
-        }
-    })
 }

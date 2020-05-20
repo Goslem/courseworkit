@@ -4,6 +4,7 @@ const path = require('path')
 const db = require('./models')
 const session = require('express-session')
 const authRoute = require('./routes/auth')
+const apiRouter = require('./routes/apiRouter')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -17,6 +18,7 @@ app.use(
 )
 
 app.use('/api/user', authRoute)
+app.use('/api/users', apiRouter)
 app.use(express.static(path.join(__dirname, 'client', 'build')))
 
 app.get('*', (req, res) => {

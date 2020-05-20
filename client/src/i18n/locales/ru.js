@@ -22,6 +22,8 @@ const messages = {
     'registration.signIn': 'Войти',
     'registration.signUp': 'регистрация',
     'registration.error': 'Логин уже занят',
+
+    'errorPage.text': 'Страница не найдена',
 }
 
 export default messages

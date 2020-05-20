@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         [theme.breakpoints.down('sm')]: {
             height: 'calc(100vh - 128px)',
-            marginTop: 128,
+            marginTop: 113,
         },
     },
     loginContainer: {

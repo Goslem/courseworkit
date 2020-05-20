@@ -22,6 +22,8 @@ const messages = {
     'registration.signIn': 'sign in',
     'registration.signUp': 'sign up',
     'registration.error': 'Login has already been taken',
+
+    'errorPage.text': 'Page not found',
 }
 
 export default messages

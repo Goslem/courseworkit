@@ -21,3 +21,9 @@ export const authAPI = {
         return instance.post('user/logout')
     },
 }
+
+export const adminAPI = {
+    getUsers() {
+        return instance.post('users/get')
+    }
+}
