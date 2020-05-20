@@ -29,12 +29,14 @@ const useStyles = makeStyles((theme) => ({
         width: 'auto',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flex-end',
         [theme.breakpoints.down('sm')]: {
             width: '100%',
             marginTop: 10,
             marginBottom: 10,
         },
+    },
+    space: {
+        flexGrow: 1,
     },
 }))
 
@@ -51,6 +53,7 @@ const Header = () => {
 
                 <div className={classes.sectionToolbar}>
                     <HomeLink />
+                    <div className={classes.space}></div>
                     <LanguageButton />
                     <ThemeButton />
                     <ProfileButton />
