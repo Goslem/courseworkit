@@ -8,6 +8,10 @@ const GoogleAuth = (props) => {
     const responseGoogle = (response) => {
         const socialId = response.profileObj.googleId
         const name = response.profileObj.givenName
+
+        console.log('socialId', socialId)
+        console.log('name', name)
+
         props.socialLogin(socialId, name)
     }
 
