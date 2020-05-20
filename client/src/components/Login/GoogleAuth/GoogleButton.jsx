@@ -6,7 +6,6 @@ import translate from '../../../i18n/translate'
 const useStyles = makeStyles((theme) => ({
     googleLogin: {
         flexGrow: 1,
-        // marginRight: 20,
         textTransform: 'none',
     },
 }))

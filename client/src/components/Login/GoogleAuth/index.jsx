@@ -11,16 +11,11 @@ const GoogleAuth = (props) => {
         props.socialLogin(socialId, name)
     }
 
-    const responseError = (error) => {
-        console.log('Error', error)
-    }
-
     return (
         <GoogleLogin
             clientId='527766057569-8f4bb7p9vtnj310cno38n0jogvb5fhaj.apps.googleusercontent.com'
             render={(renderProps) => <GoogleButton {...renderProps} />}
             onSuccess={responseGoogle}
-            onFailure={responseError}
             cookiePolicy={'single_host_origin'}
         />
     )
