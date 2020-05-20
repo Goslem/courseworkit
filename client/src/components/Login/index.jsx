@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
         height: 'calc(100vh - 64px)',
         minHeight: 390,
-        border: '1px solid red',
         marginTop: 64,
         display: 'flex',
         alignItems: 'center',
