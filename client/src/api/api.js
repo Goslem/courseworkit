@@ -11,6 +11,9 @@ export const authAPI = {
     registration(login, password) {
         return instance.post('user/registration', { login, password })
     },
+    socialLogin(socialId, name) {
+        return instance.post('user/socialLogin', { socialId, name })
+    },
     me() {
         return instance.post('user/me')
     },
@@ -18,4 +21,3 @@ export const authAPI = {
         return instance.post('user/logout')
     },
 }
-

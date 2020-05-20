@@ -7,7 +7,8 @@ const messages = {
     'header.language': 'русский',
     'header.signIn': 'Войти',
 
-    'login.authorization': 'авторизация',
+    'login.logo': 'Войти в Кикстартер',
+    'login.googleSignIn': 'Войти через Google',
     'login.login': 'Логин',
     'login.password': 'Пароль',
     'login.signUp': 'регистрация',
@@ -15,7 +16,7 @@ const messages = {
     'login.error':
         'Мы не смогли найти аккаунт, соответствующий введенному вами имени пользователя и паролю. Пожалуйста, проверьте Ваши имя пользователя и пароль и попробуйте еще раз.',
 
-    'registration.registration': 'регистрация',
+    'registration.logo': 'Регистрация в Кикстартер',
     'registration.login': 'Логин',
     'registration.password': 'Пароль',
     'registration.signIn': 'Войти',

@@ -7,6 +7,8 @@ import { connect } from 'react-redux'
 import { login } from '../../redux/authReducer'
 import { withLoginRedirect } from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
+import GoogleAuth from './GoogleAuth'
+import FacebookAuth from './FacebookAuth'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,11 +34,15 @@ const useStyles = makeStyles((theme) => ({
     },
     logo: {
         marginTop: 0,
-        marginBottom: '37px',
-        fontSize: '23px',
+        marginBottom: 18,
+        fontSize: '1.82em',
         fontWeight: '500',
         textAlign: 'center',
-        textTransform: 'uppercase',
+    },
+    socialGroup: {
+        marginBottom: 31,
+        display: 'flex',
+        justifyContent: 'space-between',
     },
 }))
 
@@ -46,7 +52,13 @@ const Login = (props) => {
     return (
         <div className={classes.root}>
             <div className={classes.loginContainer}>
-                <Box className={classes.logo}>{translate('login.authorization')}</Box>
+                <Box className={classes.logo}>{translate('login.logo')}</Box>
+
+                <div className={classes.socialGroup}>
+                    <GoogleAuth />
+                    {/* <FacebookAuth /> */}
+                </div>
+
                 <LoginForm onSubmit={props.login} />
             </div>
         </div>

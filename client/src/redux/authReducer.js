@@ -5,7 +5,7 @@ const SET_USER_DATA = 'SET_USER_DATA'
 
 const initialState = {
     userId: null,
-    login: null,
+    name: null,
     isAuth: false,
 }
 
@@ -21,9 +21,9 @@ export const authReducer = (state = initialState, action) => {
     }
 }
 
-const setUserData = (userId, login, isAuth) => ({
+const setUserData = (userId, name, isAuth) => ({
     type: SET_USER_DATA,
-    payload: { userId, login, isAuth },
+    payload: { userId, name, isAuth },
 })
 
 export const login = ({ login, password }) => (dispatch) => {
@@ -32,12 +32,14 @@ export const login = ({ login, password }) => (dispatch) => {
         .then((response) => {
             switch (response.status) {
                 case 200:
-                    let { id, login } = response.data
-                    dispatch(setUserData(id, login, true))
+                    let { id, name } = response.data
+                    dispatch(setUserData(id, name, true))
                     break
                 case 204:
                     dispatch(stopSubmit('login', { _error: true }))
                     break
+                default:
+                    console.log('Server error')
             }
         })
         .catch((error) => console.log(error))
@@ -49,12 +51,28 @@ export const registration = ({ login, password }) => (dispatch) => {
         .then((response) => {
             switch (response.status) {
                 case 200:
-                    let { id, login } = response.data
-                    dispatch(setUserData(id, login, true))
+                    let { id, name } = response.data
+                    dispatch(setUserData(id, name, true))
                     break
                 case 204:
                     dispatch(stopSubmit('registration', { _error: true }))
                     break
+                default:
+                    console.log('Server error')
+            }
+        })
+        .catch((error) => console.log(error))
+}
+
+export const socialLogin = (socialId, name) => (dispatch) => {
+    authAPI
+        .socialLogin(socialId, name)
+        .then((response) => {
+            if (response.status === 200) {
+                let { id, name } = response.data
+                dispatch(setUserData(id, name, true))
+            } else {
+                console.log('Server error')
             }
         })
         .catch((error) => console.log(error))
@@ -72,8 +90,8 @@ export const logout = () => (dispatch) => {
 export const getAuthUserData = () => (dispatch) => {
     return authAPI.me().then((response) => {
         if (response.status === 200) {
-            let { id, login } = response.data
-            dispatch(setUserData(id, login, true))
+            let { id, name } = response.data
+            dispatch(setUserData(id, name, true))
         }
     })
 }

@@ -7,7 +7,8 @@ const messages = {
     'header.language': 'english',
     'header.signIn': 'sign in',
 
-    'login.authorization': 'authorization',
+    'login.logo': 'Sign in to Kickstarter',
+    'login.googleSignIn': 'Sign in with Google',
     'login.login': 'Login',
     'login.password': 'Password',
     'login.signUp': 'sign up',
@@ -15,7 +16,7 @@ const messages = {
     'login.error':
         'We couldn’t find an account matching the username and password you entered. Please check your username and password and try again.',
 
-    'registration.registration': 'registration',
+    'registration.logo': 'Sign up to Kickstarter',
     'registration.login': 'Login',
     'registration.password': 'Password',
     'registration.signIn': 'sign in',

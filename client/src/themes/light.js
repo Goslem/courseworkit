@@ -15,8 +15,8 @@ export const lightTheme = {
         },
         secondary: {
             light: '#000',
-            main: '#000',
-            dark: '#000',
+            main: '#DC004E',
+            dark: '#9A0036',
             contrastText: '#fff',
         },
         error: {

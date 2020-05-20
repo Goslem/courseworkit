@@ -33,10 +33,9 @@ const useStyles = makeStyles((theme) => ({
     logo: {
         marginTop: 0,
         marginBottom: '37px',
-        fontSize: '23px',
+        fontSize: '1.82em',
         fontWeight: '500',
         textAlign: 'center',
-        textTransform: 'uppercase',
     },
 }))
 
@@ -46,7 +45,7 @@ const Registration = (props) => {
     return (
         <div className={classes.root}>
             <div className={classes.registrationContainer}>
-                <Box className={classes.logo}>{translate('registration.registration')}</Box>
+                <Box className={classes.logo}>{translate('registration.logo')}</Box>
                 <RegistrationForm onSubmit={props.registration} />
             </div>
         </div>
