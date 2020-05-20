@@ -10,6 +10,8 @@ import { compose } from 'redux'
 import GoogleAuth from './GoogleAuth'
 import FacebookAuth from './FacebookAuth'
 
+import GitHubLogin from 'react-github-login'
+
 const useStyles = makeStyles((theme) => ({
     root: {
         height: 'calc(100vh - 64px)',
@@ -49,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
 const Login = (props) => {
     const classes = useStyles()
 
+    const onSuccess = (response) => console.log(response)
+    const onFailure = (response) => console.error(response)
+
     return (
         <div className={classes.root}>
             <div className={classes.loginContainer}>
@@ -57,6 +62,12 @@ const Login = (props) => {
                 <div className={classes.socialGroup}>
                     <GoogleAuth />
                     {/* <FacebookAuth /> */}
+
+                    <GitHubLogin
+                        clientId='Iv1.2b6ea90a29088a94'
+                        onSuccess={onSuccess}
+                        onFailure={onFailure}
+                    />
                 </div>
 
                 <LoginForm onSubmit={props.login} />
