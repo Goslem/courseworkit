@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button'
 const useStyles = makeStyles((theme) => ({
     facebookLogin: {
         textTransform: 'none',
-        marginLeft: 18,
+        marginLeft: 17,
         padding: 0,
         minWidth: 50,
     },

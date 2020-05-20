@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import CompanyName from './parts/CompanyName'
 import Search from './parts/Search'
+import HomeLink from './parts/HomeLink'
 import LanguageButton from './parts/LanguageButton'
 import ThemeButton from './parts/ThemeButton'
 import ProfileButton from './parts/ProfileButton'
@@ -49,6 +50,7 @@ const Header = () => {
                 </div>
 
                 <div className={classes.sectionToolbar}>
+                    <HomeLink />
                     <LanguageButton />
                     <ThemeButton />
                     <ProfileButton />
