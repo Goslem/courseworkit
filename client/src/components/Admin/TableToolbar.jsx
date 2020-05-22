@@ -68,17 +68,17 @@ const TableToolbarUsers = (props) => {
             <IconButton onClick={onFollowing} disabled={isFetching}>
                 <LaunchIcon />
             </IconButton>
-            <IconButton onClick={onAdminsAdd} disabled={isFetching}>
-                <PersonAddIcon />
-            </IconButton>
-            <IconButton onClick={onAdminsDelete} disabled={isFetching}>
-                <PersonAddDisabledIcon />
-            </IconButton>
             <IconButton onClick={onUsersBlock} disabled={isFetching}>
                 <LockIcon />
             </IconButton>
             <IconButton onClick={onUsersUnblock} disabled={isFetching}>
                 <LockOpenIcon />
+            </IconButton>
+            <IconButton onClick={onAdminsAdd} disabled={isFetching}>
+                <PersonAddIcon />
+            </IconButton>
+            <IconButton onClick={onAdminsDelete} disabled={isFetching}>
+                <PersonAddDisabledIcon />
             </IconButton>
             <IconButton onClick={onUsersDelete} disabled={isFetching}>
                 <DeleteIcon />

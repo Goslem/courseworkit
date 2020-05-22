@@ -107,13 +107,17 @@ router.post('/me', (req, res) => {
             return res.send(response(401))
         }
 
-        db.Users.findByPk(decoded.id).then(({ id, name, isBlocked, isAdmin }) => {
-            if (id === null || isBlocked === true) {
-                return res.send(response(403))
-            }
+        db.Users.findByPk(decoded.id)
+            .then(({ id, name, isBlocked, isAdmin }) => {
+                if (id === null || isBlocked === true) {
+                    return res.send(response(403))
+                }
 
-            res.send(response(200, { id, name, isAdmin }))
-        })
+                res.send(response(200, { id, name, isAdmin }))
+            })
+            .catch((error) => {
+                return res.send(response(401))
+            })
     })
 })
 

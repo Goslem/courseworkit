@@ -30,10 +30,10 @@ export const adminAPI = {
         return instance.post('admin/users/get', { offset, limit })
     },
     setAdmins(ids) {
-        return instance.post('admin/admins', { ids })
+        return instance.post('admin/admins/add', { ids })
     },
     deleteAdmins(ids) {
-        return instance.delete('admin/admins', { ids })
+        return instance.post('admin/admins/delete', { ids })
     },
     blockUsers(ids) {
         return instance.post('admin/users/block', { ids })

@@ -7,11 +7,13 @@ const EDIT_USERS_STATUS = 'EDIT_USERS_STATUS'
 const EDIT_ADMINS_STATUS = 'EDIT_ADMINS_STATUS'
 const DELETE_USERS = 'DELETE_USERS'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const TOGGLE_ERROR = 'ERROR'
 
 const initialState = {
     usersCount: 0,
     users: [],
     isFetching: false,
+    isError: false,
 }
 
 export const usersReducer = (state = initialState, action) => {
@@ -72,6 +74,11 @@ export const usersReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching,
             }
+        case TOGGLE_ERROR:
+            return {
+                ...state,
+                isError: action.isError,
+            }
         default:
             return state
     }
@@ -84,6 +91,7 @@ const setUsersStatus = (usersId, isBlocked) => ({ type: EDIT_USERS_STATUS, users
 const setAdminsStatus = (usersId, isAdmin) => ({ type: EDIT_ADMINS_STATUS, usersId, isAdmin })
 const setDeletedUsers = (usersId) => ({ type: DELETE_USERS, usersId })
 const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
+const setError = (isError) => ({ type: TOGGLE_ERROR, isError })
 
 export const getUsersCount = () => (dispatch) => {
     dispatch(toggleIsFetching(true))
@@ -93,6 +101,8 @@ export const getUsersCount = () => (dispatch) => {
             dispatch(toggleIsFetching(false))
             if (response.data.statusCode === 200) {
                 dispatch(setUsersCount(response.data.data))
+            } else {
+                
             }
         })
         .catch((error) => console.log(error))
@@ -116,14 +126,10 @@ export const setAdmins = (ids) => (dispatch) => {
     adminAPI
         .setAdmins(ids)
         .then((response) => {
-            console.log('admin', response.data.data)
-
             dispatch(toggleIsFetching(false))
             if (response.data.statusCode === 200) {
                 if (response.data.data !== ids.length) {
-                    console.log(
-                        'Oops. One of the entries has been deleted. Please reload the page.'
-                    )
+                    dispatch(setError(true))
                 }
                 dispatch(setAdminsStatus(ids, true))
             }
@@ -138,6 +144,9 @@ export const deleteAdmins = (ids) => (dispatch) => {
         .then((response) => {
             dispatch(toggleIsFetching(false))
             if (response.data.statusCode === 200) {
+                if (response.data.data !== ids.length) {
+                    dispatch(setError(true))
+                }
                 dispatch(setAdminsStatus(ids, false))
             }
         })
@@ -151,6 +160,9 @@ export const blockUsers = (ids) => (dispatch) => {
         .then((response) => {
             dispatch(toggleIsFetching(false))
             if (response.data.statusCode === 200) {
+                if (response.data.data !== ids.length) {
+                    dispatch(setError(true))
+                }
                 dispatch(setUsersStatus(ids, true))
             }
         })
@@ -164,6 +176,9 @@ export const unblockUsers = (ids) => (dispatch) => {
         .then((response) => {
             dispatch(toggleIsFetching(false))
             if (response.data.statusCode === 200) {
+                if (response.data.data !== ids.length) {
+                    dispatch(setError(true))
+                }
                 dispatch(setUsersStatus(ids, false))
             }
         })
@@ -181,12 +196,16 @@ export const deleteUsers = (ids, usersLength, usersCount) => (dispatch) => {
                 dispatch(setDeletedUsers(ids))
 
                 if (usersLength !== usersCount) {
-                    const currentPage = usersLength / 10 - 1
-                    const offset = currentPage * 10 + 10 - ids.length
-                    const limit = (offset === 0) ? 10 : 10 - offset % 10 
+                    const lastDownloadPage = usersLength / 10 - 1
+                    const offset = lastDownloadPage * 10 + 10 - ids.length
+                    const limit = offset === 0 ? 10 : 10 - (offset % 10)
                     dispatch(getUsers(offset, limit))
                 }
             }
         })
         .catch((error) => console.log(error))
+}
+
+export const toggleError = () => (dispatch) => {
+    dispatch(setError(false))
 }

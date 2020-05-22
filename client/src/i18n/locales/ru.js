@@ -1,6 +1,6 @@
 const messages = {
-    'requiredField': 'Обязательное поле',
-    'maxLength': 'Максимальная длинна ',
+    requiredField: 'Обязательное поле',
+    maxLength: 'Максимальная длинна ',
 
     'header.companyName': 'Кикстартер',
     'header.search': 'Поиск...',
@@ -15,8 +15,7 @@ const messages = {
     'login.signIn': 'Войти',
     'login.error500': 'Ошибка сервера',
     'login.error403': 'Пользователь заблокирован',
-    'login.error204':
-        'Мы не смогли найти аккаунт, соответствующий введенному вами имени пользователя и паролю. Пожалуйста, проверьте Ваши имя пользователя и пароль и попробуйте еще раз.',
+    'login.error204': 'Логин или пароль не верны.',
 
     'registration.logo': 'Регистрация в Кикстартер',
     'registration.login': 'Логин',
@@ -38,6 +37,7 @@ const messages = {
     'admin.headCreated': 'Создан',
     'admin.previousPage': 'Предыдущая страница',
     'admin.nextPage': 'Следующая страница',
+    'admin.error204': 'Упс. Одна из записей не существует в базе данных.',
 }
 
 export default messages

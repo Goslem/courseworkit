@@ -1,6 +1,6 @@
 const messages = {
-    'requiredField': 'Field is required',
-    'maxLength': 'Max length ',
+    requiredField: 'Field is required',
+    maxLength: 'Max length ',
 
     'header.companyName': 'Kickstarter',
     'header.search': 'Search...',
@@ -15,8 +15,7 @@ const messages = {
     'login.signIn': 'sign in',
     'login.error500': 'Server error',
     'login.error403': 'User is blocked',
-    'login.error204':
-        'We couldn’t find an account matching the username and password you entered. Please check your username and password and try again.',
+    'login.error204': 'The username or password is incorrect.',
 
     'registration.logo': 'Sign up to Kickstarter',
     'registration.login': 'Login',
@@ -38,6 +37,7 @@ const messages = {
     'admin.headCreated': 'Created',
     'admin.previousPage': 'Previous page',
     'admin.nextPage': 'Next page',
+    'admin.error204': 'Oops. One of the records does not exist in the database.',
 }
 
 export default messages

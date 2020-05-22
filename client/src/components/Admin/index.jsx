@@ -4,6 +4,7 @@ import { withAdminRedirect } from '../../hoc/withAdminRedirect'
 import { Container } from '@material-ui/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
+import translate from '../../i18n/translate'
 import {
     getUsersCount,
     getUsers,
@@ -12,6 +13,7 @@ import {
     blockUsers,
     unblockUsers,
     deleteUsers,
+    toggleError,
 } from '../../redux/usersReducer'
 
 import Table from '@material-ui/core/Table'
@@ -22,7 +24,8 @@ import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import Checkbox from '@material-ui/core/Checkbox'
-
+import Snackbar from '@material-ui/core/Snackbar'
+import MuiAlert from '@material-ui/lab/Alert'
 import TableHeadUsers from './TableHead'
 import TableToolbarUsers from './TableToolbar'
 
@@ -41,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
         minWidth: 650,
     },
 }))
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant='filled' {...props} />
+}
 
 const Admin = (props) => {
     const classes = useStyles()
@@ -115,9 +122,9 @@ const Admin = (props) => {
 
     const onUsersDelete = () => {
         if (selected.length === 0) return
+        if (selected.length > 10) setPage(0)
         props.deleteUsers(selected, users.length, props.usersCount)
         setSelected([])
-        if (selected.length > 10) setPage(0)
     }
 
     return (
@@ -193,6 +200,15 @@ const Admin = (props) => {
                     rowsPerPageOptions={[10]}
                 />
             </Paper>
+            <Snackbar
+                open={props.isError}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                onClose={props.toggleError}
+            >
+                <Alert severity='error' onClose={props.toggleError}>
+                    {translate('admin.error204')}
+                </Alert>
+            </Snackbar>
         </Container>
     )
 }
@@ -200,15 +216,19 @@ const Admin = (props) => {
 const mapStateToProps = (state) => ({
     users: state.users.users,
     usersCount: state.users.usersCount,
+    isError: state.users.isError,
 })
 
-// export default compose(connect(mapStateToProps, { getUsers }), withAdminRedirect)(Admin)
-export default connect(mapStateToProps, {
-    getUsersCount,
-    getUsers,
-    setAdmins,
-    deleteAdmins,
-    blockUsers,
-    unblockUsers,
-    deleteUsers,
-})(Admin)
+export default compose(
+    connect(mapStateToProps, {
+        getUsersCount,
+        getUsers,
+        setAdmins,
+        deleteAdmins,
+        blockUsers,
+        unblockUsers,
+        deleteUsers,
+        toggleError,
+    }),
+    withAdminRedirect
+)(Admin)
