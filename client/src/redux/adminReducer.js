@@ -102,7 +102,6 @@ export const getUsersCount = () => (dispatch) => {
             if (response.data.statusCode === 200) {
                 dispatch(setUsersCount(response.data.data))
             } else {
-                console.log('logout')
                 window.location.reload()
             }
         })
@@ -118,7 +117,6 @@ export const getUsers = (offset, limit) => (dispatch) => {
             if (response.data.statusCode === 200) {
                 dispatch(setUsers(response.data.data))
             } else {
-                console.log('logout')
                 window.location.reload()
             }
         })
@@ -137,7 +135,6 @@ export const setAdmins = (ids) => (dispatch) => {
                 }
                 dispatch(setAdminsStatus(ids, true))
             } else {
-                console.log('logout')
                 window.location.reload()
             }
         })
@@ -156,7 +153,6 @@ export const deleteAdmins = (ids) => (dispatch) => {
                 }
                 dispatch(setAdminsStatus(ids, false))
             } else {
-                console.log('logout')
                 window.location.reload()
             }
         })
@@ -175,7 +171,6 @@ export const blockUsers = (ids) => (dispatch) => {
                 }
                 dispatch(setUsersStatus(ids, true))
             } else {
-                console.log('logout')
                 window.location.reload()
             }
         })
@@ -194,7 +189,6 @@ export const unblockUsers = (ids) => (dispatch) => {
                 }
                 dispatch(setUsersStatus(ids, false))
             } else {
-                console.log('logout')
                 window.location.reload()
             }
         })
@@ -218,7 +212,6 @@ export const deleteUsers = (ids, usersLength, usersCount) => (dispatch) => {
                     dispatch(getUsers(offset, limit))
                 }
             } else {
-                console.log('logout')
                 window.window.location.reload()
             }
         })
