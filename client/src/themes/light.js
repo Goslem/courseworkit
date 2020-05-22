@@ -14,14 +14,14 @@ export const lightTheme = {
             contrastText: '#fff',
         },
         secondary: {
-            light: '#000',
+            light: '#FAE0E9',
             main: '#DC004E',
             dark: '#9A0036',
             contrastText: '#fff',
         },
         error: {
             light: '#fff',
-            main: '#FE0000',
+            main: '#F44336',
             dark: '#fff',
             contrastText: '#fff',
         },

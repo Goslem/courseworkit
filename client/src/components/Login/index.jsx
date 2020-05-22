@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import translate from '../../i18n/translate'
-import Box from '@material-ui/core/Box'
+import Typography from '@material-ui/core/Typography'
 import LoginForm from './LoginForm'
 import { connect } from 'react-redux'
 import { login } from '../../redux/authReducer'
@@ -34,8 +34,8 @@ const useStyles = makeStyles((theme) => ({
     },
     logo: {
         marginTop: 0,
-        marginBottom: 18,
-        fontSize: '1.82em',
+        marginBottom: 17,
+        fontSize: '1.81em',
         fontWeight: '500',
         textAlign: 'center',
     },
@@ -52,7 +52,7 @@ const Login = (props) => {
     return (
         <div className={classes.root}>
             <div className={classes.loginContainer}>
-                <Box className={classes.logo}>{translate('login.logo')}</Box>
+                <Typography className={classes.logo}>{translate('login.logo')}</Typography>
 
                 <div className={classes.socialGroup}>
                     <GoogleAuth />

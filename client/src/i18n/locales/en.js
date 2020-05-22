@@ -13,7 +13,9 @@ const messages = {
     'login.password': 'Password',
     'login.signUp': 'sign up',
     'login.signIn': 'sign in',
-    'login.error':
+    'login.error500': 'Server error',
+    'login.error403': 'User is blocked',
+    'login.error204':
         'We couldn’t find an account matching the username and password you entered. Please check your username and password and try again.',
 
     'registration.logo': 'Sign up to Kickstarter',
@@ -21,9 +23,21 @@ const messages = {
     'registration.password': 'Password',
     'registration.signIn': 'sign in',
     'registration.signUp': 'sign up',
-    'registration.error': 'Login has already been taken',
+    'registration.error500': 'Server error',
+    'registration.error204': 'Login has already been taken',
 
     'errorPage.text': 'Page not found',
+
+    'admin.tableLogo': 'Admin',
+    'admin.selected': 'selected',
+    'admin.headId': 'ID',
+    'admin.headName': 'Name',
+    'admin.headBlocked': 'Blocked',
+    'admin.headAdmin': 'Admin',
+    'admin.headUpdated': 'Updated',
+    'admin.headCreated': 'Created',
+    'admin.previousPage': 'Previous page',
+    'admin.nextPage': 'Next page',
 }
 
 export default messages

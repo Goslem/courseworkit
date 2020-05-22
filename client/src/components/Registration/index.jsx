@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import translate from '../../i18n/translate'
-import Box from '@material-ui/core/Box'
+import Typography from '@material-ui/core/Typography'
 import RegistrationForm from './RegistrationForm'
 import { connect } from 'react-redux'
 import { registration } from '../../redux/authReducer'
@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
     },
     logo: {
         marginTop: 0,
-        marginBottom: '37px',
-        fontSize: '1.82em',
+        marginBottom: 36,
+        fontSize: '1.81em',
         fontWeight: '500',
         textAlign: 'center',
     },
@@ -45,7 +45,7 @@ const Registration = (props) => {
     return (
         <div className={classes.root}>
             <div className={classes.registrationContainer}>
-                <Box className={classes.logo}>{translate('registration.logo')}</Box>
+                <Typography className={classes.logo}>{translate('registration.logo')}</Typography>
                 <RegistrationForm onSubmit={props.registration} />
             </div>
         </div>

@@ -6,24 +6,42 @@ const instance = axios.create({
 
 export const authAPI = {
     login(login, password) {
-        return instance.post('user/login', { login, password })
+        return instance.post('auth/login', { login, password })
     },
     registration(login, password) {
-        return instance.post('user/registration', { login, password })
+        return instance.post('auth/registration', { login, password })
     },
     socialLogin(socialId, name) {
-        return instance.post('user/socialLogin', { socialId, name })
+        return instance.post('auth/socialLogin', { socialId, name })
     },
     me() {
-        return instance.post('user/me')
+        return instance.post('auth/me')
     },
     logout() {
-        return instance.post('user/logout')
+        return instance.post('auth/logout')
     },
 }
 
 export const adminAPI = {
-    getUsers() {
-        return instance.post('users/get')
-    }
+    getUsers(offset) {
+        return instance.post('admin/users/get', { offset })
+    },
+    getUsersCount() {
+        return instance.get('admin/users/count')
+    },
+    setAdmins(ids) {
+        return instance.post('admin/admins', { ids })
+    },
+    deleteAdmins(ids) {
+        return instance.delete('admin/admins', { ids })
+    },
+    blockUsers(ids) {
+        return instance.post('admin/users/block', { ids })
+    },
+    unblockUsers(ids) {
+        return instance.post('admin/users/unblock', { ids })
+    },
+    deleteUsers(ids) {
+        return instance.post('admin/users/delete', { ids })
+    },
 }
