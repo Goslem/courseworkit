@@ -26,7 +26,7 @@ const protectedRoute = (req, res, callback) => {
                 callback()
             })
             .catch((error) => {
-                return res.send(response(401))
+                return res.send(response(403))
             })
     })
 }

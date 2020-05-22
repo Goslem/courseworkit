@@ -88,7 +88,7 @@ const TableToolbarUsers = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-    isFetching: state.users.isFetching,
+    isFetching: state.admin.isFetching,
 })
 
 export default connect(mapStateToProps)(TableToolbarUsers)

@@ -7,7 +7,7 @@ import { themeReducer } from './themeReducer'
 import { localeReducer } from './localeReducer'
 import { authReducer } from './authReducer'
 import { appReducer } from './appReducer'
-import { usersReducer } from './usersReducer'
+import { adminReducer } from './adminReducer'
 
 const reducers = combineReducers({
     form: formReducer,
@@ -15,7 +15,7 @@ const reducers = combineReducers({
     locale: localeReducer,
     auth: authReducer,
     app: appReducer,
-    users: usersReducer,
+    admin: adminReducer,
 })
 
 let store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)))

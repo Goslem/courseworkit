@@ -14,7 +14,7 @@ import {
     unblockUsers,
     deleteUsers,
     toggleError,
-} from '../../redux/usersReducer'
+} from '../../redux/adminReducer'
 
 import Table from '@material-ui/core/Table'
 import TableContainer from '@material-ui/core/TableContainer'
@@ -214,9 +214,9 @@ const Admin = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-    users: state.users.users,
-    usersCount: state.users.usersCount,
-    isError: state.users.isError,
+    users: state.admin.users,
+    usersCount: state.admin.usersCount,
+    isError: state.admin.isError,
 })
 
 export default compose(

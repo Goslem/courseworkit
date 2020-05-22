@@ -16,7 +16,7 @@ const initialState = {
     isError: false,
 }
 
-export const usersReducer = (state = initialState, action) => {
+export const adminReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USERS_COUNT:
             return {
@@ -102,7 +102,8 @@ export const getUsersCount = () => (dispatch) => {
             if (response.data.statusCode === 200) {
                 dispatch(setUsersCount(response.data.data))
             } else {
-                
+                console.log('logout')
+                window.location.reload()
             }
         })
         .catch((error) => console.log(error))
@@ -116,6 +117,9 @@ export const getUsers = (offset, limit) => (dispatch) => {
             dispatch(toggleIsFetching(false))
             if (response.data.statusCode === 200) {
                 dispatch(setUsers(response.data.data))
+            } else {
+                console.log('logout')
+                window.location.reload()
             }
         })
         .catch((error) => console.log(error))
@@ -132,6 +136,9 @@ export const setAdmins = (ids) => (dispatch) => {
                     dispatch(setError(true))
                 }
                 dispatch(setAdminsStatus(ids, true))
+            } else {
+                console.log('logout')
+                window.location.reload()
             }
         })
         .catch((error) => console.log(error))
@@ -148,6 +155,9 @@ export const deleteAdmins = (ids) => (dispatch) => {
                     dispatch(setError(true))
                 }
                 dispatch(setAdminsStatus(ids, false))
+            } else {
+                console.log('logout')
+                window.location.reload()
             }
         })
         .catch((error) => console.log(error))
@@ -164,6 +174,9 @@ export const blockUsers = (ids) => (dispatch) => {
                     dispatch(setError(true))
                 }
                 dispatch(setUsersStatus(ids, true))
+            } else {
+                console.log('logout')
+                window.location.reload()
             }
         })
         .catch((error) => console.log(error))
@@ -180,6 +193,9 @@ export const unblockUsers = (ids) => (dispatch) => {
                     dispatch(setError(true))
                 }
                 dispatch(setUsersStatus(ids, false))
+            } else {
+                console.log('logout')
+                window.location.reload()
             }
         })
         .catch((error) => console.log(error))
@@ -201,6 +217,9 @@ export const deleteUsers = (ids, usersLength, usersCount) => (dispatch) => {
                     const limit = offset === 0 ? 10 : 10 - (offset % 10)
                     dispatch(getUsers(offset, limit))
                 }
+            } else {
+                console.log('logout')
+                window.window.location.reload()
             }
         })
         .catch((error) => console.log(error))
