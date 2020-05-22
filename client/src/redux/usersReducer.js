@@ -1,6 +1,7 @@
 import { adminAPI } from '../api/api'
 
-const SET_OFFSET = 'SET_OFFSET'
+const SET_USERS_COUNT = 'SET_USERS_COUNT'
+const REDUCE_USERS_COUNT = 'DECREMENT_USERS_COUNT'
 const SET_USERS = 'SET_USERS'
 const EDIT_USERS_STATUS = 'EDIT_USERS_STATUS'
 const EDIT_ADMINS_STATUS = 'EDIT_ADMINS_STATUS'
@@ -8,17 +9,22 @@ const DELETE_USERS = 'DELETE_USERS'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 
 const initialState = {
-    offset: 0,
+    usersCount: 0,
     users: [],
     isFetching: false,
 }
 
 export const usersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_OFFSET:
+        case SET_USERS_COUNT:
             return {
                 ...state,
-                offset: action.offset,
+                usersCount: action.usersCount,
+            }
+        case REDUCE_USERS_COUNT:
+            return {
+                ...state,
+                usersCount: state.usersCount - action.value,
             }
         case SET_USERS:
             return {
@@ -71,7 +77,8 @@ export const usersReducer = (state = initialState, action) => {
     }
 }
 
-const setOffset = (offset) => ({ type: SET_OFFSET, offset })
+const setUsersCount = (usersCount) => ({ type: SET_USERS_COUNT, usersCount })
+const reduceUsersCount = (value) => ({ type: REDUCE_USERS_COUNT, value })
 const setUsers = (users) => ({ type: SET_USERS, users })
 const setUsersStatus = (usersId, isBlocked) => ({ type: EDIT_USERS_STATUS, usersId, isBlocked })
 const setAdminsStatus = (usersId, isAdmin) => ({ type: EDIT_ADMINS_STATUS, usersId, isAdmin })
@@ -85,16 +92,16 @@ export const getUsersCount = () => (dispatch) => {
         .then((response) => {
             dispatch(toggleIsFetching(false))
             if (response.data.statusCode === 200) {
-                dispatch(setOffset(response.data.data))
+                dispatch(setUsersCount(response.data.data))
             }
         })
         .catch((error) => console.log(error))
 }
 
-export const getUsers = (offset) => (dispatch) => {
+export const getUsers = (offset, limit) => (dispatch) => {
     dispatch(toggleIsFetching(true))
     adminAPI
-        .getUsers(offset)
+        .getUsers(offset, limit)
         .then((response) => {
             dispatch(toggleIsFetching(false))
             if (response.data.statusCode === 200) {
@@ -109,8 +116,15 @@ export const setAdmins = (ids) => (dispatch) => {
     adminAPI
         .setAdmins(ids)
         .then((response) => {
+            console.log('admin', response.data.data)
+
             dispatch(toggleIsFetching(false))
             if (response.data.statusCode === 200) {
+                if (response.data.data !== ids.length) {
+                    console.log(
+                        'Oops. One of the entries has been deleted. Please reload the page.'
+                    )
+                }
                 dispatch(setAdminsStatus(ids, true))
             }
         })
@@ -156,14 +170,22 @@ export const unblockUsers = (ids) => (dispatch) => {
         .catch((error) => console.log(error))
 }
 
-export const deleteUsers = (ids) => (dispatch) => {
+export const deleteUsers = (ids, usersLength, usersCount) => (dispatch) => {
     dispatch(toggleIsFetching(true))
     adminAPI
         .deleteUsers(ids)
         .then((response) => {
             dispatch(toggleIsFetching(false))
             if (response.data.statusCode === 200) {
+                dispatch(reduceUsersCount(ids.length))
                 dispatch(setDeletedUsers(ids))
+
+                if (usersLength !== usersCount) {
+                    const currentPage = usersLength / 10 - 1
+                    const offset = currentPage * 10 + 10 - ids.length
+                    const limit = (offset === 0) ? 10 : 10 - offset % 10 
+                    dispatch(getUsers(offset, limit))
+                }
             }
         })
         .catch((error) => console.log(error))

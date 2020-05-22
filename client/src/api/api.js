@@ -23,11 +23,11 @@ export const authAPI = {
 }
 
 export const adminAPI = {
-    getUsers(offset) {
-        return instance.post('admin/users/get', { offset })
-    },
     getUsersCount() {
         return instance.get('admin/users/count')
+    },
+    getUsers(offset, limit) {
+        return instance.post('admin/users/get', { offset, limit })
     },
     setAdmins(ids) {
         return instance.post('admin/admins', { ids })

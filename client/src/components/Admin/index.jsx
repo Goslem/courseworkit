@@ -4,7 +4,15 @@ import { withAdminRedirect } from '../../hoc/withAdminRedirect'
 import { Container } from '@material-ui/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { getUsersCount, getUsers } from '../../redux/usersReducer'
+import {
+    getUsersCount,
+    getUsers,
+    setAdmins,
+    deleteAdmins,
+    blockUsers,
+    unblockUsers,
+    deleteUsers,
+} from '../../redux/usersReducer'
 
 import Table from '@material-ui/core/Table'
 import TableContainer from '@material-ui/core/TableContainer'
@@ -39,7 +47,7 @@ const Admin = (props) => {
 
     useEffect(() => {
         props.getUsersCount()
-        props.getUsers(0)
+        props.getUsers(0, 10)
     }, [])
 
     const [selected, setSelected] = useState([])
@@ -73,18 +81,59 @@ const Admin = (props) => {
     }
 
     const handleChangePage = (event, newPage) => {
-        if (users.length === newPage * 10) {
-            props.getUsers(newPage * 10)
+        if (users.length <= newPage * 10) {
+            props.getUsers(newPage * 10, 10)
         }
 
         setPage(newPage)
+    }
+
+    const onFollowing = () => {
+        if (selected.length === 0) return
+        window.open('profile/' + selected[0], '_blank')
+    }
+
+    const onAdminsAdd = () => {
+        if (selected.length === 0) return
+        props.setAdmins(selected)
+    }
+
+    const onAdminsDelete = () => {
+        if (selected.length === 0) return
+        props.deleteAdmins(selected)
+    }
+
+    const onUsersBlock = () => {
+        if (selected.length === 0) return
+        props.blockUsers(selected)
+    }
+
+    const onUsersUnblock = () => {
+        if (selected.length === 0) return
+        props.unblockUsers(selected)
+    }
+
+    const onUsersDelete = () => {
+        if (selected.length === 0) return
+        props.deleteUsers(selected, users.length, props.usersCount)
+        setSelected([])
+        if (selected.length > 10) setPage(0)
     }
 
     return (
         <Container maxWidth='md' className={classes.root}>
             <Paper className={classes.paper}>
                 <TableContainer>
-                    <TableToolbarUsers numSelected={selected.length} selected={selected} />
+                    <TableToolbarUsers
+                        numSelected={selected.length}
+                        selected={selected}
+                        onFollowing={onFollowing}
+                        onAdminsAdd={onAdminsAdd}
+                        onAdminsDelete={onAdminsDelete}
+                        onUsersBlock={onUsersBlock}
+                        onUsersUnblock={onUsersUnblock}
+                        onUsersDelete={onUsersDelete}
+                    />
                     <Table className={classes.table}>
                         <TableHeadUsers
                             numSelected={selected.length}
@@ -137,7 +186,7 @@ const Admin = (props) => {
                 </TableContainer>
                 <TablePagination
                     component='div'
-                    count={props.offset}
+                    count={props.usersCount}
                     rowsPerPage={10}
                     page={page}
                     onChangePage={handleChangePage}
@@ -150,8 +199,16 @@ const Admin = (props) => {
 
 const mapStateToProps = (state) => ({
     users: state.users.users,
-    offset: state.users.offset,
+    usersCount: state.users.usersCount,
 })
 
 // export default compose(connect(mapStateToProps, { getUsers }), withAdminRedirect)(Admin)
-export default connect(mapStateToProps, { getUsersCount, getUsers })(Admin)
+export default connect(mapStateToProps, {
+    getUsersCount,
+    getUsers,
+    setAdmins,
+    deleteAdmins,
+    blockUsers,
+    unblockUsers,
+    deleteUsers,
+})(Admin)

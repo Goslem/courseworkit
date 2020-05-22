@@ -15,8 +15,8 @@ router.get('/users/count', (req, res) => {
 
 router.post('/users/get', (req, res) => {
     db.Users.findAll({
-        limit: 10,
         offset: req.body.offset,
+        limit: req.body.limit,
     }).then((users) => {
         res.send(response(200, users))
     })
@@ -32,8 +32,8 @@ router.post('/admins', (req, res) => {
                 },
             },
         }
-    ).then(() => {
-        res.send(response(200))
+    ).then(([rowsUpdated]) => {
+        res.send(response(200, rowsUpdated))
     })
 })
 
@@ -47,8 +47,8 @@ router.delete('/admins', (req, res) => {
                 },
             },
         }
-    ).then(() => {
-        res.send(response(200))
+    ).then(([rowsUpdated]) => {
+        res.send(response(200, rowsUpdated))
     })
 })
 
@@ -62,8 +62,8 @@ router.post('/users/block', (req, res) => {
                 },
             },
         }
-    ).then(() => {
-        res.send(response(200))
+    ).then(([rowsUpdated]) => {
+        res.send(response(200, rowsUpdated))
     })
 })
 
@@ -77,8 +77,8 @@ router.post('/users/unblock', (req, res) => {
                 },
             },
         }
-    ).then(() => {
-        res.send(response(200))
+    ).then(([rowsUpdated]) => {
+        res.send(response(200, rowsUpdated))
     })
 })
 

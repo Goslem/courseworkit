@@ -3,13 +3,6 @@ import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import translate from '../../i18n/translate'
 import { connect } from 'react-redux'
-import {
-    setAdmins,
-    deleteAdmins,
-    blockUsers,
-    unblockUsers,
-    deleteUsers,
-} from '../../redux/usersReducer'
 
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -44,37 +37,16 @@ const useStyles = makeStyles((theme) => ({
 
 const TableToolbarUsers = (props) => {
     const classes = useStyles()
-    const { numSelected } = props
-
-    const onFollowing = () => {
-        if (props.selected.length === 0) return
-        window.open('profile/' + props.selected[0], '_blank')
-    }
-
-    const onAdminsAdd = () => {
-        if (props.selected.length === 0) return
-        props.setAdmins(props.selected)
-    }
-
-    const onAdminsDelete = () => {
-        if (props.selected.length === 0) return
-        props.deleteAdmins(props.selected)
-    }
-
-    const onUsersBlock = () => {
-        if (props.selected.length === 0) return
-        props.blockUsers(props.selected)
-    }
-
-    const onUsersUnblock = () => {
-        if (props.selected.length === 0) return
-        props.unblockUsers(props.selected)
-    }
-
-    const onUsersDelete = () => {
-        if (props.selected.length === 0) return
-        props.deleteUsers(props.selected)
-    }
+    const {
+        isFetching,
+        numSelected,
+        onFollowing,
+        onAdminsAdd,
+        onAdminsDelete,
+        onUsersBlock,
+        onUsersUnblock,
+        onUsersDelete,
+    } = props
 
     return (
         <Toolbar className={clsx(classes.root, { [classes.highlight]: numSelected > 0 })}>
@@ -93,22 +65,22 @@ const TableToolbarUsers = (props) => {
                 </Typography>
             )}
 
-            <IconButton onClick={onFollowing} disabled={props.isFetching}>
+            <IconButton onClick={onFollowing} disabled={isFetching}>
                 <LaunchIcon />
             </IconButton>
-            <IconButton onClick={onAdminsAdd} disabled={props.isFetching}>
+            <IconButton onClick={onAdminsAdd} disabled={isFetching}>
                 <PersonAddIcon />
             </IconButton>
-            <IconButton onClick={onAdminsDelete} disabled={props.isFetching}>
+            <IconButton onClick={onAdminsDelete} disabled={isFetching}>
                 <PersonAddDisabledIcon />
             </IconButton>
-            <IconButton onClick={onUsersBlock} disabled={props.isFetching}>
+            <IconButton onClick={onUsersBlock} disabled={isFetching}>
                 <LockIcon />
             </IconButton>
-            <IconButton onClick={onUsersUnblock} disabled={props.isFetching}>
+            <IconButton onClick={onUsersUnblock} disabled={isFetching}>
                 <LockOpenIcon />
             </IconButton>
-            <IconButton onClick={onUsersDelete} disabled={props.isFetching}>
+            <IconButton onClick={onUsersDelete} disabled={isFetching}>
                 <DeleteIcon />
             </IconButton>
         </Toolbar>
@@ -119,10 +91,4 @@ const mapStateToProps = (state) => ({
     isFetching: state.users.isFetching,
 })
 
-export default connect(mapStateToProps, {
-    setAdmins,
-    deleteAdmins,
-    blockUsers,
-    unblockUsers,
-    deleteUsers,
-})(TableToolbarUsers)
+export default connect(mapStateToProps)(TableToolbarUsers)
