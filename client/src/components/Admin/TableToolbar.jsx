@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const TableToolbarUsers = (props) => {
+const TableToolbarComponent = (props) => {
     const classes = useStyles()
     const {
         isFetching,
@@ -91,4 +91,4 @@ const mapStateToProps = (state) => ({
     isFetching: state.admin.isFetching,
 })
 
-export default connect(mapStateToProps)(TableToolbarUsers)
+export default connect(mapStateToProps)(TableToolbarComponent)

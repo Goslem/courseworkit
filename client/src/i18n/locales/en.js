@@ -27,7 +27,7 @@ const messages = {
 
     'errorPage.text': 'Page not found',
 
-    'admin.tableLogo': 'Admin',
+    'admin.tableLogo': 'Admin panel',
     'admin.selected': 'selected',
     'admin.headId': 'ID',
     'admin.headName': 'Name',

@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import translate from '../../i18n/translate'
+
+import Paper from '@material-ui/core/Paper'
+import TableContainer from '@material-ui/core/TableContainer'
+import Table from '@material-ui/core/Table'
+import TablePagination from '@material-ui/core/TablePagination'
+import Snackbar from '@material-ui/core/Snackbar'
+import MuiAlert from '@material-ui/lab/Alert'
+import TableHeadUsers from './TableHead'
+import TableToolbarUsers from './TableToolbar'
+import TableBodyUsers from './TableBody'
+
 import { withAdminRedirect } from '../../hoc/withAdminRedirect'
 import { Container } from '@material-ui/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import translate from '../../i18n/translate'
 import {
     getUsersCount,
     getUsers,
@@ -15,19 +26,6 @@ import {
     deleteUsers,
     toggleError,
 } from '../../redux/adminReducer'
-
-import Paper from '@material-ui/core/Paper'
-import TableContainer from '@material-ui/core/TableContainer'
-import Table from '@material-ui/core/Table'
-import TablePagination from '@material-ui/core/TablePagination'
-import TableBody from '@material-ui/core/TableBody'
-import TableRow from '@material-ui/core/TableRow'
-import TableCell from '@material-ui/core/TableCell'
-import Checkbox from '@material-ui/core/Checkbox'
-import Snackbar from '@material-ui/core/Snackbar'
-import MuiAlert from '@material-ui/lab/Alert'
-import TableHeadUsers from './TableHead'
-import TableToolbarUsers from './TableToolbar'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -147,48 +145,12 @@ const Admin = (props) => {
                             rowCount={users.length}
                             onSelectAllClick={handleSelectAllClick}
                         />
-                        <TableBody>
-                            {users.slice(page * 10, page * 10 + 10).map((user) => {
-                                const isItemSelected = isSelected(user.id)
-
-                                return (
-                                    <TableRow
-                                        hover
-                                        onClick={(event) => {
-                                            handleClick(event, user.id)
-                                        }}
-                                        role='checkbox'
-                                        selected={isItemSelected}
-                                        key={user.id}
-                                    >
-                                        <TableCell padding='checkbox'>
-                                            <Checkbox checked={isItemSelected} />
-                                        </TableCell>
-                                        <TableCell
-                                            component='th'
-                                            scope='user'
-                                            padding='none'
-                                            id={user.id}
-                                        >
-                                            {user.id}
-                                        </TableCell>
-                                        <TableCell align='right'>{user.name}</TableCell>
-                                        <TableCell align='right'>
-                                            {user.isBlocked ? 'true' : 'false'}
-                                        </TableCell>
-                                        <TableCell align='right'>
-                                            {user.isAdmin ? 'true' : 'false'}
-                                        </TableCell>
-                                        <TableCell align='right'>
-                                            {new Date(user.updatedAt).toLocaleDateString()}
-                                        </TableCell>
-                                        <TableCell align='right'>
-                                            {new Date(user.createdAt).toLocaleDateString()}
-                                        </TableCell>
-                                    </TableRow>
-                                )
-                            })}
-                        </TableBody>
+                        <TableBodyUsers
+                            users={users}
+                            page={page}
+                            isSelected={isSelected}
+                            handleClick={handleClick}
+                        />
                     </Table>
                 </TableContainer>
                 <TablePagination

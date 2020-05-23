@@ -5,7 +5,7 @@ import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import Checkbox from '@material-ui/core/Checkbox'
 
-const TableHeadUsers = (props) => {
+const TableHeadComponent = (props) => {
     const { numSelected, rowCount, onSelectAllClick } = props
 
     return (
@@ -41,4 +41,4 @@ const TableHeadUsers = (props) => {
     )
 }
 
-export default TableHeadUsers
+export default TableHeadComponent

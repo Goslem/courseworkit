@@ -27,7 +27,7 @@ const messages = {
 
     'errorPage.text': 'Страница не найдена',
 
-    'admin.tableLogo': 'Админ',
+    'admin.tableLogo': 'Панель админисратора',
     'admin.selected': 'выбрано',
     'admin.headId': 'Код',
     'admin.headName': 'Имя',
