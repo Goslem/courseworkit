@@ -44,6 +44,7 @@ router.post('/users/get', (req, res) => {
         db.Users.findAll({
             offset: req.body.offset,
             limit: req.body.limit,
+            attributes: ['id', 'name', 'isBlocked', 'isAdmin', 'createdAt', 'updatedAt'],
         }).then((users) => {
             res.send(response(200, users))
         })

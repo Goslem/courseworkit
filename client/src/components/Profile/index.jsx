@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container } from '@material-ui/core'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 import { withLogoutRedirect } from '../../hoc/withAuthRedirect'
 
 import BonusList from './BonusList'
@@ -19,15 +21,24 @@ const useStyles = makeStyles((theme) => ({
 
 const Profile = (props) => {
     const classes = useStyles()
+    const urlId = Math.abs(parseInt(props.match.params.userId, 10))
+    const userId = urlId || (props.isAuth ? props.userId : 1)
+    const isOwner = userId === props.userId || props.isAdmin
 
     return (
         <Container maxWidth='md' className={classes.root}>
-            <BonusList />
-            <CompanyList />
-            <InformationBlock />
+            <BonusList userId={userId} />
+            <CompanyList userId={userId} isOwner={isOwner} />
+            <InformationBlock userId={userId} isOwner={isOwner} />
         </Container>
     )
 }
 
-// export default withLogoutRedirect(Profile)
-export default Profile
+const mapStateToProps = (state) => ({
+    userId: state.auth.userId,
+    isAdmin: state.auth.isAdmin,
+    isAuth: state.auth.isAuth,
+})
+
+export default connect(mapStateToProps)(Profile)
+// export default compose(connect(mapStateToProps), withLogoutRedirect)(Profile)

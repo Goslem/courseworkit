@@ -5,6 +5,7 @@ const db = require('./models')
 const session = require('express-session')
 const authRoute = require('./routes/auth')
 const adminRouter = require('./routes/adminRouter')
+const profileRouter = require('./routes/profileRouter')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -13,12 +14,13 @@ app.use(
         secret: 'nqfKP7Gnq7',
         resave: false,
         saveUninitialized: true,
-        cookie: { secure: false },
+        cookie: { secure: true },
     })
 )
 
 app.use('/api/auth', authRoute)
 app.use('/api/admin', adminRouter)
+app.use('/api/profile', profileRouter)
 app.use(express.static(path.join(__dirname, 'client', 'build')))
 
 app.get('*', (req, res) => {

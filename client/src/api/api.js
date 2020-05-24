@@ -45,3 +45,21 @@ export const adminAPI = {
         return instance.post('admin/users/delete', { ids })
     },
 }
+
+export const profileAPI = {
+    getBonusesCount(userId) {
+        return instance.post('profile/bonuses/count', { userId })
+    },
+    getBonuses(userId, offset, limit) {
+        return instance.post('profile/bonuses/get', { userId, offset, limit })
+    },
+    getCompanyCount(userId) {
+        return instance.post('profile/company/count', { userId })
+    },
+    getCompany(userId, offset, limit) {
+        return instance.post('profile/company/get', { userId, offset, limit })
+    },
+    getUserInfo(userId) {
+        return instance.post('profile/user/get', { userId })
+    },
+}

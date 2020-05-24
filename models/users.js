@@ -24,6 +24,24 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        surname: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        country: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        city: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     })
+
+    Users.associate = (models) => {
+        Users.hasMany(models.Company)
+        Users.belongsToMany(models.Bonuses, { through: 'userBonuses', timestamps: false })
+    }
+
     return Users
 }

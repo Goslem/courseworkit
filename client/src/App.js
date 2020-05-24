@@ -49,7 +49,7 @@ const App = (props) => {
 
                             <Route path='/' exact component={Home} />
                             <Route path='/company' exact component={Company} />
-                            <Route path='/profile' exact component={Profile} />
+                            <Route path='/profile/:userId?' component={Profile} />
                             <Route path='/admin' exact component={Admin} />
                             <Route component={ErrorPage} />
                         </Switch>

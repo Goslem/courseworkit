@@ -5,12 +5,12 @@ import translate from '../../i18n/translate'
 import Paper from '@material-ui/core/Paper'
 import TableContainer from '@material-ui/core/TableContainer'
 import Table from '@material-ui/core/Table'
-import TablePagination from '@material-ui/core/TablePagination'
 import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
 import TableHeadUsers from './TableHead'
 import TableToolbarUsers from './TableToolbar'
 import TableBodyUsers from './TableBody'
+import TablePagination from '@material-ui/core/TablePagination'
 
 import { withAdminRedirect } from '../../hoc/withAdminRedirect'
 import { Container } from '@material-ui/core'
@@ -162,6 +162,7 @@ const Admin = (props) => {
                     rowsPerPageOptions={[10]}
                 />
             </Paper>
+
             <Snackbar
                 open={props.isError}
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}

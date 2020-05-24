@@ -6,7 +6,6 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 
 const initialState = {
     userId: null,
-    name: null,
     isAuth: false,
     isAdmin: false,
     isFetching: false,
@@ -29,9 +28,9 @@ export const authReducer = (state = initialState, action) => {
     }
 }
 
-const setUserData = (userId, name, isAuth, isAdmin) => ({
+const setUserData = (userId, isAuth, isAdmin) => ({
     type: SET_USER_DATA,
-    payload: { userId, name, isAuth, isAdmin },
+    payload: { userId, isAuth, isAdmin },
 })
 
 const toggleIsFetching = (isFetching) => ({
@@ -47,8 +46,8 @@ export const login = ({ login, password }) => (dispatch) => {
             dispatch(toggleIsFetching(false))
             switch (response.data.statusCode) {
                 case 200:
-                    let { id, name, isAdmin } = response.data.data
-                    dispatch(setUserData(id, name, true, isAdmin))
+                    let { id, isAdmin } = response.data.data
+                    dispatch(setUserData(id, true, isAdmin))
                     break
                 case 204:
                     dispatch(stopSubmit('login', { _error: 204 }))
@@ -73,8 +72,8 @@ export const registration = ({ login, password }) => (dispatch) => {
             dispatch(toggleIsFetching(false))
             switch (response.data.statusCode) {
                 case 200:
-                    let { id, name, isAdmin } = response.data.data
-                    dispatch(setUserData(id, name, true, isAdmin))
+                    let { id } = response.data.data
+                    dispatch(setUserData(id, true, false))
                     break
                 case 204:
                     dispatch(stopSubmit('registration', { _error: 204 }))
@@ -96,8 +95,8 @@ export const socialLogin = (socialId, name) => (dispatch) => {
             dispatch(toggleIsFetching(false))
             switch (response.data.statusCode) {
                 case 200:
-                    let { id, name, isAdmin } = response.data.data
-                    dispatch(setUserData(id, name, true, isAdmin))
+                    let { id, isAdmin } = response.data.data
+                    dispatch(setUserData(id, true, isAdmin))
                     break
                 case 403:
                     dispatch(stopSubmit('login', { _error: 403 }))
@@ -114,8 +113,8 @@ export const socialLogin = (socialId, name) => (dispatch) => {
 export const getAuthUserData = () => (dispatch) => {
     return authAPI.me().then((response) => {
         if (response.data.statusCode === 200) {
-            let { id, name, isAdmin } = response.data.data
-            dispatch(setUserData(id, name, true, isAdmin))
+            let { id, isAdmin } = response.data.data
+            dispatch(setUserData(id, true, isAdmin))
         }
     })
 }
@@ -124,7 +123,9 @@ export const logout = () => (dispatch) => {
     authAPI
         .logout()
         .then((response) => {
-            dispatch(setUserData(null, null, false))
+            if (response.data.statusCode === 200) {
+                dispatch(setUserData(null, false, false))
+            }
         })
         .catch((error) => console.log(error))
 }

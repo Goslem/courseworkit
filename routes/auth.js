@@ -32,7 +32,7 @@ router.post('/login', (req, res) => {
             login: req.body.login,
             password: req.body.password,
         },
-        attributes: ['id', 'name', 'isBlocked', 'isAdmin'],
+        attributes: ['id', 'isBlocked', 'isAdmin'],
     }).then((user) => {
         if (user === null) {
             return res.send(response(204))
@@ -43,7 +43,7 @@ router.post('/login', (req, res) => {
         }
 
         createJWTCookie(req, user.id)
-        res.send(response(200, { id: user.id, name: user.name, isAdmin: user.isAdmin }))
+        res.send(response(200, user))
     })
 })
 
@@ -61,15 +61,18 @@ router.post('/registration', (req, res) => {
             socialId: null,
             isBlocked: false,
             isAdmin: false,
-            name: req.body.login,
+            name: 'name',
+            surname: 'surname',
+            country: 'Belarus',
+            city: 'Minsk',
         },
-    }).then(([{ id, name, isAdmin }, created]) => {
+    }).then(([{ id }, created]) => {
         if (created === false) {
             return res.send(response(204))
         }
 
         createJWTCookie(req, id)
-        res.send(response(200, { id, name, isAdmin }))
+        res.send(response(200, { id }))
     })
 })
 
@@ -88,14 +91,17 @@ router.post('/socialLogin', (req, res) => {
             isBlocked: false,
             isAdmin: false,
             name: req.body.name,
+            surname: 'surname',
+            country: 'Belarus',
+            city: 'Minsk',
         },
-    }).then(([{ id, name, isBlocked, isAdmin }, created]) => {
+    }).then(([{ id, isBlocked, isAdmin }, created]) => {
         if (isBlocked === true) {
             return res.send(response(403))
         }
 
         createJWTCookie(req, id)
-        res.send(response(200, { id, name, isAdmin }))
+        res.send(response(200, { id, isAdmin }))
     })
 })
 
@@ -108,12 +114,12 @@ router.post('/me', (req, res) => {
         }
 
         db.Users.findByPk(decoded.id)
-            .then(({ id, name, isBlocked, isAdmin }) => {
+            .then(({ id, isBlocked, isAdmin }) => {
                 if (id === null || isBlocked === true) {
                     return res.send(response(403))
                 }
 
-                res.send(response(200, { id, name, isAdmin }))
+                res.send(response(200, { id, isAdmin }))
             })
             .catch((error) => {
                 return res.send(response(401))
@@ -122,7 +128,12 @@ router.post('/me', (req, res) => {
 })
 
 router.post('/logout', (req, res) => {
-    res.send('deleted')
+    req.session.destroy((err) => {
+        if (err) {
+            return res.send(response(500))
+        }
+        res.send(response(200))
+    })
 })
 
 module.exports = router

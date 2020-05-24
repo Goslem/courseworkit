@@ -20,16 +20,9 @@ const useStyles = makeStyles((theme) => ({
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(1),
     },
-    highlight:
-        theme.palette.type === 'light'
-            ? {
-                  color: '#E0004E',
-                  backgroundColor: theme.palette.secondary.light,
-              }
-            : {
-                  color: theme.palette.text.primary,
-                  backgroundColor: theme.palette.secondary.dark,
-              },
+    highlight: {
+        backgroundColor: theme.palette.secondary.light,
+    },
     title: {
         flexGrow: 1,
     },
@@ -60,7 +53,7 @@ const TableToolbarComponent = (props) => {
                     {numSelected} {translate('admin.selected')}
                 </Typography>
             ) : (
-                <Typography className={classes.title} variant='h6' id='tableTitle' component='div'>
+                <Typography className={classes.title} variant='h6' component='div'>
                     {translate('admin.tableLogo')}
                 </Typography>
             )}

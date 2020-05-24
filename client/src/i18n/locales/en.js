@@ -38,6 +38,24 @@ const messages = {
     'admin.previousPage': 'Previous page',
     'admin.nextPage': 'Next page',
     'admin.error204': 'Oops. One of the records does not exist in the database.',
+
+    'profile.bonusList.tableTitle': 'Paid bonuses list',
+    'profile.bonusList.bonusTitle': 'Title',
+    'profile.bonusList.bonusAmount': 'Amount',
+    'profile.bonusList.bonusDescription': 'Description',
+
+    'profile.companyList.tableTitle': 'List of companies',
+    'profile.companyList.companyId': 'ID',
+    'profile.companyList.companyTitle': 'Title',
+    'profile.companyList.currentAmount': 'Current amount',
+    'profile.companyList.targetAmount': 'Target amount',
+    'profile.companyList.expirationDate': 'Expiration date',
+
+    'profile.informationBlock.userInfo': 'Block about user',
+    'profile.informationBlock.name': 'Name:',
+    'profile.informationBlock.surname': 'Surname:',
+    'profile.informationBlock.country': 'Country:',
+    'profile.informationBlock.city': 'City:',
 }
 
 export default messages
