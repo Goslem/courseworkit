@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import { Redirect } from 'react-router-dom'
 import { Container } from '@material-ui/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
@@ -22,7 +23,16 @@ const useStyles = makeStyles((theme) => ({
 const Profile = (props) => {
     const classes = useStyles()
     const urlId = Math.abs(parseInt(props.match.params.userId, 10))
-    const userId = urlId || (props.isAuth ? props.userId : 1)
+    let userId = urlId
+    
+    if (isNaN(urlId)) {
+        if (props.isAuth) {
+            userId = props.userId
+        } else {
+            return <Redirect to='/login' />
+        }
+    }
+
     const isOwner = userId === props.userId || props.isAdmin
 
     return (
@@ -36,8 +46,8 @@ const Profile = (props) => {
 
 const mapStateToProps = (state) => ({
     userId: state.auth.userId,
-    isAdmin: state.auth.isAdmin,
     isAuth: state.auth.isAuth,
+    isAdmin: state.auth.isAdmin,
 })
 
 export default connect(mapStateToProps)(Profile)

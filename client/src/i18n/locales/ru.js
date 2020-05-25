@@ -6,6 +6,8 @@ const messages = {
     'header.search': 'Поиск...',
     'header.language': 'русский',
     'header.signIn': 'Войти',
+    'header.profile': 'Профиль',
+    'header.logout': 'Выйти',
 
     'login.logo': 'Войти в Кикстартер',
     'login.googleSignIn': 'Войти через Google',
@@ -56,6 +58,14 @@ const messages = {
     'profile.informationBlock.surname': 'Фамилия:',
     'profile.informationBlock.country': 'Страна:',
     'profile.informationBlock.city': 'Город:',
+
+    'company.companyName': 'Название компании',
+    'company.bonusList.tableTitle': 'Бонусы',
+    'company.bonusList.bonusTitle': 'Название',
+    'company.bonusList.bonusAmount': 'Сумма',
+    'company.bonusList.bonusDescription': 'Описание',
+    'company.bonusList.bonusPayment': 'Оплата',
+    'company.bonusList.supportButton': 'Купить',
 }
 
 export default messages
