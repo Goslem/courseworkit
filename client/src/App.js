@@ -20,7 +20,6 @@ import Profile from './components/Profile'
 import Admin from './components/Admin'
 import ErrorPage from './components/404'
 
-
 const getTheme = (title) => {
     return title === 'light' ? lightTheme : darkTheme
 }
@@ -48,8 +47,8 @@ const App = (props) => {
                             <Route path='/registration' exact component={Registration} />
 
                             <Route path='/' exact component={Home} />
-                            <Route path='/company' exact component={Company} />
-                            <Route path='/profile/:userId?' component={Profile} />
+                            <Route path='/company/:companyId' exact component={Company} />
+                            <Route path='/profile/:userId?' exact component={Profile} />
                             <Route path='/admin' exact component={Admin} />
                             <Route component={ErrorPage} />
                         </Switch>

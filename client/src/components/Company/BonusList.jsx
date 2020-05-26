@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import translate from '../../i18n/translate'
 import { connect } from 'react-redux'
-import { getCompanyCount, getInitialCompany, getCompany } from '../../redux/profileReducer'
+import {
+    getBonusesCount,
+    getInitialBonuses,
+    getBonuses,
+    buyBonus,
+} from '../../redux/companyReducer'
 
 import Paper from '@material-ui/core/Paper'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -14,11 +19,12 @@ import TableBody from '@material-ui/core/TableBody'
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import TablePagination from '@material-ui/core/TablePagination'
+import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
         width: '100%',
-        marginBottom: 40,
+        marginBottom: 24,
     },
     toolbar: {
         minWidth: 650,
@@ -30,21 +36,24 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const CompanyList = (props) => {
+const BonusList = (props) => {
     const classes = useStyles()
     const [page, setPage] = useState(0)
 
     useEffect(() => {
-        props.getCompanyCount(props.userId)
-        props.getInitialCompany(props.userId)
+        props.getBonusesCount(props.companyId)
+        props.getInitialBonuses(props.companyId)
     }, [])
 
     const handleChangePage = (event, newPage) => {
-        if (props.company.length <= newPage * 5) {
-            props.getCompany(props.userId, newPage * 5, 5)
+        if (props.bonuses.length <= newPage * 5) {
+            props.getBonuses(props.companyId, newPage * 5, 5)
         }
-
         setPage(newPage)
+    }
+
+    const onBonusSupport = (id) => {
+        props.buyBonus(id, props.userId)
     }
 
     return (
@@ -52,36 +61,41 @@ const CompanyList = (props) => {
             <TableContainer>
                 <Toolbar className={classes.toolbar}>
                     <Typography variant='h6' component='div'>
-                        {translate('profile.companyList.tableTitle')}
+                        {translate('company.bonusList.tableTitle')}
                     </Typography>
                 </Toolbar>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell>{translate('profile.companyList.companyId')}</TableCell>
+                            <TableCell>{translate('company.bonusList.bonusTitle')}</TableCell>
                             <TableCell align='right'>
-                                {translate('profile.companyList.companyTitle')}
+                                {translate('company.bonusList.bonusAmount')}
                             </TableCell>
                             <TableCell align='right'>
-                                {translate('profile.companyList.currentAmount')}
+                                {translate('company.bonusList.bonusDescription')}
                             </TableCell>
                             <TableCell align='right'>
-                                {translate('profile.companyList.targetAmount')}
-                            </TableCell>
-                            <TableCell align='right'>
-                                {translate('profile.companyList.expirationDate')}
+                                {translate('company.bonusList.bonusPayment')}
                             </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.company.slice(page * 5, page * 5 + 5).map((company) => (
-                            <TableRow key={company.id || 0}>
-                                <TableCell>{company.id}</TableCell>
-                                <TableCell align='right'>{company.title}</TableCell>
-                                <TableCell align='right'>{company.currentAmount} y.e.</TableCell>
-                                <TableCell align='right'>{company.targetAmount} y.e.</TableCell>
+                        {props.bonuses.slice(page * 5, page * 5 + 5).map((bonus) => (
+                            <TableRow key={bonus.id}>
+                                <TableCell>{bonus.title}</TableCell>
+                                <TableCell align='right'>{bonus.amount} y.e.</TableCell>
+                                <TableCell align='right'>{bonus.description}</TableCell>
                                 <TableCell align='right'>
-                                    {new Date(company.expirationDate).toLocaleDateString()}
+                                    <Button
+                                        variant='contained'
+                                        color='primary'
+                                        onClick={(event) => {
+                                            onBonusSupport(bonus.id)
+                                        }}
+                                        disabled={!props.isAuth || props.isFetching}
+                                    >
+                                        {translate('company.bonusList.supportButton')}
+                                    </Button>
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -91,7 +105,7 @@ const CompanyList = (props) => {
 
             <TablePagination
                 component='div'
-                count={props.companyCount}
+                count={props.bonusesCount}
                 rowsPerPage={5}
                 page={page}
                 onChangePage={handleChangePage}
@@ -102,10 +116,15 @@ const CompanyList = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-    companyCount: state.profile.companyCount,
-    company: state.profile.company,
+    bonusesCount: state.company.bonusesCount,
+    bonuses: state.company.bonuses,
+    isFetching: state.company.isFetching,
+    showMessage: state.company.showMessage,
 })
 
-export default connect(mapStateToProps, { getCompanyCount, getInitialCompany, getCompany })(
-    CompanyList
-)
+export default connect(mapStateToProps, {
+    getBonusesCount,
+    getInitialBonuses,
+    getBonuses,
+    buyBonus,
+})(BonusList)

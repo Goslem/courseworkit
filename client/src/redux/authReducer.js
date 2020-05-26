@@ -38,94 +38,78 @@ const toggleIsFetching = (isFetching) => ({
     isFetching,
 })
 
-export const login = ({ login, password }) => (dispatch) => {
+export const login = ({ login, password }) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-    authAPI
-        .login(login, password)
-        .then((response) => {
-            dispatch(toggleIsFetching(false))
-            switch (response.data.statusCode) {
-                case 200:
-                    let { id, isAdmin } = response.data.data
-                    dispatch(setUserData(id, true, isAdmin))
-                    break
-                case 204:
-                    dispatch(stopSubmit('login', { _error: 204 }))
-                    break
-                case 403:
-                    dispatch(stopSubmit('login', { _error: 403 }))
-                    break
-                default:
-                    dispatch(stopSubmit('login', { _error: 500 }))
-            }
-        })
-        .catch((error) => {
-            dispatch(stopSubmit('login', { _error: 500 }))
-        })
-}
+    const response = await authAPI.login(login, password)
 
-export const registration = ({ login, password }) => (dispatch) => {
-    dispatch(toggleIsFetching(true))
-    authAPI
-        .registration(login, password)
-        .then((response) => {
-            dispatch(toggleIsFetching(false))
-            switch (response.data.statusCode) {
-                case 200:
-                    let { id } = response.data.data
-                    dispatch(setUserData(id, true, false))
-                    break
-                case 204:
-                    dispatch(stopSubmit('registration', { _error: 204 }))
-                    break
-                default:
-                    dispatch(stopSubmit('registration', { _error: 500 }))
-            }
-        })
-        .catch((error) => {
-            dispatch(stopSubmit('registration', { _error: 500 }))
-        })
-}
-
-export const socialLogin = (socialId, name) => (dispatch) => {
-    dispatch(toggleIsFetching(true))
-    authAPI
-        .socialLogin(socialId, name)
-        .then((response) => {
-            dispatch(toggleIsFetching(false))
-            switch (response.data.statusCode) {
-                case 200:
-                    let { id, isAdmin } = response.data.data
-                    dispatch(setUserData(id, true, isAdmin))
-                    break
-                case 403:
-                    dispatch(stopSubmit('login', { _error: 403 }))
-                    break
-                default:
-                    dispatch(stopSubmit('login', { _error: 500 }))
-            }
-        })
-        .catch((error) => {
-            dispatch(stopSubmit('login', { _error: 500 }))
-        })
-}
-
-export const getAuthUserData = () => (dispatch) => {
-    return authAPI.me().then((response) => {
-        if (response.data.statusCode === 200) {
+    dispatch(toggleIsFetching(false))
+    switch (response.data.statusCode) {
+        case 200:
             let { id, isAdmin } = response.data.data
             dispatch(setUserData(id, true, isAdmin))
-        }
-    })
+            break
+        case 204:
+            dispatch(stopSubmit('login', { _error: 204 }))
+            break
+        case 403:
+            dispatch(stopSubmit('login', { _error: 403 }))
+            break
+        default:
+            dispatch(stopSubmit('login', { _error: 500 }))
+    }
 }
 
-export const logout = () => (dispatch) => {
-    authAPI
-        .logout()
-        .then((response) => {
-            if (response.data.statusCode === 200) {
-                dispatch(setUserData(null, false, false))
-            }
-        })
-        .catch((error) => console.log(error))
+export const registration = ({ login, password }) => async (dispatch) => {
+    dispatch(toggleIsFetching(true))
+    const response = await authAPI.registration(login, password)
+
+    dispatch(toggleIsFetching(false))
+    switch (response.data.statusCode) {
+        case 200:
+            let { id } = response.data.data
+            dispatch(setUserData(id, true, false))
+            break
+        case 204:
+            dispatch(stopSubmit('registration', { _error: 204 }))
+            break
+        default:
+            dispatch(stopSubmit('registration', { _error: 500 }))
+    }
+}
+
+export const socialLogin = (socialId, name) => async (dispatch) => {
+    dispatch(toggleIsFetching(true))
+    const response = await authAPI.socialLogin(socialId, name)
+
+    dispatch(toggleIsFetching(false))
+    switch (response.data.statusCode) {
+        case 200:
+            let { id, isAdmin } = response.data.data
+            dispatch(setUserData(id, true, isAdmin))
+            break
+        case 403:
+            dispatch(stopSubmit('login', { _error: 403 }))
+            break
+        default:
+            dispatch(stopSubmit('login', { _error: 500 }))
+    }
+}
+
+export const getAuthUserData = () => async (dispatch) => {
+    const response = await authAPI.me()
+
+    if (response.data.statusCode === 200) {
+        let { id, isAdmin } = response.data.data
+        dispatch(setUserData(id, true, isAdmin))
+    }
+
+    return response
+}
+
+export const logout = () => async (dispatch) => {
+    const response = await authAPI.logout()
+
+    if (response.data.statusCode === 200) {
+        dispatch(setUserData(null, false, false))
+    }
 }

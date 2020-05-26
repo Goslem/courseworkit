@@ -93,129 +93,108 @@ const setDeletedUsers = (usersId) => ({ type: DELETE_USERS, usersId })
 const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
 const setError = (isError) => ({ type: TOGGLE_ERROR, isError })
 
-export const getUsersCount = () => (dispatch) => {
+export const getUsersCount = () => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-    adminAPI
-        .getUsersCount()
-        .then((response) => {
-            dispatch(toggleIsFetching(false))
-            if (response.data.statusCode === 200) {
-                dispatch(setUsersCount(response.data.data))
-            } else {
-                window.location.reload()
-            }
-        })
-        .catch((error) => console.log(error))
+    const response = await adminAPI.getUsersCount()
+
+    dispatch(toggleIsFetching(false))
+    if (response.data.statusCode === 200) {
+        dispatch(setUsersCount(response.data.data))
+    } else {
+        window.location.reload()
+    }
 }
 
-export const getUsers = (offset, limit) => (dispatch) => {
+export const getUsers = (offset, limit) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-    adminAPI
-        .getUsers(offset, limit)
-        .then((response) => {
-            dispatch(toggleIsFetching(false))
-            if (response.data.statusCode === 200) {
-                dispatch(setUsers(response.data.data))
-            } else {
-                window.location.reload()
-            }
-        })
-        .catch((error) => console.log(error))
+    const response = await adminAPI.getUsers(offset, limit)
+
+    dispatch(toggleIsFetching(false))
+    if (response.data.statusCode === 200) {
+        dispatch(setUsers(response.data.data))
+    } else {
+        window.location.reload()
+    }
 }
 
-export const setAdmins = (ids) => (dispatch) => {
+export const setAdmins = (ids) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-    adminAPI
-        .setAdmins(ids)
-        .then((response) => {
-            dispatch(toggleIsFetching(false))
-            if (response.data.statusCode === 200) {
-                if (response.data.data !== ids.length) {
-                    dispatch(setError(true))
-                }
-                dispatch(setAdminsStatus(ids, true))
-            } else {
-                window.location.reload()
-            }
-        })
-        .catch((error) => console.log(error))
+    const response = await adminAPI.setAdmins(ids)
+
+    dispatch(toggleIsFetching(false))
+    if (response.data.statusCode === 200) {
+        if (response.data.data !== ids.length) {
+            dispatch(setError(true))
+        }
+        dispatch(setAdminsStatus(ids, true))
+    } else {
+        window.location.reload()
+    }
 }
 
-export const deleteAdmins = (ids) => (dispatch) => {
+export const deleteAdmins = (ids) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-    adminAPI
-        .deleteAdmins(ids)
-        .then((response) => {
-            dispatch(toggleIsFetching(false))
-            if (response.data.statusCode === 200) {
-                if (response.data.data !== ids.length) {
-                    dispatch(setError(true))
-                }
-                dispatch(setAdminsStatus(ids, false))
-            } else {
-                window.location.reload()
-            }
-        })
-        .catch((error) => console.log(error))
+    const response = await adminAPI.deleteAdmins(ids)
+
+    dispatch(toggleIsFetching(false))
+    if (response.data.statusCode === 200) {
+        if (response.data.data !== ids.length) {
+            dispatch(setError(true))
+        }
+        dispatch(setAdminsStatus(ids, false))
+    } else {
+        window.location.reload()
+    }
 }
 
-export const blockUsers = (ids) => (dispatch) => {
+export const blockUsers = (ids) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-    adminAPI
-        .blockUsers(ids)
-        .then((response) => {
-            dispatch(toggleIsFetching(false))
-            if (response.data.statusCode === 200) {
-                if (response.data.data !== ids.length) {
-                    dispatch(setError(true))
-                }
-                dispatch(setUsersStatus(ids, true))
-            } else {
-                window.location.reload()
-            }
-        })
-        .catch((error) => console.log(error))
+    const response = await adminAPI.blockUsers(ids)
+
+    dispatch(toggleIsFetching(false))
+    if (response.data.statusCode === 200) {
+        if (response.data.data !== ids.length) {
+            dispatch(setError(true))
+        }
+        dispatch(setUsersStatus(ids, true))
+    } else {
+        window.location.reload()
+    }
 }
 
-export const unblockUsers = (ids) => (dispatch) => {
+export const unblockUsers = (ids) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-    adminAPI
-        .unblockUsers(ids)
-        .then((response) => {
-            dispatch(toggleIsFetching(false))
-            if (response.data.statusCode === 200) {
-                if (response.data.data !== ids.length) {
-                    dispatch(setError(true))
-                }
-                dispatch(setUsersStatus(ids, false))
-            } else {
-                window.location.reload()
-            }
-        })
-        .catch((error) => console.log(error))
+    const response = await adminAPI.unblockUsers(ids)
+
+    dispatch(toggleIsFetching(false))
+    if (response.data.statusCode === 200) {
+        if (response.data.data !== ids.length) {
+            dispatch(setError(true))
+        }
+        dispatch(setUsersStatus(ids, false))
+    } else {
+        window.location.reload()
+    }
 }
 
-export const deleteUsers = (ids, usersLength, usersCount) => (dispatch) => {
+export const deleteUsers = (ids, usersLength, usersCount) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-    adminAPI
-        .deleteUsers(ids)
-        .then((response) => {
-            dispatch(toggleIsFetching(false))
-            if (response.data.statusCode === 200) {
-                dispatch(reduceUsersCount(ids.length))
-                dispatch(setDeletedUsers(ids))
+    const response = await adminAPI.deleteUsers(ids)
 
-                if (usersLength !== usersCount) {
-                    const lastDownloadPage = usersLength / 10 - 1
-                    const offset = lastDownloadPage * 10 + 10 - ids.length
-                    const limit = offset === 0 ? 10 : 10 - (offset % 10)
-                    dispatch(getUsers(offset, limit))
-                }
-            } else {
-                window.window.location.reload()
-            }
-        })
-        .catch((error) => console.log(error))
+    dispatch(toggleIsFetching(false))
+    if (response.data.statusCode === 200) {
+        dispatch(reduceUsersCount(ids.length))
+        dispatch(setDeletedUsers(ids))
+
+        if (usersLength !== usersCount) {
+            const lastDownloadPage = usersLength / 10 - 1
+            const offset = lastDownloadPage * 10 + 10 - ids.length
+            const limit = offset === 0 ? 10 : 10 - (offset % 10)
+            dispatch(getUsers(offset, limit))
+        }
+    } else {
+        window.window.location.reload()
+    }
 }
 
 export const toggleError = () => (dispatch) => {

@@ -6,6 +6,7 @@ const session = require('express-session')
 const authRoute = require('./routes/auth')
 const adminRouter = require('./routes/adminRouter')
 const profileRouter = require('./routes/profileRouter')
+const companyRouter = require('./routes/companyRouter')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -21,6 +22,7 @@ app.use(
 app.use('/api/auth', authRoute)
 app.use('/api/admin', adminRouter)
 app.use('/api/profile', profileRouter)
+app.use('/api/company', companyRouter)
 app.use(express.static(path.join(__dirname, 'client', 'build')))
 
 app.get('*', (req, res) => {

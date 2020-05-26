@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     title: {
         fontSize: 14,
     },
-    pos: {
+    userName: {
         marginBottom: 12,
     },
 }))
@@ -42,7 +42,7 @@ const InformationBlock = (props) => {
 
     return (
         <Paper className={classes.root}>
-            <Toolbar className={classes.toolbar}>
+            <Toolbar>
                 <Typography variant='h6' component='div'>
                     {translate('profile.informationBlock.userInfo')}
                 </Typography>
@@ -52,7 +52,7 @@ const InformationBlock = (props) => {
                 <Grid item md={3} sm={6} xs={12}>
                     <Card className={classes.card} variant='outlined'>
                         <CardContent>
-                            <Typography className={classes.pos}>
+                            <Typography className={classes.userName}>
                                 {translate('profile.informationBlock.name')}
                             </Typography>
                             <Typography variant='body2' component='p'>
@@ -64,7 +64,7 @@ const InformationBlock = (props) => {
                 <Grid item md={3} sm={6} xs={12}>
                     <Card className={classes.card} variant='outlined'>
                         <CardContent>
-                            <Typography className={classes.pos}>
+                            <Typography className={classes.userName}>
                                 {translate('profile.informationBlock.surname')}
                             </Typography>
                             <Typography variant='body2' component='p'>
@@ -76,7 +76,7 @@ const InformationBlock = (props) => {
                 <Grid item md={3} sm={6} xs={12}>
                     <Card className={classes.card} variant='outlined'>
                         <CardContent>
-                            <Typography className={classes.pos}>
+                            <Typography className={classes.userName}>
                                 {translate('profile.informationBlock.country')}
                             </Typography>
                             <Typography variant='body2' component='p'>
@@ -88,7 +88,7 @@ const InformationBlock = (props) => {
                 <Grid item md={3} sm={6} xs={12}>
                     <Card className={classes.card} variant='outlined'>
                         <CardContent>
-                            <Typography className={classes.pos}>
+                            <Typography className={classes.userName}>
                                 {translate('profile.informationBlock.city')}
                             </Typography>
                             <Typography variant='body2' component='p'>

@@ -71,78 +71,58 @@ const setInitialCompany = (company) => ({ type: INITIAL_COMPANY, company })
 const setCompany = (company) => ({ type: SET_COMPANY, company })
 const setUserInfo = (userInfo) => ({ type: SET_USER_INFO, userInfo })
 
-export const getBonusesCount = (userId) => (dispatch) => {
-    profileAPI
-        .getBonusesCount(userId)
-        .then((response) => {
-            if (response.data.statusCode === 200) {
-                dispatch(setBonusesCount(response.data.data))
-            }
-        })
-        .catch((error) => console.log(error))
+export const getBonusesCount = (userId) => async (dispatch) => {
+    const response = await profileAPI.getBonusesCount(userId)
+
+    if (response.data.statusCode === 200) {
+        dispatch(setBonusesCount(response.data.data))
+    }
 }
 
-export const getInitialBonuses = (userId) => (dispatch) => {
-    profileAPI
-        .getBonuses(userId, 0, 5)
-        .then((response) => {
-            if (response.data.statusCode === 200) {
-                dispatch(setInitialBonuses(response.data.data))
-            }
-        })
-        .catch((error) => console.log(error))
+export const getInitialBonuses = (userId) => async (dispatch) => {
+    const response = await profileAPI.getBonuses(userId, 0, 5)
+
+    if (response.data.statusCode === 200) {
+        dispatch(setInitialBonuses(response.data.data))
+    }
 }
 
-export const getBonuses = (userId, offset, limit) => (dispatch) => {
-    profileAPI
-        .getBonuses(userId, offset, limit)
-        .then((response) => {
-            if (response.data.statusCode === 200) {
-                dispatch(setBonuses(response.data.data))
-            }
-        })
-        .catch((error) => console.log(error))
+export const getBonuses = (userId, offset, limit) => async (dispatch) => {
+    const response = await profileAPI.getBonuses(userId, offset, limit)
+
+    if (response.data.statusCode === 200) {
+        dispatch(setBonuses(response.data.data))
+    }
 }
 
-export const getCompanyCount = (userId) => (dispatch) => {
-    profileAPI
-        .getCompanyCount(userId)
-        .then((response) => {
-            if (response.data.statusCode === 200) {
-                dispatch(setCompanyCount(response.data.data))
-            }
-        })
-        .catch((error) => console.log(error))
+export const getCompanyCount = (userId) => async (dispatch) => {
+    const response = await profileAPI.getCompanyCount(userId)
+
+    if (response.data.statusCode === 200) {
+        dispatch(setCompanyCount(response.data.data))
+    }
 }
 
-export const getInitialCompany = (userId) => (dispatch) => {
-    profileAPI
-        .getCompany(userId, 0, 5)
-        .then((response) => {
-            if (response.data.statusCode === 200) {
-                dispatch(setInitialCompany(response.data.data))
-            }
-        })
-        .catch((error) => console.log(error))
+export const getInitialCompany = (userId) => async (dispatch) => {
+    const response = await profileAPI.getCompany(userId, 0, 5)
+
+    if (response.data.statusCode === 200) {
+        dispatch(setInitialCompany(response.data.data))
+    }
 }
 
-export const getCompany = (userId, offset, limit) => (dispatch) => {
-    profileAPI
-        .getCompany(userId, offset, limit)
-        .then((response) => {
-            if (response.data.statusCode === 200) {
-                dispatch(setCompany(response.data.data))
-            }
-        })
-        .catch((error) => console.log(error))
+export const getCompany = (userId, offset, limit) => async (dispatch) => {
+    const response = await profileAPI.getCompany(userId, offset, limit)
+
+    if (response.data.statusCode === 200) {
+        dispatch(setCompany(response.data.data))
+    }
 }
-export const getUserInfo = (userId) => (dispatch) => {
-    profileAPI
-        .getUserInfo(userId)
-        .then((response) => {
-            if (response.data.statusCode === 200) {
-                dispatch(setUserInfo(response.data.data))
-            }
-        })
-        .catch((error) => console.log(error))
+
+export const getUserInfo = (userId) => async (dispatch) => {
+    const response = await profileAPI.getUserInfo(userId)
+
+    if (response.data.statusCode === 200) {
+        dispatch(setUserInfo(response.data.data))
+    }
 }

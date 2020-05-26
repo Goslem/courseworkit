@@ -46,9 +46,9 @@ const ProfileButton = (props) => {
                 onClose={handleClose}
             >
                 <MenuItem component={RouterLink} to='/profile' onClick={handleClose}>
-                    Profile
+                    {translate('header.profile')}
                 </MenuItem>
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                <MenuItem onClick={handleLogout}>{translate('header.logout')}</MenuItem>
             </Menu>
         </>
     )

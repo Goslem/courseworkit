@@ -17,7 +17,7 @@ const protectedRoute = (req, res, callback) => {
             return res.send(response(401))
         }
 
-        db.Users.findByPk(decoded.id)
+        db.users.findByPk(decoded.id)
             .then(({ id, isBlocked, isAdmin }) => {
                 if (id === null || isBlocked === true || isAdmin === false) {
                     return res.send(response(403))
@@ -33,7 +33,7 @@ const protectedRoute = (req, res, callback) => {
 
 router.get('/users/count', (req, res) => {
     protectedRoute(req, res, () => {
-        db.Users.count().then((count) => {
+        db.users.count().then((count) => {
             res.send(response(200, count))
         })
     })
@@ -41,7 +41,7 @@ router.get('/users/count', (req, res) => {
 
 router.post('/users/get', (req, res) => {
     protectedRoute(req, res, () => {
-        db.Users.findAll({
+        db.users.findAll({
             offset: req.body.offset,
             limit: req.body.limit,
             attributes: ['id', 'name', 'isBlocked', 'isAdmin', 'createdAt', 'updatedAt'],
@@ -53,7 +53,7 @@ router.post('/users/get', (req, res) => {
 
 router.post('/admins/add', (req, res) => {
     protectedRoute(req, res, () => {
-        db.Users.update(
+        db.users.update(
             { isAdmin: true },
             {
                 where: {
@@ -70,7 +70,7 @@ router.post('/admins/add', (req, res) => {
 
 router.post('/admins/delete', (req, res) => {
     protectedRoute(req, res, () => {
-        db.Users.update(
+        db.users.update(
             { isAdmin: false },
             {
                 where: {
@@ -87,7 +87,7 @@ router.post('/admins/delete', (req, res) => {
 
 router.post('/users/block', (req, res) => {
     protectedRoute(req, res, () => {
-        db.Users.update(
+        db.users.update(
             { isBlocked: true },
             {
                 where: {
@@ -104,7 +104,7 @@ router.post('/users/block', (req, res) => {
 
 router.post('/users/unblock', (req, res) => {
     protectedRoute(req, res, () => {
-        db.Users.update(
+        db.users.update(
             { isBlocked: false },
             {
                 where: {
@@ -121,7 +121,7 @@ router.post('/users/unblock', (req, res) => {
 
 router.post('/users/delete', (req, res) => {
     protectedRoute(req, res, () => {
-        db.Users.destroy({
+        db.users.destroy({
             where: {
                 id: {
                     [Sequelize.Op.or]: req.body.ids,

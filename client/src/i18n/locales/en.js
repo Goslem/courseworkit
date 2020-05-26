@@ -6,6 +6,8 @@ const messages = {
     'header.search': 'Search...',
     'header.language': 'english',
     'header.signIn': 'sign in',
+    'header.profile': 'Profile',
+    'header.logout': 'Logout',
 
     'login.logo': 'Sign in to Kickstarter',
     'login.googleSignIn': 'Sign in with Google',
@@ -56,6 +58,16 @@ const messages = {
     'profile.informationBlock.surname': 'Surname:',
     'profile.informationBlock.country': 'Country:',
     'profile.informationBlock.city': 'City:',
+
+    'company.companyTerm': 'Term — ',
+    'company.bonusList.tableTitle': 'Bonuses',
+    'company.bonusList.bonusTitle': 'Title',
+    'company.bonusList.bonusAmount': 'Amount',
+    'company.bonusList.bonusDescription': 'Description',
+    'company.bonusList.bonusPayment': 'Payment',
+    'company.bonusList.supportButton': 'Buy',
+    'company.companyDescription': 'Description',
+    'company.companyProgress': 'Progress',
 }
 
 export default messages
