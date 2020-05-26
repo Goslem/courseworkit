@@ -65,6 +65,14 @@ const UpdatedCompany = (props) => {
         props.getCompany()
     }, [])
 
+    const opts = {
+        playerVars: {
+            enablejsapi: 1,
+            origin: 'https://courseworkit.herokuapp.com',
+            // origin: 'http://localhost:3000/',
+        },
+    }
+
     return props.lastCompany.map((company) => (
         <Paper className={classes.root} key={company.id}>
             <Grid container>
@@ -92,6 +100,7 @@ const UpdatedCompany = (props) => {
                 <Grid item xs={12} className={classes.videoBlock}>
                     <YouTube
                         videoId={company.videoLink}
+                        opts={opts}
                         containerClassName={classes.youtubeContainer}
                     />
                 </Grid>
