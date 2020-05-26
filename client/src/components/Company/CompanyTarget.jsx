@@ -1,36 +1,45 @@
-import React, { useEffect, useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-
+import React from 'react'
+import { makeStyles, withStyles, lighten } from '@material-ui/core/styles'
+import translate from '../../i18n/translate'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
-import { Box } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
-import Rating from '@material-ui/lab/Rating'
+import LinearProgress from '@material-ui/core/LinearProgress'
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        padding: 14,
+        padding: '20px',
         marginBottom: 24,
-        display: 'flex',
-        alignItems: 'center',
-    },
-    companyName: {
-        marginRight: 13,
     },
 }))
 
 const CompanyTarget = (props) => {
     const classes = useStyles()
-    const [rating, setRating] = useState(3.5)
-
-    useEffect(() => {}, [])
+    const progress = (props.currentAmount / props.targetAmount) * 100
 
     return (
         <Paper className={classes.root}>
-            <Typography variant='h5' component='div' className={classes.companyName}>
-            CompanyTarget
-            </Typography>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Typography variant='h5' component='h2'>
+                        {translate('company.companyProgress')}
+                    </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                    <LinearProgress variant='determinate' value={progress} color='secondary' />
+                </Grid>
+                <Grid item xs>
+                    <Typography color='textSecondary' gutterBottom>
+                        {props.currentAmount} y.e.
+                    </Typography>
+                </Grid>
+                <Grid item xs>
+                    <Typography color='textSecondary' gutterBottom align='right'>
+                        {props.targetAmount} y.e.
+                    </Typography>
+                </Grid>
+            </Grid>
         </Paper>
     )
 }

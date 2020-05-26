@@ -59,13 +59,15 @@ const messages = {
     'profile.informationBlock.country': 'Country:',
     'profile.informationBlock.city': 'City:',
 
-    'company.companyName': 'Company name',
+    'company.companyTerm': 'Term — ',
     'company.bonusList.tableTitle': 'Bonuses',
     'company.bonusList.bonusTitle': 'Title',
     'company.bonusList.bonusAmount': 'Amount',
     'company.bonusList.bonusDescription': 'Description',
     'company.bonusList.bonusPayment': 'Payment',
     'company.bonusList.supportButton': 'Buy',
+    'company.companyDescription': 'Description',
+    'company.companyProgress': 'Progress',
 }
 
 export default messages

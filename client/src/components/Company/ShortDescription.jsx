@@ -1,36 +1,38 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import translate from '../../i18n/translate'
+import ReactMarkdown from 'react-markdown'
 
 import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
-import { Box } from '@material-ui/core'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
-import Rating from '@material-ui/lab/Rating'
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         padding: 14,
         marginBottom: 24,
-        display: 'flex',
-        alignItems: 'center',
     },
-    companyName: {
-        marginRight: 13,
+    companyTitle: {
+        marginLeft: 2,
+        marginBottom: 12,
     },
 }))
 
 const ShortDescription = (props) => {
     const classes = useStyles()
-    const [rating, setRating] = useState(3.5)
-
-    useEffect(() => {}, [])
 
     return (
         <Paper className={classes.root}>
-            <Typography variant='h5' component='div' className={classes.companyName}>
-                Short description
+            <Typography className={classes.companyTitle} color='textSecondary' gutterBottom>
+                {translate('company.companyDescription')}
             </Typography>
+            <Card variant='outlined'>
+                <CardContent>
+                    <ReactMarkdown source={props.description} />
+                </CardContent>
+            </Card>
         </Paper>
     )
 }

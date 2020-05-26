@@ -8,12 +8,11 @@ import CompanyTitle from './CompanyTitle'
 import BonusList from './BonusList'
 import ShortDescription from './ShortDescription'
 import CompanyVideo from './CompanyVideo'
-import CompanyGallery from './CompanyGallery'
 import CompanyTarget from './CompanyTarget'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginTop: 65,
+        marginTop: 63,
         paddingTop: 40,
         [theme.breakpoints.down('sm')]: {
             marginTop: 113,
@@ -23,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Admin = (props) => {
     const classes = useStyles()
+    const { company } = props
 
     const companyId = Math.abs(parseInt(props.match.params.companyId, 10))
     const isOwner =
@@ -35,12 +35,14 @@ const Admin = (props) => {
 
     return (
         <Container maxWidth='md' className={classes.root}>
-            <CompanyTitle companyName={props.company.title} />
+            <CompanyTitle companyName={company.title} expirationDate={company.expirationDate} />
             <BonusList companyId={companyId} isAuth={props.isAuth} userId={props.userId} />
-            <ShortDescription />
-            <CompanyVideo />
-            <CompanyGallery />
-            <CompanyTarget />
+            <ShortDescription description={company.description} />
+            <CompanyVideo videoSrc={company.videoLink} />
+            <CompanyTarget
+                currentAmount={company.currentAmount}
+                targetAmount={company.targetAmount}
+            />
         </Container>
     )
 }

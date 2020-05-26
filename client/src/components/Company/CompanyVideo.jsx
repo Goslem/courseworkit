@@ -1,36 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
-import { Box } from '@material-ui/core'
-import Typography from '@material-ui/core/Typography'
-import Rating from '@material-ui/lab/Rating'
+import YouTube from 'react-youtube'
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         padding: 14,
         marginBottom: 24,
-        display: 'flex',
-        alignItems: 'center',
-    },
-    companyName: {
-        marginRight: 13,
     },
 }))
 
 const CompanyVideo = (props) => {
     const classes = useStyles()
-    const [rating, setRating] = useState(3.5)
 
-    useEffect(() => {}, [])
+    const opts = {
+        height: '500',
+        width: '100%',
+    }
 
     return (
         <Paper className={classes.root}>
-            <Typography variant='h5' component='div' className={classes.companyName}>
-                Video
-            </Typography>
+            <YouTube videoId={props.videoSrc} opts={opts} />
         </Paper>
     )
 }
