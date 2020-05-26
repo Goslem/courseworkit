@@ -53,7 +53,7 @@ const messages = {
     'profile.companyList.targetAmount': 'Целевая сумма',
     'profile.companyList.expirationDate': 'Дата окончания',
 
-    'profile.informationBlock.userInfo': 'Блок о пользователе',
+    'profile.informationBlock.userInfo': 'Личная информация',
     'profile.informationBlock.name': 'Имя:',
     'profile.informationBlock.surname': 'Фамилия:',
     'profile.informationBlock.country': 'Страна:',
@@ -68,6 +68,10 @@ const messages = {
     'company.bonusList.supportButton': 'Купить',
     'company.companyDescription': 'Описание',
     'company.companyProgress': 'Прогресс',
+
+    'home.homeTitle': 'Последние обновленные компании',
+    'home.updatedAt': 'Обновлено: ',
+    'home.view': 'Смотреть',
 }
 
 export default messages

@@ -10,6 +10,7 @@ import { appReducer } from './appReducer'
 import { adminReducer } from './adminReducer'
 import { profileReducer } from './profileReducer'
 import { companyReducer } from './companyReducer'
+import { homeReducer } from './homeReducer'
 
 const reducers = combineReducers({
     form: formReducer,
@@ -20,6 +21,7 @@ const reducers = combineReducers({
     admin: adminReducer,
     profile: profileReducer,
     company: companyReducer,
+    home: homeReducer,
 })
 
 let store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)))

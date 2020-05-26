@@ -2,7 +2,6 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import translate from '../../i18n/translate'
 import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +25,7 @@ const CompanyTitle = (props) => {
             </Typography>
 
             <Typography color='textSecondary' gutterBottom>
-                {translate('company.companyTerm')}{' '}
+                {translate('company.companyTerm')}
                 {new Date(props.expirationDate).toLocaleDateString()}
             </Typography>
         </Paper>

@@ -27,7 +27,7 @@ export const companyReducer = (state = initialState, action) => {
         case SET_COMPANY_ID:
             return {
                 ...state,
-                userCompanyId: action.userCompanyId,
+                userCompanyId: [...action.userCompanyId],
             }
         case SET_COMPANY:
             return {
@@ -42,7 +42,7 @@ export const companyReducer = (state = initialState, action) => {
         case INITIAL_BONUSES:
             return {
                 ...state,
-                bonuses: action.bonuses,
+                bonuses: [...action.bonuses],
             }
         case SET_BONUSES:
             return {
@@ -107,9 +107,9 @@ export const getBonuses = (companyId, offset, limit) => async (dispatch) => {
     }
 }
 
-export const buyBonus = (bonusId, userId) => async (dispatch) => {
+export const buyBonus = (bonusId, userId, companyId, bonusAmount) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-    await companyAPI.buyBonus(bonusId, userId)
+    await companyAPI.buyBonus(bonusId, userId, companyId, bonusAmount)
 
     dispatch(toggleIsFetching(false))
 }

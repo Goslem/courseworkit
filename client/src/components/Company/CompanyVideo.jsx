@@ -10,19 +10,29 @@ const useStyles = makeStyles((theme) => ({
         padding: 14,
         marginBottom: 24,
     },
+    youtubeContainer: {
+        position: 'relative',
+        width: '100%',
+        height: 0,
+        paddingBottom: '56.25%',
+        overflow: 'hidden',
+        marginBottom: 50,
+        '& iframe': {
+            width: '100%',
+            height: '100%',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+        },
+    },
 }))
 
 const CompanyVideo = (props) => {
     const classes = useStyles()
 
-    const opts = {
-        height: '500',
-        width: '100%',
-    }
-
     return (
         <Paper className={classes.root}>
-            <YouTube videoId={props.videoSrc} opts={opts} />
+            <YouTube videoId={props.videoSrc} containerClassName={classes.youtubeContainer} />
         </Paper>
     )
 }

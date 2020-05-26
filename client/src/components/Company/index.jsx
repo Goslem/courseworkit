@@ -29,8 +29,8 @@ const Admin = (props) => {
         props.isAdmin || props.userCompanyId.includes((company) => company.id === companyId)
 
     useEffect(() => {
-        if (props.isAuth) props.getUserCompanyId(props.userId)
         props.getCompany(companyId)
+        if (props.isAuth) props.getUserCompanyId(props.userId)
     }, [])
 
     return (

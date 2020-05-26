@@ -53,7 +53,7 @@ const messages = {
     'profile.companyList.targetAmount': 'Target amount',
     'profile.companyList.expirationDate': 'Expiration date',
 
-    'profile.informationBlock.userInfo': 'Block about user',
+    'profile.informationBlock.userInfo': 'Personal information',
     'profile.informationBlock.name': 'Name:',
     'profile.informationBlock.surname': 'Surname:',
     'profile.informationBlock.country': 'Country:',
@@ -68,6 +68,10 @@ const messages = {
     'company.bonusList.supportButton': 'Buy',
     'company.companyDescription': 'Description',
     'company.companyProgress': 'Progress',
+
+    'home.homeTitle': 'Latest updated companies',
+    'home.updatedAt': 'Updated at: ',
+    'home.view': 'View',
 }
 
 export default messages

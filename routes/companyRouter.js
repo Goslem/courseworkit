@@ -98,7 +98,22 @@ router.post('/bonuses/buy', (req, res) => {
                 through: { bonuseId: req.body.bonusId, userId: req.body.userId },
             })
 
-            res.send(response(200))
+            db.company
+                .update(
+                    {
+                        currentAmount: db.sequelize.literal(
+                            `currentAmount + ${req.body.bonusAmount}`
+                        ),
+                    },
+                    {
+                        where: {
+                            id: req.body.companyId,
+                        },
+                    }
+                )
+                .then(() => {
+                    res.send(response(200))
+                })
         })
     })
 })

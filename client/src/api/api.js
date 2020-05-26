@@ -77,7 +77,13 @@ export const companyAPI = {
     getBonuses(companyId, offset, limit) {
         return instance.post('company/bonuses/get', { companyId, offset, limit })
     },
-    buyBonus(bonusId, userId) {
-        return instance.post('company/bonuses/buy', { bonusId, userId })
+    buyBonus(bonusId, userId, companyId, bonusAmount) {
+        return instance.post('company/bonuses/buy', { bonusId, userId, companyId, bonusAmount })
+    },
+}
+
+export const homeAPI = {
+    getCompany() {
+        return instance.post('home/company/get')
     },
 }
