@@ -27,7 +27,7 @@ router.post('/login', (req, res) => {
     const error = checkRequestValues(req.body.login, req.body.password)
     if (error) return res.send(error)
 
-    db.Users.findOne({
+    db.users.findOne({
         where: {
             login: req.body.login,
             password: req.body.password,
@@ -51,7 +51,7 @@ router.post('/registration', (req, res) => {
     const error = checkRequestValues(req.body.login, req.body.password)
     if (error) return res.send(error)
 
-    db.Users.findOrCreate({
+    db.users.findOrCreate({
         where: {
             login: req.body.login,
         },
@@ -80,7 +80,7 @@ router.post('/socialLogin', (req, res) => {
     const error = checkRequestValues(req.body.socialId, req.body.name, 40)
     if (error) return res.send(error)
 
-    db.Users.findOrCreate({
+    db.users.findOrCreate({
         where: {
             socialId: req.body.socialId,
         },
@@ -113,7 +113,7 @@ router.post('/me', (req, res) => {
             return res.send(response(401))
         }
 
-        db.Users.findByPk(decoded.id)
+        db.users.findByPk(decoded.id)
             .then(({ id, isBlocked, isAdmin }) => {
                 if (id === null || isBlocked === true) {
                     return res.send(response(403))

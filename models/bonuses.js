@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     const Bonuses = sequelize.define(
-        'Bonuses',
+        'bonuses',
         {
             title: {
                 type: DataTypes.STRING,
@@ -21,8 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     )
 
     Bonuses.associate = (models) => {
-        Bonuses.belongsTo(models.Company)
-        Bonuses.belongsToMany(models.Users, { through: 'userBonuses', timestamps: false })
+        Bonuses.belongsTo(models.company)
+        Bonuses.belongsToMany(models.users, { through: 'userBonuses', timestamps: false })
     }
 
     return Bonuses
