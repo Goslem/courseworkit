@@ -47,8 +47,10 @@ const CreateBonus = (props) => {
 
 const mapStateToProps = (state) => ({
     userId: state.auth.userId,
-    companiesId: state.bonus.companiesId
+    companiesId: state.bonus.companiesId,
 })
 
-// export default compose(connect(mapStateToProps, { createCompany }), withLogoutRedirect)(CreateBonus)
-export default connect(mapStateToProps, { createBonus, getCompaniesId })(CreateBonus)
+export default compose(
+    connect(mapStateToProps, { createBonus, getCompaniesId }),
+    withLogoutRedirect
+)(CreateBonus)

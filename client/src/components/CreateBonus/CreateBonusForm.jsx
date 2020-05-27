@@ -22,6 +22,27 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
+const renderSelectField = ({
+    input,
+    label,
+    meta: { touched, invalid, error },
+    children,
+    ...custom
+}) => (
+    <TextField
+        error={touched && invalid}
+        helperText={touched && error}
+        {...input}
+        {...custom}
+        label={label}
+        select
+        variant='outlined'
+        onChange={(value) => input.onChange(value)}
+    >
+        {children}
+    </TextField>
+)
+
 const maxLength20 = maxLengthCreator(20)
 
 const CreateBonusForm = (props) => {
@@ -34,24 +55,17 @@ const CreateBonusForm = (props) => {
 
     return (
         <form onSubmit={props.handleSubmit} className={classes.createForm}>
-            {/* <TextField
-                id='outlined-select-currency'
-                select
+            <Field
+                name='companyId'
+                component={renderSelectField}
                 label='Select company'
-                value={currency}
                 onChange={handleChange}
-                variant='outlined'
+                validate={[required]}
             >
                 {props.companiesId.map((option) => (
                     <MenuItem key={option.id} value={option.id}>
                         {option.title}
                     </MenuItem>
-                ))}
-            </TextField> */}
-
-            <Field name='companyId' component='select'>
-                {props.companiesId.map((option) => (
-                    <option value={option.id} key={option.id}>{option.title}</option>
                 ))}
             </Field>
 
