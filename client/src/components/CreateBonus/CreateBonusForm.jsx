@@ -44,6 +44,7 @@ const renderSelectField = ({
 )
 
 const maxLength20 = maxLengthCreator(20)
+const maxLength40 = maxLengthCreator(40)
 
 const CreateBonusForm = (props) => {
     const classes = useStyles()
@@ -89,7 +90,7 @@ const CreateBonusForm = (props) => {
                 autoComplete='off'
                 component={renderField}
                 label={translate('bonusCreate.inputDescription')}
-                validate={[required, maxLength20]}
+                validate={[required, maxLength40]}
             />
 
             <Button type='submit' variant='contained' color='primary' size='large'>

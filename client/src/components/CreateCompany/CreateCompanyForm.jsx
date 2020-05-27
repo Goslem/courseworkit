@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const maxLength20 = maxLengthCreator(20)
+const maxLength60 = maxLengthCreator(60)
 const maxLength3000 = maxLengthCreator(3000)
 
 const CreateCompanyForm = (props) => {
@@ -42,7 +43,7 @@ const CreateCompanyForm = (props) => {
                 autoComplete='off'
                 component={renderField}
                 label={translate('companyCreate.inputTitle')}
-                validate={[required, maxLength20]}
+                validate={[required, maxLength60]}
             />
             <Field
                 name='description'
