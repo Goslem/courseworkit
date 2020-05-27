@@ -19,6 +19,8 @@ import Company from './components/Company'
 import Profile from './components/Profile'
 import Admin from './components/Admin'
 import ErrorPage from './components/404'
+import CreateCompany from './components/CreateCompany'
+import CreateBonus from './components/CreateBonus'
 
 const getTheme = (title) => {
     return title === 'light' ? lightTheme : darkTheme
@@ -47,6 +49,8 @@ const App = (props) => {
                             <Route path='/registration' exact component={Registration} />
 
                             <Route path='/' exact component={Home} />
+                            <Route path='/company/create' exact component={CreateCompany} />
+                            <Route path='/bonus/create' exact component={CreateBonus} />
                             <Route path='/company/:companyId' exact component={Company} />
                             <Route path='/profile/:userId?' exact component={Profile} />
                             <Route path='/admin' exact component={Admin} />

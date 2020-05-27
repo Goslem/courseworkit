@@ -54,7 +54,6 @@ export const companyReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching,
             }
-
         default:
             return state
     }
@@ -112,4 +111,16 @@ export const buyBonus = (bonusId, userId, companyId, bonusAmount) => async (disp
     await companyAPI.buyBonus(bonusId, userId, companyId, bonusAmount)
 
     dispatch(toggleIsFetching(false))
+}
+
+export const createCompany = (data) => async (dispatch) => {
+    const { userId, title, description, videoLink, targetAmount, expirationDate } = data
+    await companyAPI.createCompany(
+        userId,
+        title,
+        description,
+        videoLink,
+        targetAmount,
+        expirationDate
+    )
 }

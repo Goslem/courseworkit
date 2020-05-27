@@ -20,7 +20,7 @@ router.post('/userCompanyId/get', (req, res) => {
     db.company
         .findAll({
             where: {
-                UserId: req.body.userId,
+                userId: req.body.userId,
             },
             attributes: ['id'],
         })
@@ -116,6 +116,29 @@ router.post('/bonuses/buy', (req, res) => {
                 })
         })
     })
+})
+
+router.post('/create', (req, res) => {
+    if (!req.body.title || !req.body.description || !req.body.videoLink || !req.body.expirationDate)
+        return res.send(response(400))
+
+    const field1After = Math.abs(parseInt(req.body.targetAmount, 10))
+    const field2After = Math.abs(parseInt(req.body.userId, 10))
+    if (isNaN(field1After) || isNaN(field2After)) res.send(response(400))
+
+    db.company
+        .create({
+            title: req.body.title,
+            description: req.body.description,
+            videoLink: req.body.videoLink,
+            currentAmount: 0,
+            targetAmount: req.body.targetAmount,
+            expirationDate: req.body.expirationDate,
+            userId: req.body.userId,
+        })
+        .then(() => {
+            res.send(response(200))
+        })
 })
 
 module.exports = router

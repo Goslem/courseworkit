@@ -30,9 +30,20 @@ const useStyles = makeStyles((theme) => ({
 const CompanyVideo = (props) => {
     const classes = useStyles()
 
+    const opts = {
+        playerVars: {
+            enablejsapi: 1,
+            origin: 'https://courseworkit.herokuapp.com',
+        },
+    }
+
     return (
         <Paper className={classes.root}>
-            <YouTube videoId={props.videoSrc} containerClassName={classes.youtubeContainer} />
+            <YouTube
+                videoId={props.videoSrc}
+                opts={opts}
+                containerClassName={classes.youtubeContainer}
+            />
         </Paper>
     )
 }
