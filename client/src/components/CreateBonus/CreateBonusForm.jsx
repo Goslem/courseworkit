@@ -58,7 +58,7 @@ const CreateBonusForm = (props) => {
             <Field
                 name='companyId'
                 component={renderSelectField}
-                label='Select company'
+                label={translate('bonusCreate.selectCompany')}
                 onChange={handleChange}
                 validate={[required]}
             >
@@ -73,7 +73,7 @@ const CreateBonusForm = (props) => {
                 name='title'
                 autoComplete='off'
                 component={renderField}
-                label={translate('companyCreate.inputTitle')}
+                label={translate('bonusCreate.inputTitle')}
                 validate={[required, maxLength20]}
             />
             <Field
@@ -81,19 +81,19 @@ const CreateBonusForm = (props) => {
                 type='number'
                 autoComplete='off'
                 component={renderField}
-                label={translate('companyCreate.inputTargetAmount')}
+                label={translate('bonusCreate.inputAmount')}
                 validate={[required, maxLength20]}
             />
             <Field
                 name='description'
                 autoComplete='off'
                 component={renderField}
-                label={translate('companyCreate.inputVideoId')}
+                label={translate('bonusCreate.inputDescription')}
                 validate={[required, maxLength20]}
             />
 
             <Button type='submit' variant='contained' color='primary' size='large'>
-                {translate('companyCreate.create')}
+                {translate('bonusCreate.create')}
             </Button>
         </form>
     )

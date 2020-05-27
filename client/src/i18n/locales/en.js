@@ -82,6 +82,11 @@ const messages = {
     'companyCreate.create': 'Create',
 
     'bonusCreate.title': 'Bonus creation',
+    'bonusCreate.selectCompany': 'Select company',
+    'bonusCreate.inputTitle': 'Title',
+    'bonusCreate.inputAmount': 'Amount',
+    'bonusCreate.inputDescription': 'Description',
+    'bonusCreate.create': 'Create',
 }
 
 export default messages
