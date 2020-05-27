@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const maxLength20 = maxLengthCreator(20)
+const maxLength3000 = maxLengthCreator(3000)
 
 const CreateCompanyForm = (props) => {
     const classes = useStyles()
@@ -49,7 +50,7 @@ const CreateCompanyForm = (props) => {
                 component={renderField}
                 label={translate('companyCreate.inputDescription')}
                 multiline
-                validate={[required, maxLength20]}
+                validate={[required, maxLength3000]}
             />
             <Field
                 name='videoLink'
