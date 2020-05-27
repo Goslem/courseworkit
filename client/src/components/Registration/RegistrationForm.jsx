@@ -33,6 +33,8 @@ const RegistrationForm = (props) => {
     const classes = useStyles()
     const errorCode = errorsCode.find((error) => error === props.error)
 
+    console.log('props.error', props.error)
+
     return (
         <form onSubmit={props.handleSubmit} className={classes.form}>
             <Field

@@ -72,6 +72,16 @@ const messages = {
     'home.homeTitle': 'Latest updated companies',
     'home.updatedAt': 'Updated at: ',
     'home.view': 'View',
+
+    'companyCreate.title': 'Company creation',
+    'companyCreate.inputTitle': 'Title',
+    'companyCreate.inputDescription': 'Description',
+    'companyCreate.inputVideoId': 'Video id',
+    'companyCreate.inputTargetAmount': 'Target amount',
+    'companyCreate.inputDate': 'Date',
+    'companyCreate.create': 'Create',
+
+    'bonusCreate.title': 'Bonus creation',
 }
 
 export default messages

@@ -69,7 +69,6 @@ const UpdatedCompany = (props) => {
         playerVars: {
             enablejsapi: 1,
             origin: 'https://courseworkit.herokuapp.com',
-            // origin: 'http://localhost:3000/',
         },
     }
 

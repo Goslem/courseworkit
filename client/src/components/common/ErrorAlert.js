@@ -8,11 +8,9 @@ function Alert(props) {
 }
 
 export const ErrorAlert = (props) => {
-    return(
+    return (
         <Snackbar open={true} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-            <Alert severity='error'>
-                {translate(props.error)}
-            </Alert>
+            <Alert severity='error'>{translate(props.error)}</Alert>
         </Snackbar>
     )
 }

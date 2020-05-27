@@ -72,6 +72,16 @@ const messages = {
     'home.homeTitle': 'Последние обновленные компании',
     'home.updatedAt': 'Обновлено: ',
     'home.view': 'Смотреть',
+
+    'companyCreate.title': 'Создание компании',
+    'companyCreate.inputTitle': 'Название',
+    'companyCreate.inputDescription': 'Описание',
+    'companyCreate.inputVideoId': 'Код видео',
+    'companyCreate.inputTargetAmount': 'Целевая сумма',
+    'companyCreate.inputDate': 'Дата',
+    'companyCreate.create': 'Создать',
+
+    'bonusCreate.title': 'Создание бонуса',
 }
 
 export default messages

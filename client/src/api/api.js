@@ -80,10 +80,29 @@ export const companyAPI = {
     buyBonus(bonusId, userId, companyId, bonusAmount) {
         return instance.post('company/bonuses/buy', { bonusId, userId, companyId, bonusAmount })
     },
+    createCompany(userId, title, description, videoLink, targetAmount, expirationDate) {
+        return instance.post('company/create', {
+            userId,
+            title,
+            description,
+            videoLink,
+            targetAmount,
+            expirationDate,
+        })
+    },
 }
 
 export const homeAPI = {
     getCompany() {
         return instance.post('home/company/get')
+    },
+}
+
+export const bonusAPI = {
+    getCompaniesId(userId) {
+        return instance.post('bonus/companiesId/get', { userId })
+    },
+    createBonus(title, amount, description, companyId) {
+        return instance.post('bonus/create', { title, amount, description, companyId })
     },
 }
