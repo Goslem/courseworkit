@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
-import { getUserInfo } from '../../redux/profileReducer'
-import translate from '../../i18n/translate'
+import { getUserInfo } from '../../../redux/profileReducer'
+import translate from '../../../i18n/translate'
 
 import Paper from '@material-ui/core/Paper'
 import Toolbar from '@material-ui/core/Toolbar'

@@ -17,10 +17,7 @@ export const localeReducer = (state = initialState, action) => {
     }
 }
 
-const setLocale = (payload) => ({
-    type: CHANGE_LOCALE,
-    payload,
-})
+const setLocale = (payload) => ({ type: CHANGE_LOCALE, payload })
 
 export const toggleLocale = (locale) => (dispatch) => {
     const reverseLocale = locale === locales.EN ? locales.RU : locales.EN

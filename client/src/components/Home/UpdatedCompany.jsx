@@ -7,8 +7,8 @@ import { Link as RouterLink } from 'react-router-dom'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-import YouTube from 'react-youtube'
 import Button from '@material-ui/core/Button'
+import YouTube from 'react-youtube'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     },
     viewButton: {
         height: 40,
+        [theme.breakpoints.down('xs')]: {
+            marginBottom: 4,
+        },
     },
     videoBlock: {
         marginTop: 20,
@@ -47,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
         height: 0,
         paddingBottom: '56.25%',
         overflow: 'hidden',
-        marginBottom: 50,
         '& iframe': {
             width: '100%',
             height: '100%',
@@ -84,6 +86,7 @@ const UpdatedCompany = (props) => {
                         {new Date(company.updatedAt).toLocaleDateString()}
                     </Typography>
                 </Grid>
+
                 <Grid item className={classes.viewButtonBlock}>
                     <Button
                         color='primary'
@@ -96,6 +99,7 @@ const UpdatedCompany = (props) => {
                         {translate('home.view')}
                     </Button>
                 </Grid>
+                
                 <Grid item xs={12} className={classes.videoBlock}>
                     <YouTube
                         videoId={company.videoLink}

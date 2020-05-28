@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
         height: 0,
         paddingBottom: '56.25%',
         overflow: 'hidden',
-        marginBottom: 50,
         '& iframe': {
             width: '100%',
             height: '100%',

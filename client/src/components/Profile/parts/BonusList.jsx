@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import translate from '../../i18n/translate'
+import translate from '../../../i18n/translate'
 import { connect } from 'react-redux'
-import { getCompanyCount, getInitialCompany, getCompany } from '../../redux/profileReducer'
+import { getBonusesCount, getInitialBonuses, getBonuses } from '../../../redux/profileReducer'
 
 import Paper from '@material-ui/core/Paper'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -30,20 +30,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const CompanyList = (props) => {
+const BonusList = (props) => {
     const classes = useStyles()
     const [page, setPage] = useState(0)
 
     useEffect(() => {
-        props.getCompanyCount(props.userId)
-        props.getInitialCompany(props.userId)
+        props.getBonusesCount(props.userId)
+        props.getInitialBonuses(props.userId)
     }, [])
 
     const handleChangePage = (event, newPage) => {
-        if (props.company.length <= newPage * 5) {
-            props.getCompany(props.userId, newPage * 5, 5)
+        if (props.bonuses.length <= newPage * 5) {
+            props.getBonuses(props.userId, newPage * 5, 5)
         }
-
         setPage(newPage)
     }
 
@@ -52,37 +51,27 @@ const CompanyList = (props) => {
             <TableContainer>
                 <Toolbar className={classes.toolbar}>
                     <Typography variant='h6' component='div'>
-                        {translate('profile.companyList.tableTitle')}
+                        {translate('profile.bonusList.tableTitle')}
                     </Typography>
                 </Toolbar>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell>{translate('profile.companyList.companyId')}</TableCell>
+                            <TableCell>{translate('profile.bonusList.bonusTitle')}</TableCell>
                             <TableCell align='right'>
-                                {translate('profile.companyList.companyTitle')}
+                                {translate('profile.bonusList.bonusAmount')}
                             </TableCell>
                             <TableCell align='right'>
-                                {translate('profile.companyList.currentAmount')}
-                            </TableCell>
-                            <TableCell align='right'>
-                                {translate('profile.companyList.targetAmount')}
-                            </TableCell>
-                            <TableCell align='right'>
-                                {translate('profile.companyList.expirationDate')}
+                                {translate('profile.bonusList.bonusDescription')}
                             </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.company.slice(page * 5, page * 5 + 5).map((company) => (
-                            <TableRow key={company.id || 0}>
-                                <TableCell>{company.id}</TableCell>
-                                <TableCell align='right'>{company.title}</TableCell>
-                                <TableCell align='right'>{company.currentAmount} y.e.</TableCell>
-                                <TableCell align='right'>{company.targetAmount} y.e.</TableCell>
-                                <TableCell align='right'>
-                                    {new Date(company.expirationDate).toLocaleDateString()}
-                                </TableCell>
+                        {props.bonuses.slice(page * 5, page * 5 + 5).map((bonus) => (
+                            <TableRow key={bonus.id}>
+                                <TableCell>{bonus.title}</TableCell>
+                                <TableCell align='right'>{bonus.amount} y.e.</TableCell>
+                                <TableCell align='right'>{bonus.description}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -91,7 +80,7 @@ const CompanyList = (props) => {
 
             <TablePagination
                 component='div'
-                count={props.companyCount}
+                count={props.bonusesCount}
                 rowsPerPage={5}
                 page={page}
                 onChangePage={handleChangePage}
@@ -102,10 +91,10 @@ const CompanyList = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-    companyCount: state.profile.companyCount,
-    company: state.profile.company,
+    bonusesCount: state.profile.bonusesCount,
+    bonuses: state.profile.bonuses,
 })
 
-export default connect(mapStateToProps, { getCompanyCount, getInitialCompany, getCompany })(
-    CompanyList
+export default connect(mapStateToProps, { getBonusesCount, getInitialBonuses, getBonuses })(
+    BonusList
 )

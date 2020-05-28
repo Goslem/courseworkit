@@ -11,3 +11,23 @@ export const renderField = ({ label, input, meta: { touched, invalid, error }, .
         {...custom}
     />
 )
+
+export const renderSelectField = ({
+    input,
+    label,
+    meta: { touched, invalid, error },
+    children,
+    ...custom
+}) => (
+    <TextField
+        label={label}
+        error={touched && invalid}
+        helperText={touched && error}
+        variant='outlined'
+        select
+        {...input}
+        {...custom}
+    >
+        {children}
+    </TextField>
+)

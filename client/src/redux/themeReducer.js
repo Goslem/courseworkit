@@ -16,10 +16,7 @@ export const themeReducer = (state = initialState, action) => {
     }
 }
 
-const setTheme = (payload) => ({
-    type: CHANGE_THEME,
-    payload,
-})
+const setTheme = (payload) => ({ type: CHANGE_THEME, payload })
 
 export const toggleTheme = (title) => (dispatch) => {
     const reverseTitle = title === 'light' ? 'dark' : 'light'

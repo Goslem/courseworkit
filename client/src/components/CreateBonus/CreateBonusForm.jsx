@@ -5,8 +5,11 @@ import { Field, reduxForm } from 'redux-form'
 import { renderField } from '../common/Fields'
 import Button from '@material-ui/core/Button'
 import { required, maxLengthCreator } from '../../validators/index'
-import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { InfoAlert } from '../common/InfoAlert'
+import { renderSelectField } from '../common/Fields'
 
 const useStyles = makeStyles((theme) => ({
     createForm: {
@@ -22,37 +25,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const renderSelectField = ({
-    input,
-    label,
-    meta: { touched, invalid, error },
-    children,
-    ...custom
-}) => (
-    <TextField
-        error={touched && invalid}
-        helperText={touched && error}
-        {...input}
-        {...custom}
-        label={label}
-        select
-        variant='outlined'
-        onChange={(value) => input.onChange(value)}
-    >
-        {children}
-    </TextField>
-)
-
 const maxLength20 = maxLengthCreator(20)
 const maxLength40 = maxLengthCreator(40)
 
 const CreateBonusForm = (props) => {
     const classes = useStyles()
-    const [currency, setCurrency] = React.useState()
-
-    const handleChange = (event) => {
-        setCurrency(event.target.value)
-    }
 
     return (
         <form onSubmit={props.handleSubmit} className={classes.createForm}>
@@ -60,7 +37,6 @@ const CreateBonusForm = (props) => {
                 name='companyId'
                 component={renderSelectField}
                 label={translate('bonusCreate.selectCompany')}
-                onChange={handleChange}
                 validate={[required]}
             >
                 {props.companiesId.map((option) => (
@@ -77,6 +53,7 @@ const CreateBonusForm = (props) => {
                 label={translate('bonusCreate.inputTitle')}
                 validate={[required, maxLength20]}
             />
+            
             <Field
                 name='amount'
                 type='number'
@@ -85,6 +62,7 @@ const CreateBonusForm = (props) => {
                 label={translate('bonusCreate.inputAmount')}
                 validate={[required, maxLength20]}
             />
+            
             <Field
                 name='description'
                 autoComplete='off'
@@ -93,11 +71,29 @@ const CreateBonusForm = (props) => {
                 validate={[required, maxLength40]}
             />
 
-            <Button type='submit' variant='contained' color='primary' size='large'>
+            <Button
+                type='submit'
+                variant='contained'
+                color='primary'
+                size='large'
+                disabled={props.isFetching}
+            >
                 {translate('bonusCreate.create')}
             </Button>
+
+            {props.error === 200 && (
+                <InfoAlert error={translate('bonusCreate.message200')} severity={'success'} />
+            )}
+            {props.error === 204 && (
+                <InfoAlert error={translate('bonusCreate.message204')} severity={'error'} />
+            )}
         </form>
     )
 }
 
-export default reduxForm({ form: 'bonus' })(CreateBonusForm)
+const mapStateToProps = (state) => ({
+    companiesId: state.bonus.companiesId,
+    isFetching: state.bonus.isFetching,
+})
+
+export default compose(connect(mapStateToProps), reduxForm({ form: 'bonus' }))(CreateBonusForm)

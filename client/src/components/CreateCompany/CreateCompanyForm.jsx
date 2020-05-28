@@ -5,6 +5,9 @@ import { Field, reduxForm } from 'redux-form'
 import { renderField } from '../common/Fields'
 import Button from '@material-ui/core/Button'
 import { required, maxLengthCreator } from '../../validators/index'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { InfoAlert } from '../common/InfoAlert'
 
 const useStyles = makeStyles((theme) => ({
     createForm: {
@@ -38,6 +41,7 @@ const CreateCompanyForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit} className={classes.createForm}>
             <Field name='userId' component='input' type='hidden' />
+
             <Field
                 name='title'
                 autoComplete='off'
@@ -45,6 +49,7 @@ const CreateCompanyForm = (props) => {
                 label={translate('companyCreate.inputTitle')}
                 validate={[required, maxLength60]}
             />
+
             <Field
                 name='description'
                 autoComplete='off'
@@ -53,6 +58,7 @@ const CreateCompanyForm = (props) => {
                 multiline
                 validate={[required, maxLength3000]}
             />
+
             <Field
                 name='videoLink'
                 autoComplete='off'
@@ -60,6 +66,7 @@ const CreateCompanyForm = (props) => {
                 label={translate('companyCreate.inputVideoId')}
                 validate={[required, maxLength20]}
             />
+
             <Field
                 name='targetAmount'
                 type='number'
@@ -68,6 +75,7 @@ const CreateCompanyForm = (props) => {
                 label={translate('companyCreate.inputTargetAmount')}
                 validate={[required, maxLength20]}
             />
+
             <Field
                 name='expirationDate'
                 type='date'
@@ -77,11 +85,29 @@ const CreateCompanyForm = (props) => {
                 validate={[required]}
             />
 
-            <Button type='submit' variant='contained' color='primary' size='large'>
+            <Button
+                type='submit'
+                variant='contained'
+                color='primary'
+                size='large'
+                disabled={props.isFetching}
+            >
                 {translate('companyCreate.create')}
             </Button>
+
+            {props.error === 200 && (
+                <InfoAlert error={translate('companyCreate.message200')} severity={'success'} />
+            )}
+            {props.error === 204 && (
+                <InfoAlert error={translate('companyCreate.message204')} severity={'error'} />
+            )}
         </form>
     )
 }
 
-export default reduxForm({ form: 'company' })(CreateCompanyForm)
+const mapStateToProps = (state) => ({
+    userId: state.auth.userId,
+    isFetching: state.company.isFetching,
+})
+
+export default compose(connect(mapStateToProps), reduxForm({ form: 'company' }))(CreateCompanyForm)

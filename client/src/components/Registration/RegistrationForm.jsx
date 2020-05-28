@@ -6,7 +6,7 @@ import translate from '../../i18n/translate'
 import { Field, reduxForm } from 'redux-form'
 import { renderField } from '../common/Fields'
 import { required, maxLengthCreator } from '../../validators/index'
-import { ErrorAlert } from '../common/ErrorAlert'
+import { InfoAlert } from '../common/InfoAlert'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 
@@ -73,7 +73,9 @@ const RegistrationForm = (props) => {
                 </Button>
             </div>
 
-            {errorCode && <ErrorAlert error={'registration.error' + errorCode} />}
+            {errorCode && (
+                <InfoAlert error={translate(`registration.error${errorCode}`)} severity='error' />
+            )}
         </form>
     )
 }

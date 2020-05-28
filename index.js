@@ -27,8 +27,8 @@ app.use('/api/profile', profileRouter)
 app.use('/api/company', companyRouter)
 app.use('/api/home', homeRouter)
 app.use('/api/bonus', bonusRouter)
-app.use(express.static(path.join(__dirname, 'client', 'build')))
 
+app.use(express.static(path.join(__dirname, 'client', 'build')))
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
 })

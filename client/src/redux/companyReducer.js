@@ -1,4 +1,5 @@
 import { companyAPI } from '../api/api'
+import { stopSubmit } from 'redux-form'
 
 const SET_COMPANY_ID = 'SET_COMPANY_ID'
 const SET_COMPANY = 'SET_COMPANY'
@@ -114,13 +115,18 @@ export const buyBonus = (bonusId, userId, companyId, bonusAmount) => async (disp
 }
 
 export const createCompany = (data) => async (dispatch) => {
+    dispatch(toggleIsFetching(true))
     const { userId, title, description, videoLink, targetAmount, expirationDate } = data
-    await companyAPI.createCompany(
-        userId,
-        title,
-        description,
-        videoLink,
-        targetAmount,
-        expirationDate
-    )
+    
+    companyAPI
+        .createCompany(userId, title, description, videoLink, targetAmount, expirationDate)
+        .then((response) => {
+            dispatch(toggleIsFetching(false))
+            
+            if (response.data.statusCode === 200) {
+                dispatch(stopSubmit('company', { _error: 200 }))
+            } else {
+                dispatch(stopSubmit('company', { _error: 204 }))
+            }
+        })
 }

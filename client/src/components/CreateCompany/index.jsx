@@ -41,8 +41,4 @@ const CreateCompany = (props) => {
     )
 }
 
-const mapStateToProps = (state) => ({
-    userId: state.auth.userId,
-})
-
-export default compose(connect(mapStateToProps, { createCompany }), withLogoutRedirect)(CreateCompany)
+export default compose(connect(null, { createCompany }), withLogoutRedirect)(CreateCompany)

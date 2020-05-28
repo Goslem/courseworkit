@@ -80,6 +80,8 @@ const messages = {
     'companyCreate.inputTargetAmount': 'Target amount',
     'companyCreate.inputDate': 'Date',
     'companyCreate.create': 'Create',
+    'companyCreate.message200': 'Company created',
+    'companyCreate.message204': 'Failed to create a company',
 
     'bonusCreate.title': 'Bonus creation',
     'bonusCreate.selectCompany': 'Select company',
@@ -87,6 +89,8 @@ const messages = {
     'bonusCreate.inputAmount': 'Amount',
     'bonusCreate.inputDescription': 'Description',
     'bonusCreate.create': 'Create',
+    'bonusCreate.message200': 'Bonus created',
+    'bonusCreate.message204': 'Failed to create a bonus',
 }
 
 export default messages

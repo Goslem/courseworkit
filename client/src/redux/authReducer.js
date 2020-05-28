@@ -38,6 +38,17 @@ const toggleIsFetching = (isFetching) => ({
     isFetching,
 })
 
+export const getAuthUserData = () => async (dispatch) => {
+    const response = await authAPI.me()
+
+    if (response.data.statusCode === 200) {
+        let { id, isAdmin } = response.data.data
+        dispatch(setUserData(id, true, isAdmin))
+    }
+
+    return response
+}
+
 export const login = ({ login, password }) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
     authAPI
@@ -107,17 +118,6 @@ export const socialLogin = (socialId, name) => async (dispatch) => {
         .catch((error) => {
             dispatch(stopSubmit('login', { _error: 500 }))
         })
-}
-
-export const getAuthUserData = () => async (dispatch) => {
-    const response = await authAPI.me()
-
-    if (response.data.statusCode === 200) {
-        let { id, isAdmin } = response.data.data
-        dispatch(setUserData(id, true, isAdmin))
-    }
-
-    return response
 }
 
 export const logout = () => async (dispatch) => {

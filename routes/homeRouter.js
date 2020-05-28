@@ -1,10 +1,6 @@
 const router = require('express').Router()
 const db = require('../models')
-
-const response = (statusCode, data = null) => ({
-    statusCode: statusCode,
-    data: data,
-})
+const { response } = require('../common/routeMiddleware')
 
 router.post('/company/get', (req, res) => {
     db.company
@@ -14,8 +10,8 @@ router.post('/company/get', (req, res) => {
             ],
             limit: 5,
         })
-        .then((data) => {
-            res.send(response(200, data))
+        .then((companies) => {
+            res.send(response(200, companies))
         })
 })
 

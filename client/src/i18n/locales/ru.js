@@ -80,6 +80,8 @@ const messages = {
     'companyCreate.inputTargetAmount': 'Целевая сумма',
     'companyCreate.inputDate': 'Дата',
     'companyCreate.create': 'Создать',
+    'companyCreate.message200': 'Компания создана',
+    'companyCreate.message204': 'Не удалось создать компанию',
 
     'bonusCreate.title': 'Создание бонуса',
     'bonusCreate.selectCompany': 'Выберите компанию',
@@ -87,6 +89,8 @@ const messages = {
     'bonusCreate.inputAmount': 'Цена',
     'bonusCreate.inputDescription': 'Описание',
     'bonusCreate.create': 'Создать',
+    'bonusCreate.message200': 'Бонус создан',
+    'bonusCreate.message204': 'Не удалось создать бонус',
 }
 
 export default messages

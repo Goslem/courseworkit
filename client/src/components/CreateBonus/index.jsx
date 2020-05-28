@@ -39,7 +39,7 @@ const CreateBonus = (props) => {
                 <Typography variant='h5' component='h1' className={classes.createTitle}>
                     {translate('bonusCreate.title')}
                 </Typography>
-                <CreateBonusForm onSubmit={props.createBonus} companiesId={props.companiesId} />
+                <CreateBonusForm onSubmit={props.createBonus} />
             </Paper>
         </Container>
     )
@@ -47,7 +47,6 @@ const CreateBonus = (props) => {
 
 const mapStateToProps = (state) => ({
     userId: state.auth.userId,
-    companiesId: state.bonus.companiesId,
 })
 
 export default compose(
