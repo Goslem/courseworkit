@@ -8,6 +8,7 @@ import { required, maxLengthCreator } from '../../validators/index'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { InfoAlert } from '../common/InfoAlert'
+import { toggleStatus } from '../../redux/companyReducer'
 
 const useStyles = makeStyles((theme) => ({
     createForm: {
@@ -95,12 +96,12 @@ const CreateCompanyForm = (props) => {
                 {translate('companyCreate.create')}
             </Button>
 
-            {props.error === 200 && (
-                <InfoAlert error={translate('companyCreate.message200')} severity={'success'} />
-            )}
-            {props.error === 204 && (
-                <InfoAlert error={translate('companyCreate.message204')} severity={'error'} />
-            )}
+            <InfoAlert
+                open={!!props.statusCode}
+                message={translate(`companyCreate.message${props.statusCode}`)}
+                severity={props.statusCode === 200 ? 'success' : 'error'}
+                onClose={props.toggleStatus}
+            />
         </form>
     )
 }
@@ -108,6 +109,10 @@ const CreateCompanyForm = (props) => {
 const mapStateToProps = (state) => ({
     userId: state.auth.userId,
     isFetching: state.company.isFetching,
+    statusCode: state.company.statusCode,
 })
 
-export default compose(connect(mapStateToProps), reduxForm({ form: 'company' }))(CreateCompanyForm)
+export default compose(
+    connect(mapStateToProps, { toggleStatus }),
+    reduxForm({ form: 'company' })
+)(CreateCompanyForm)

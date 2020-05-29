@@ -10,6 +10,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { InfoAlert } from '../common/InfoAlert'
 import { renderSelectField } from '../common/Fields'
+import { toggleStatus } from '../../redux/bonusReducer'
 
 const useStyles = makeStyles((theme) => ({
     createForm: {
@@ -53,7 +54,7 @@ const CreateBonusForm = (props) => {
                 label={translate('bonusCreate.inputTitle')}
                 validate={[required, maxLength20]}
             />
-            
+
             <Field
                 name='amount'
                 type='number'
@@ -62,7 +63,7 @@ const CreateBonusForm = (props) => {
                 label={translate('bonusCreate.inputAmount')}
                 validate={[required, maxLength20]}
             />
-            
+
             <Field
                 name='description'
                 autoComplete='off'
@@ -81,12 +82,12 @@ const CreateBonusForm = (props) => {
                 {translate('bonusCreate.create')}
             </Button>
 
-            {props.error === 200 && (
-                <InfoAlert error={translate('bonusCreate.message200')} severity={'success'} />
-            )}
-            {props.error === 204 && (
-                <InfoAlert error={translate('bonusCreate.message204')} severity={'error'} />
-            )}
+            <InfoAlert
+                open={!!props.statusCode}
+                message={translate(`bonusCreate.message${props.statusCode}`)}
+                severity={props.statusCode === 200 ? 'success' : 'error'}
+                onClose={props.toggleStatus}
+            />
         </form>
     )
 }
@@ -94,6 +95,10 @@ const CreateBonusForm = (props) => {
 const mapStateToProps = (state) => ({
     companiesId: state.bonus.companiesId,
     isFetching: state.bonus.isFetching,
+    statusCode: state.bonus.statusCode,
 })
 
-export default compose(connect(mapStateToProps), reduxForm({ form: 'bonus' }))(CreateBonusForm)
+export default compose(
+    connect(mapStateToProps, { toggleStatus }),
+    reduxForm({ form: 'bonus' })
+)(CreateBonusForm)

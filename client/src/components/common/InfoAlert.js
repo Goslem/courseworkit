@@ -8,8 +8,14 @@ function Alert(props) {
 
 export const InfoAlert = (props) => {
     return (
-        <Snackbar open={true} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-            <Alert severity={props.severity}>{props.error}</Alert>
+        <Snackbar
+            open={props.open}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            onClose={props.onClose}
+        >
+            <Alert severity={props.severity} onClose={props.onClose}>
+                {props.message}
+            </Alert>
         </Snackbar>
     )
 }

@@ -1,8 +1,8 @@
 import React from 'react'
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
-import FacebookButton from './FacebookButton'
 import { connect } from 'react-redux'
 import { socialLogin } from '../../../redux/authReducer'
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import FacebookButton from './FacebookButton'
 
 const FacebookAuth = (props) => {
     const responseFacebook = (response) => {

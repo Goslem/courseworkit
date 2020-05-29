@@ -7,13 +7,13 @@ const EDIT_USERS_STATUS = 'EDIT_USERS_STATUS'
 const EDIT_ADMINS_STATUS = 'EDIT_ADMINS_STATUS'
 const DELETE_USERS = 'DELETE_USERS'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
-const TOGGLE_ERROR = 'ERROR'
+const TOGGLE_STATUS = 'TOGGLE_STATUS'
 
 const initialState = {
     usersCount: 0,
     users: [],
     isFetching: false,
-    isError: false,
+    statusCode: 0,
 }
 
 export const adminReducer = (state = initialState, action) => {
@@ -74,10 +74,10 @@ export const adminReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching,
             }
-        case TOGGLE_ERROR:
+        case TOGGLE_STATUS:
             return {
                 ...state,
-                isError: action.isError,
+                statusCode: action.statusCode,
             }
         default:
             return state
@@ -91,7 +91,7 @@ const setUsersStatus = (usersId, isBlocked) => ({ type: EDIT_USERS_STATUS, users
 const setAdminsStatus = (usersId, isAdmin) => ({ type: EDIT_ADMINS_STATUS, usersId, isAdmin })
 const removeDeletedUsers = (usersId) => ({ type: DELETE_USERS, usersId })
 const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
-const setError = (isError) => ({ type: TOGGLE_ERROR, isError })
+const setStatusCode = (statusCode) => ({ type: TOGGLE_STATUS, statusCode })
 
 export const getUsersCount = () => async (dispatch) => {
     dispatch(toggleIsFetching(true))
@@ -127,7 +127,7 @@ export const setAdmins = (ids) => async (dispatch) => {
 
     if (response.data.statusCode === 200) {
         if (response.data.data !== ids.length) {
-            dispatch(setError(true))
+            dispatch(setStatusCode(204))
         }
         dispatch(setAdminsStatus(ids, true))
     } else {
@@ -143,7 +143,7 @@ export const deleteAdmins = (ids) => async (dispatch) => {
 
     if (response.data.statusCode === 200) {
         if (response.data.data !== ids.length) {
-            dispatch(setError(true))
+            dispatch(setStatusCode(204))
         }
         dispatch(setAdminsStatus(ids, false))
     } else {
@@ -159,7 +159,7 @@ export const blockUsers = (ids) => async (dispatch) => {
 
     if (response.data.statusCode === 200) {
         if (response.data.data !== ids.length) {
-            dispatch(setError(true))
+            dispatch(setStatusCode(204))
         }
         dispatch(setUsersStatus(ids, true))
     } else {
@@ -175,7 +175,7 @@ export const unblockUsers = (ids) => async (dispatch) => {
 
     if (response.data.statusCode === 200) {
         if (response.data.data !== ids.length) {
-            dispatch(setError(true))
+            dispatch(setStatusCode(204))
         }
         dispatch(setUsersStatus(ids, false))
     } else {
@@ -204,6 +204,6 @@ export const deleteUsers = (ids, usersLength, usersCount) => async (dispatch) =>
     }
 }
 
-export const toggleError = () => (dispatch) => {
-    dispatch(setError(false))
+export const toggleStatus = () => (dispatch) => {
+    dispatch(setStatusCode(0))
 }

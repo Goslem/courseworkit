@@ -1,14 +1,14 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import translate from '../../i18n/translate'
-import Typography from '@material-ui/core/Typography'
-import LoginForm from './LoginForm'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { login } from '../../redux/authReducer'
 import { withLoginRedirect } from '../../hoc/withAuthRedirect'
-import { compose } from 'redux'
+import translate from '../../i18n/translate'
+import Typography from '@material-ui/core/Typography'
 import GoogleAuth from './GoogleAuth'
 import FacebookAuth from './FacebookAuth'
+import LoginForm from './LoginForm'
 
 const useStyles = makeStyles((theme) => ({
     root: {

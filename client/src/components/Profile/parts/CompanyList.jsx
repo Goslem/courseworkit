@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import translate from '../../../i18n/translate'
 import { connect } from 'react-redux'
 import { getCompanyCount, getInitialCompany, getCompany } from '../../../redux/profileReducer'
-
 import Paper from '@material-ui/core/Paper'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -43,7 +42,6 @@ const CompanyList = (props) => {
         if (props.company.length <= newPage * 5) {
             props.getCompany(props.userId, newPage * 5, 5)
         }
-
         setPage(newPage)
     }
 

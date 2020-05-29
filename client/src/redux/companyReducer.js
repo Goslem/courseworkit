@@ -1,5 +1,4 @@
 import { companyAPI } from '../api/api'
-import { stopSubmit } from 'redux-form'
 
 const SET_COMPANY_ID = 'SET_COMPANY_ID'
 const SET_COMPANY = 'SET_COMPANY'
@@ -7,6 +6,7 @@ const SET_BONUSES_COUNT = 'SET_BONUSES_COUNT'
 const INITIAL_BONUSES = 'INITIAL_BONUSES'
 const SET_BONUSES = 'SET_BONUSES'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const TOGGLE_STATUS = 'TOGGLE_STATUS'
 
 const initialState = {
     userCompanyId: [],
@@ -21,6 +21,7 @@ const initialState = {
     bonusesCount: 0,
     bonuses: [],
     isFetching: false,
+    statusCode: 0,
 }
 
 export const companyReducer = (state = initialState, action) => {
@@ -55,6 +56,11 @@ export const companyReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching,
             }
+        case TOGGLE_STATUS:
+            return {
+                ...state,
+                statusCode: action.statusCode,
+            }
         default:
             return state
     }
@@ -66,6 +72,7 @@ const setBonusesCount = (bonusesCount) => ({ type: SET_BONUSES_COUNT, bonusesCou
 const setInitialBonuses = (bonuses) => ({ type: INITIAL_BONUSES, bonuses })
 const setBonuses = (bonuses) => ({ type: SET_BONUSES, bonuses })
 const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
+const setStatusCode = (statusCode) => ({ type: TOGGLE_STATUS, statusCode })
 
 export const getUserCompanyId = (userId) => async (dispatch) => {
     const response = await companyAPI.getUserCompanyId(userId)
@@ -117,16 +124,24 @@ export const buyBonus = (bonusId, userId, companyId, bonusAmount) => async (disp
 export const createCompany = (data) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
     const { userId, title, description, videoLink, targetAmount, expirationDate } = data
-    
-    companyAPI
-        .createCompany(userId, title, description, videoLink, targetAmount, expirationDate)
-        .then((response) => {
-            dispatch(toggleIsFetching(false))
-            
-            if (response.data.statusCode === 200) {
-                dispatch(stopSubmit('company', { _error: 200 }))
-            } else {
-                dispatch(stopSubmit('company', { _error: 204 }))
-            }
-        })
+    const response = await companyAPI.createCompany(
+        userId,
+        title,
+        description,
+        videoLink,
+        targetAmount,
+        expirationDate
+    )
+
+    dispatch(toggleIsFetching(false))
+
+    if (response.data.statusCode === 200) {
+        dispatch(setStatusCode(200))
+    } else {
+        dispatch(setStatusCode(204))
+    }
+}
+
+export const toggleStatus = () => (dispatch) => {
+    dispatch(setStatusCode(0))
 }

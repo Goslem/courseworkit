@@ -15,17 +15,19 @@ const messages = {
     'login.password': 'Пароль',
     'login.signUp': 'регистрация',
     'login.signIn': 'Войти',
-    'login.error500': 'Ошибка сервера',
-    'login.error403': 'Пользователь заблокирован',
-    'login.error204': 'Логин или пароль не верны.',
+    'login.message0': ' ',
+    'login.message204': 'Логин или пароль не верны',
+    'login.message403': 'Пользователь заблокирован',
+    'login.message500': 'Ошибка сервера',
 
     'registration.logo': 'Регистрация в Кикстартер',
     'registration.login': 'Логин',
     'registration.password': 'Пароль',
     'registration.signIn': 'Войти',
     'registration.signUp': 'регистрация',
-    'registration.error500': 'Ошибка сервера',
-    'registration.error204': 'Логин уже занят',
+    'registration.message0': ' ',
+    'registration.message204': 'Логин уже занят',
+    'registration.message500': 'Ошибка сервера',
 
     'errorPage.text': 'Страница не найдена',
 
@@ -39,7 +41,8 @@ const messages = {
     'admin.headCreated': 'Создан',
     'admin.previousPage': 'Предыдущая страница',
     'admin.nextPage': 'Следующая страница',
-    'admin.error204': 'Упс. Одна из записей не существует в базе данных.',
+    'admin.message0': ' ',
+    'admin.message204': 'Упс. Одна из записей не существует в базе данных',
 
     'profile.bonusList.tableTitle': 'Список оплаченных бонусов',
     'profile.bonusList.bonusTitle': 'Название',
@@ -80,6 +83,7 @@ const messages = {
     'companyCreate.inputTargetAmount': 'Целевая сумма',
     'companyCreate.inputDate': 'Дата',
     'companyCreate.create': 'Создать',
+    'companyCreate.message0': ' ',
     'companyCreate.message200': 'Компания создана',
     'companyCreate.message204': 'Не удалось создать компанию',
 
@@ -89,6 +93,7 @@ const messages = {
     'bonusCreate.inputAmount': 'Цена',
     'bonusCreate.inputDescription': 'Описание',
     'bonusCreate.create': 'Создать',
+    'bonusCreate.message0': ' ',
     'bonusCreate.message200': 'Бонус создан',
     'bonusCreate.message204': 'Не удалось создать бонус',
 }

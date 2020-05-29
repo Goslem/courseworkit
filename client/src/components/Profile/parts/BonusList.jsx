@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import translate from '../../../i18n/translate'
 import { connect } from 'react-redux'
 import { getBonusesCount, getInitialBonuses, getBonuses } from '../../../redux/profileReducer'
-
 import Paper from '@material-ui/core/Paper'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'

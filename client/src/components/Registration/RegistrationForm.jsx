@@ -1,14 +1,15 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
-import { Link as RouterLink } from 'react-router-dom'
-import translate from '../../i18n/translate'
-import { Field, reduxForm } from 'redux-form'
-import { renderField } from '../common/Fields'
-import { required, maxLengthCreator } from '../../validators/index'
-import { InfoAlert } from '../common/InfoAlert'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { Field, reduxForm } from 'redux-form'
+import translate from '../../i18n/translate'
+import { required, maxLengthCreator } from '../../validators/index'
+import { renderField } from '../common/Fields'
+import Button from '@material-ui/core/Button'
+import { Link as RouterLink } from 'react-router-dom'
+import { InfoAlert } from '../common/InfoAlert'
+import { toggleRegistrationStatus } from '../../redux/authReducer'
 
 const useStyles = makeStyles((theme) => ({
     form: {
@@ -26,12 +27,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const errorsCode = [500, 204]
 const maxLength20 = maxLengthCreator(20)
 
 const RegistrationForm = (props) => {
     const classes = useStyles()
-    const errorCode = errorsCode.find((error) => error === props.error)
 
     return (
         <form onSubmit={props.handleSubmit} className={classes.form}>
@@ -73,18 +72,22 @@ const RegistrationForm = (props) => {
                 </Button>
             </div>
 
-            {errorCode && (
-                <InfoAlert error={translate(`registration.error${errorCode}`)} severity='error' />
-            )}
+            <InfoAlert
+                open={!!props.statusCode}
+                message={translate(`registration.message${props.statusCode}`)}
+                severity={props.statusCode === 200 ? 'success' : 'error'}
+                onClose={props.toggleRegistrationStatus}
+            />
         </form>
     )
 }
 
 const mapStateToProps = (state) => ({
     isFetching: state.auth.isFetching,
+    statusCode: state.auth.registrationStatusCode,
 })
 
 export default compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps, { toggleRegistrationStatus }),
     reduxForm({ form: 'registration' })
 )(RegistrationForm)

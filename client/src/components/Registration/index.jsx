@@ -1,12 +1,12 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import translate from '../../i18n/translate'
-import Typography from '@material-ui/core/Typography'
-import RegistrationForm from './RegistrationForm'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { registration } from '../../redux/authReducer'
 import { withLoginRedirect } from '../../hoc/withAuthRedirect'
-import { compose } from 'redux'
+import translate from '../../i18n/translate'
+import Typography from '@material-ui/core/Typography'
+import RegistrationForm from './RegistrationForm'
 
 const useStyles = makeStyles((theme) => ({
     root: {

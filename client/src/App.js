@@ -8,7 +8,6 @@ import { localeMessages } from './i18n'
 import { connect } from 'react-redux'
 import { initializeApp } from './redux/appReducer'
 import { Switch, Route } from 'react-router-dom'
-
 import CssBaseline from '@material-ui/core/CssBaseline'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import Header from './components/Header'

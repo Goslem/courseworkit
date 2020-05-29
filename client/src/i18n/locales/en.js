@@ -15,17 +15,19 @@ const messages = {
     'login.password': 'Password',
     'login.signUp': 'sign up',
     'login.signIn': 'sign in',
-    'login.error500': 'Server error',
-    'login.error403': 'User is blocked',
-    'login.error204': 'The username or password is incorrect.',
+    'login.message0': ' ',
+    'login.message204': 'The username or password is incorrect',
+    'login.message403': 'User is blocked',
+    'login.message500': 'Server error',
 
     'registration.logo': 'Sign up to Kickstarter',
     'registration.login': 'Login',
     'registration.password': 'Password',
     'registration.signIn': 'sign in',
     'registration.signUp': 'sign up',
-    'registration.error500': 'Server error',
-    'registration.error204': 'Login has already been taken',
+    'registration.message0': ' ',
+    'registration.message204': 'Login has already been taken',
+    'registration.message500': 'Server error',
 
     'errorPage.text': 'Page not found',
 
@@ -39,7 +41,8 @@ const messages = {
     'admin.headCreated': 'Created',
     'admin.previousPage': 'Previous page',
     'admin.nextPage': 'Next page',
-    'admin.error204': 'Oops. One of the records does not exist in the database.',
+    'admin.message0': ' ',
+    'admin.message204': 'Oops. One of the records does not exist in the database',
 
     'profile.bonusList.tableTitle': 'Paid bonuses list',
     'profile.bonusList.bonusTitle': 'Title',
@@ -80,6 +83,7 @@ const messages = {
     'companyCreate.inputTargetAmount': 'Target amount',
     'companyCreate.inputDate': 'Date',
     'companyCreate.create': 'Create',
+    'companyCreate.message0': ' ',
     'companyCreate.message200': 'Company created',
     'companyCreate.message204': 'Failed to create a company',
 
@@ -89,6 +93,7 @@ const messages = {
     'bonusCreate.inputAmount': 'Amount',
     'bonusCreate.inputDescription': 'Description',
     'bonusCreate.create': 'Create',
+    'bonusCreate.message0': ' ',
     'bonusCreate.message200': 'Bonus created',
     'bonusCreate.message204': 'Failed to create a bonus',
 }

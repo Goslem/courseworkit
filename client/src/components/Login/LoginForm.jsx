@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
-import { Link as RouterLink } from 'react-router-dom'
-import translate from '../../i18n/translate'
-import { Field, reduxForm } from 'redux-form'
-import { renderField } from '../common/Fields'
-import { required, maxLengthCreator } from '../../validators/index'
-import { InfoAlert } from '../common/InfoAlert'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { Field, reduxForm } from 'redux-form'
+import translate from '../../i18n/translate'
+import { required, maxLengthCreator } from '../../validators/index'
+import { renderField } from '../common/Fields'
+import Button from '@material-ui/core/Button'
+import { Link as RouterLink } from 'react-router-dom'
+import { InfoAlert } from '../common/InfoAlert'
+import { toggleLoginStatus } from '../../redux/authReducer'
 
 const useStyles = makeStyles((theme) => ({
     loginForm: {
@@ -26,12 +27,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const errorsCode = [500, 204, 403]
 const maxLength20 = maxLengthCreator(20)
 
 const LoginForm = (props) => {
     const classes = useStyles()
-    const errorCode = errorsCode.find((error) => error === props.error)
 
     return (
         <form onSubmit={props.handleSubmit} className={classes.loginForm}>
@@ -74,15 +73,29 @@ const LoginForm = (props) => {
                 </Button>
             </div>
 
-            {errorCode && (
-                <InfoAlert error={translate(`login.error${errorCode}`)} severity='error' />
-            )}
+            <InfoAlert
+                open={!!props.errorCode}
+                message={translate(`login.error${props.errorCode}`)}
+                severity='error'
+                onClose={props.toggleLoginError}
+            />
+
+            <InfoAlert
+                open={!!props.statusCode}
+                message={translate(`login.message${props.statusCode}`)}
+                severity={props.statusCode === 200 ? 'success' : 'error'}
+                onClose={props.toggleLoginStatus}
+            />
         </form>
     )
 }
 
 const mapStateToProps = (state) => ({
     isFetching: state.auth.isFetching,
+    statusCode: state.auth.loginStatusCode,
 })
 
-export default compose(connect(mapStateToProps), reduxForm({ form: 'login' }))(LoginForm)
+export default compose(
+    connect(mapStateToProps, { toggleLoginStatus }),
+    reduxForm({ form: 'login' })
+)(LoginForm)

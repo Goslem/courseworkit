@@ -1,19 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import translate from '../../i18n/translate'
-
-import Paper from '@material-ui/core/Paper'
-import TableContainer from '@material-ui/core/TableContainer'
-import Table from '@material-ui/core/Table'
-import Snackbar from '@material-ui/core/Snackbar'
-import MuiAlert from '@material-ui/lab/Alert'
-import TableHeadUsers from './TableHead'
-import TableToolbarUsers from './TableToolbar'
-import TableBodyUsers from './TableBody'
-import TablePagination from '@material-ui/core/TablePagination'
-
-import { withAdminRedirect } from '../../hoc/withAdminRedirect'
-import { Container } from '@material-ui/core'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import {
@@ -24,8 +11,18 @@ import {
     blockUsers,
     unblockUsers,
     deleteUsers,
-    toggleError,
+    toggleStatus,
 } from '../../redux/adminReducer'
+import { withAdminRedirect } from '../../hoc/withAdminRedirect'
+import { Container } from '@material-ui/core'
+import Paper from '@material-ui/core/Paper'
+import TableContainer from '@material-ui/core/TableContainer'
+import TableToolbarUsers from './parts/TableToolbar'
+import Table from '@material-ui/core/Table'
+import TableHeadUsers from './parts/TableHead'
+import TableBodyUsers from './parts/TableBody'
+import TablePagination from '@material-ui/core/TablePagination'
+import { InfoAlert } from '../common/InfoAlert'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,10 +39,6 @@ const useStyles = makeStyles((theme) => ({
         minWidth: 650,
     },
 }))
-
-function Alert(props) {
-    return <MuiAlert elevation={6} variant='filled' {...props} />
-}
 
 const Admin = (props) => {
     const classes = useStyles()
@@ -163,15 +156,13 @@ const Admin = (props) => {
                 />
             </Paper>
 
-            <Snackbar
-                open={props.isError}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                onClose={props.toggleError}
-            >
-                <Alert severity='error' onClose={props.toggleError}>
-                    {translate('admin.error204')}
-                </Alert>
-            </Snackbar>
+            <InfoAlert
+                open={!!props.statusCode}
+                message={translate('admin.error204')}
+                message={translate(`admin.message${props.statusCode}`)}
+                severity={props.statusCode === 200 ? 'success' : 'error'}
+                onClose={props.toggleStatus}
+            />
         </Container>
     )
 }
@@ -179,7 +170,7 @@ const Admin = (props) => {
 const mapStateToProps = (state) => ({
     users: state.admin.users,
     usersCount: state.admin.usersCount,
-    isError: state.admin.isError,
+    statusCode: state.admin.statusCode,
 })
 
 export default compose(
@@ -191,7 +182,7 @@ export default compose(
         blockUsers,
         unblockUsers,
         deleteUsers,
-        toggleError,
+        toggleStatus,
     }),
     withAdminRedirect
 )(Admin)

@@ -1,8 +1,8 @@
 import React from 'react'
-import GoogleLogin from 'react-google-login'
-import GoogleButton from './GoogleButton'
 import { connect } from 'react-redux'
 import { socialLogin } from '../../../redux/authReducer'
+import GoogleLogin from 'react-google-login'
+import GoogleButton from './GoogleButton'
 
 const GoogleAuth = (props) => {
     const responseGoogle = (response) => {
