@@ -1,12 +1,12 @@
 import { companyAPI } from '../api/api'
 
-const SET_USER_COMPANIES = 'SET_USER_COMPANIES'
-const SET_COMPANY = 'SET_COMPANY'
-const SET_BONUSES_COUNT = 'SET_BONUSES_COUNT'
-const INITIAL_BONUSES = 'INITIAL_BONUSES'
-const SET_BONUSES = 'SET_BONUSES'
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
-const TOGGLE_STATUS = 'TOGGLE_STATUS'
+const SET_USER_COMPANIES = '/company/SET_USER_COMPANIES'
+const SET_COMPANY = '/company/SET_COMPANY'
+const SET_BONUSES_COUNT = '/company/SET_BONUSES_COUNT'
+const INITIAL_BONUSES = '/company/INITIAL_BONUSES'
+const SET_BONUSES = '/company/SET_BONUSES'
+const TOGGLE_IS_FETCHING = '/company/TOGGLE_IS_FETCHING'
+const TOGGLE_STATUS = '/company/TOGGLE_STATUS'
 
 const initialState = {
     userCompanies: [],

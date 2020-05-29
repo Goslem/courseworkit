@@ -1,5 +1,5 @@
 import { locales } from '../i18n'
-const CHANGE_LOCALE = 'CHANGE_LOCALE'
+const CHANGE_LOCALE = '/locale/CHANGE_LOCALE'
 
 const initialState = {
     value: localStorage.getItem('locale') === locales.RU ? locales.RU : locales.EN,

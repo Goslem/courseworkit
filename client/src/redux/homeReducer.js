@@ -1,6 +1,6 @@
 import { homeAPI } from '../api/api'
 
-const SET_HOME_COMPANY = 'SET_HOME_COMPANY'
+const SET_HOME_COMPANY = '/home/SET_HOME_COMPANY'
 
 const initialState = {
     lastCompany: [],

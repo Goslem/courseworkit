@@ -1,8 +1,8 @@
 import { bonusAPI } from '../api/api'
 
-const SET_COMPANIES_ID = 'SET_COMPANIES_ID'
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
-const TOGGLE_STATUS = 'TOGGLE_STATUS'
+const SET_COMPANIES_ID = '/bonus/SET_COMPANIES_ID'
+const TOGGLE_IS_FETCHING = '/bonus/TOGGLE_IS_FETCHING'
+const TOGGLE_STATUS = '/bonus/TOGGLE_STATUS'
 
 const initialState = {
     companiesId: [],
@@ -44,11 +44,10 @@ export const getCompaniesId = (userId) => async (dispatch) => {
     }
 }
 
-export const createBonus = (data) => async (dispatch) => {
+export const createBonus = ({ title, amount, description, companyId }) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-    const { title, amount, description, companyId } = data
     const response = await bonusAPI.createBonus(title, amount, description, companyId)
-    
+
     dispatch(toggleIsFetching(false))
 
     if (response.data.statusCode === 200) {

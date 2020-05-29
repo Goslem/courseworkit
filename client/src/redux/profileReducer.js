@@ -1,12 +1,12 @@
 import { profileAPI } from '../api/api'
 
-const SET_BONUSES_COUNT = 'SET_BONUSES_COUNT'
-const INITIAL_BONUSES = 'INITIAL_BONUSES'
-const SET_BONUSES = 'SET_BONUSES'
-const SET_COMPANY_COUNT = 'SET_COMPANY_COUNT'
-const INITIAL_COMPANY = 'INITIAL_COMPANY'
-const SET_COMPANY = 'SET_COMPANY'
-const SET_USER_INFO = 'SET_USER_INFO'
+const SET_BONUSES_COUNT = '/profile/SET_BONUSES_COUNT'
+const INITIAL_BONUSES = '/profile/INITIAL_BONUSES'
+const SET_BONUSES = '/profile/SET_BONUSES'
+const SET_COMPANY_COUNT = '/profile/SET_COMPANY_COUNT'
+const INITIAL_COMPANY = '/profile/INITIAL_COMPANY'
+const SET_COMPANY = '/profile/SET_COMPANY'
+const SET_USER_INFO = '/profile/SET_USER_INFO'
 
 const initialState = {
     bonusesCount: 0,

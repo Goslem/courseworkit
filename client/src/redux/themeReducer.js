@@ -1,4 +1,4 @@
-const CHANGE_THEME = 'CHANGE_THEME'
+const CHANGE_THEME = '/theme/CHANGE_THEME'
 
 const initialState = {
     title: localStorage.getItem('theme') === 'dark' ? 'dark' : 'light',
