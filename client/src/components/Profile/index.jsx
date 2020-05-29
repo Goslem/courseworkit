@@ -4,6 +4,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { withLogoutRedirect } from '../../hoc/withAuthRedirect'
 import { Container } from '@material-ui/core'
+import EditMode from './parts/EditMode'
 import BonusList from './parts/BonusList'
 import CompanyList from './parts/CompanyList'
 import InformationBlock from './parts/InformationBlock'
@@ -27,6 +28,7 @@ const Profile = (props) => {
 
     return (
         <Container maxWidth='md' className={classes.root}>
+            {isOwner && <EditMode />}
             <BonusList userId={userId} />
             <CompanyList userId={userId} isOwner={isOwner} />
             <InformationBlock userId={userId} isOwner={isOwner} />

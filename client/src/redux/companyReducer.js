@@ -7,6 +7,7 @@ const INITIAL_BONUSES = '/company/INITIAL_BONUSES'
 const SET_BONUSES = '/company/SET_BONUSES'
 const TOGGLE_IS_FETCHING = '/company/TOGGLE_IS_FETCHING'
 const TOGGLE_STATUS = '/company/TOGGLE_STATUS'
+const TOGGLE_EDIT_MODE = '/profile/TOGGLE_EDIT_MODE'
 
 const initialState = {
     userCompanies: [],
@@ -22,6 +23,7 @@ const initialState = {
     bonuses: [],
     isFetching: false,
     statusCode: 0,
+    editMode: false,
 }
 
 export const companyReducer = (state = initialState, action) => {
@@ -61,6 +63,11 @@ export const companyReducer = (state = initialState, action) => {
                 ...state,
                 statusCode: action.statusCode,
             }
+        case TOGGLE_EDIT_MODE:
+            return {
+                ...state,
+                editMode: action.editMode,
+            }
         default:
             return state
     }
@@ -73,6 +80,7 @@ const setInitialBonuses = (bonuses) => ({ type: INITIAL_BONUSES, bonuses })
 const setBonuses = (bonuses) => ({ type: SET_BONUSES, bonuses })
 const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
 const setStatusCode = (statusCode) => ({ type: TOGGLE_STATUS, statusCode })
+const toggleEditMode = (editMode) => ({ type: TOGGLE_EDIT_MODE, editMode })
 
 export const getUserCompanies = (userId) => async (dispatch) => {
     const response = await companyAPI.getUserCompanies(userId)
@@ -124,7 +132,7 @@ export const buyBonus = (bonusId, userId, companyId, bonusAmount) => async (disp
 export const createCompany = (data) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
     const { userId, title, description, videoLink, targetAmount, expirationDate } = data
-    
+
     const response = await companyAPI.createCompany(
         userId,
         title,
@@ -145,4 +153,8 @@ export const createCompany = (data) => async (dispatch) => {
 
 export const toggleStatus = () => (dispatch) => {
     dispatch(setStatusCode(0))
+}
+
+export const setEditMode = (editMode) => (dispatch) => {
+    dispatch(toggleEditMode(editMode))
 }

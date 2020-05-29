@@ -6,6 +6,8 @@ import { getCompanyCount, getInitialCompany, getCompany } from '../../../redux/p
 import Paper from '@material-ui/core/Paper'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import AddToPhotosIcon from '@material-ui/icons/AddToPhotos'
 import TableContainer from '@material-ui/core/TableContainer'
 import Table from '@material-ui/core/Table'
 import TableHead from '@material-ui/core/TableHead'
@@ -27,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
     table: {
         minWidth: 650,
     },
+    title: {
+        flexGrow: 1,
+    },
 }))
 
 const CompanyList = (props) => {
@@ -45,14 +50,25 @@ const CompanyList = (props) => {
         setPage(newPage)
     }
 
+    const onFollowing = () => {
+        window.open('/company/create')
+    }
+
     return (
         <Paper className={classes.paper}>
             <TableContainer>
                 <Toolbar className={classes.toolbar}>
-                    <Typography variant='h6' component='div'>
+                    <Typography variant='h6' component='div' className={classes.title}>
                         {translate('profile.companyList.tableTitle')}
                     </Typography>
+
+                    {props.editMode && (
+                        <IconButton onClick={onFollowing}>
+                            <AddToPhotosIcon />
+                        </IconButton>
+                    )}
                 </Toolbar>
+
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
@@ -71,6 +87,7 @@ const CompanyList = (props) => {
                             </TableCell>
                         </TableRow>
                     </TableHead>
+
                     <TableBody>
                         {props.company.slice(page * 5, page * 5 + 5).map((company) => (
                             <TableRow key={company.id || 0}>
@@ -102,6 +119,7 @@ const CompanyList = (props) => {
 const mapStateToProps = (state) => ({
     companyCount: state.profile.companyCount,
     company: state.profile.company,
+    editMode: state.profile.editMode,
 })
 
 export default connect(mapStateToProps, { getCompanyCount, getInitialCompany, getCompany })(

@@ -11,6 +11,8 @@ import {
 import Paper from '@material-ui/core/Paper'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import AddToPhotosIcon from '@material-ui/icons/AddToPhotos'
 import TableContainer from '@material-ui/core/TableContainer'
 import Table from '@material-ui/core/Table'
 import TableHead from '@material-ui/core/TableHead'
@@ -32,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
     },
     table: {
         minWidth: 650,
+    },
+    title: {
+        flexGrow: 1,
     },
 }))
 
@@ -55,13 +60,23 @@ const BonusList = (props) => {
         props.buyBonus(id, props.userId, props.companyId, bonusAmount)
     }
 
+    const onFollowing = () => {
+        window.open('/bonus/create')
+    }
+
     return (
         <Paper className={classes.paper}>
             <TableContainer>
                 <Toolbar className={classes.toolbar}>
-                    <Typography variant='h6' component='div'>
+                    <Typography variant='h6' component='div' className={classes.title}>
                         {translate('company.bonusList.tableTitle')}
                     </Typography>
+
+                    {props.editMode && (
+                        <IconButton onClick={onFollowing}>
+                            <AddToPhotosIcon />
+                        </IconButton>
+                    )}
                 </Toolbar>
 
                 <Table className={classes.table}>
@@ -79,7 +94,7 @@ const BonusList = (props) => {
                             </TableCell>
                         </TableRow>
                     </TableHead>
-                    
+
                     <TableBody>
                         {props.bonuses.slice(page * 5, page * 5 + 5).map((bonus) => (
                             <TableRow key={bonus.id}>
@@ -121,6 +136,7 @@ const mapStateToProps = (state) => ({
     bonuses: state.company.bonuses,
     isFetching: state.company.isFetching,
     showMessage: state.company.showMessage,
+    editMode: state.company.editMode,
 })
 
 export default connect(mapStateToProps, {

@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { getUserCompanies, getCompany } from '../../redux/companyReducer'
 import { Container } from '@material-ui/core'
+import EditMode from './parts/EditMode'
 import CompanyTitle from './parts/CompanyTitle'
 import BonusList from './parts/BonusList'
 import ShortDescription from './parts/ShortDescription'
@@ -24,9 +25,7 @@ const Company = (props) => {
     const { userCompanies, company } = props
 
     const companyId = Number(props.match.params.companyId)
-    const isOwner = props.isAdmin || userCompanies.includes((company) => {
-        return company.id === companyId
-    })
+    const isOwner = props.isAdmin || !!userCompanies.find((company) => company.id === companyId)
 
     useEffect(() => {
         props.getCompany(companyId)
@@ -37,6 +36,7 @@ const Company = (props) => {
 
     return (
         <Container maxWidth='md' className={classes.root}>
+            {isOwner && <EditMode />}
             <CompanyTitle companyName={company.title} expirationDate={company.expirationDate} />
             <BonusList companyId={companyId} isAuth={props.isAuth} userId={props.userId} />
             <ShortDescription description={company.description} />

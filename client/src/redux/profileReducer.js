@@ -7,6 +7,7 @@ const SET_COMPANY_COUNT = '/profile/SET_COMPANY_COUNT'
 const INITIAL_COMPANY = '/profile/INITIAL_COMPANY'
 const SET_COMPANY = '/profile/SET_COMPANY'
 const SET_USER_INFO = '/profile/SET_USER_INFO'
+const TOGGLE_EDIT_MODE = '/profile/TOGGLE_EDIT_MODE'
 
 const initialState = {
     bonusesCount: 0,
@@ -19,6 +20,7 @@ const initialState = {
         country: null,
         city: null,
     },
+    editMode: false,
 }
 
 export const profileReducer = (state = initialState, action) => {
@@ -58,6 +60,11 @@ export const profileReducer = (state = initialState, action) => {
                 ...state,
                 userInfo: { ...action.userInfo },
             }
+        case TOGGLE_EDIT_MODE:
+            return {
+                ...state,
+                editMode: action.editMode,
+            }
         default:
             return state
     }
@@ -70,6 +77,7 @@ const setCompanyCount = (companyCount) => ({ type: SET_COMPANY_COUNT, companyCou
 const setInitialCompany = (company) => ({ type: INITIAL_COMPANY, company })
 const setCompany = (company) => ({ type: SET_COMPANY, company })
 const setUserInfo = (userInfo) => ({ type: SET_USER_INFO, userInfo })
+const toggleEditMode = (editMode) => ({ type: TOGGLE_EDIT_MODE, editMode })
 
 export const getBonusesCount = (userId) => async (dispatch) => {
     const response = await profileAPI.getBonusesCount(userId)
@@ -125,4 +133,8 @@ export const getUserInfo = (userId) => async (dispatch) => {
     if (response.data.statusCode === 200) {
         dispatch(setUserInfo(response.data.data))
     }
+}
+
+export const setEditMode = (editMode) => (dispatch) => {
+    dispatch(toggleEditMode(editMode))
 }

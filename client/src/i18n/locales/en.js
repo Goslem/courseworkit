@@ -62,6 +62,8 @@ const messages = {
     'profile.informationBlock.country': 'Country:',
     'profile.informationBlock.city': 'City:',
 
+    'profile.editMode': 'Edit mode',
+
     'company.companyTerm': 'Term — ',
     'company.bonusList.tableTitle': 'Bonuses',
     'company.bonusList.bonusTitle': 'Title',
@@ -71,6 +73,8 @@ const messages = {
     'company.bonusList.supportButton': 'Buy',
     'company.companyDescription': 'Description',
     'company.companyProgress': 'Progress',
+
+    'company.editMode': 'Edit mode',
 
     'home.homeTitle': 'Latest updated companies',
     'home.updatedAt': 'Updated at: ',
