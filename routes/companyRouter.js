@@ -2,7 +2,7 @@ const router = require('express').Router()
 const db = require('../models')
 const { response, isNumber, isEmptyString } = require('../common/routeMiddleware')
 
-router.post('/userCompanyId/get', (req, res) => {
+router.post('/userCompanies/getId', (req, res) => {
     const { userId } = req.body
 
     if (!isNumber(userId)) {
@@ -14,8 +14,8 @@ router.post('/userCompanyId/get', (req, res) => {
             where: { userId },
             attributes: ['id'],
         })
-        .then((userCompanyId) => {
-            res.send(response(200, userCompanyId))
+        .then((userCompanies) => {
+            res.send(response(200, userCompanies))
         })
 })
 

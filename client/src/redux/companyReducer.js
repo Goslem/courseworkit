@@ -1,6 +1,6 @@
 import { companyAPI } from '../api/api'
 
-const SET_COMPANY_ID = 'SET_COMPANY_ID'
+const SET_USER_COMPANIES = 'SET_USER_COMPANIES'
 const SET_COMPANY = 'SET_COMPANY'
 const SET_BONUSES_COUNT = 'SET_BONUSES_COUNT'
 const INITIAL_BONUSES = 'INITIAL_BONUSES'
@@ -9,7 +9,7 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 const TOGGLE_STATUS = 'TOGGLE_STATUS'
 
 const initialState = {
-    userCompanyId: [],
+    userCompanies: [],
     company: {
         title: null,
         description: null,
@@ -26,10 +26,10 @@ const initialState = {
 
 export const companyReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_COMPANY_ID:
+        case SET_USER_COMPANIES:
             return {
                 ...state,
-                userCompanyId: [...action.userCompanyId],
+                userCompanies: [...action.userCompanies],
             }
         case SET_COMPANY:
             return {
@@ -66,7 +66,7 @@ export const companyReducer = (state = initialState, action) => {
     }
 }
 
-const setCompanyId = (userCompanyId) => ({ type: SET_COMPANY_ID, userCompanyId })
+const setUserCompanies = (userCompanies) => ({ type: SET_USER_COMPANIES, userCompanies })
 const setCompany = (company) => ({ type: SET_COMPANY, company })
 const setBonusesCount = (bonusesCount) => ({ type: SET_BONUSES_COUNT, bonusesCount })
 const setInitialBonuses = (bonuses) => ({ type: INITIAL_BONUSES, bonuses })
@@ -74,11 +74,11 @@ const setBonuses = (bonuses) => ({ type: SET_BONUSES, bonuses })
 const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
 const setStatusCode = (statusCode) => ({ type: TOGGLE_STATUS, statusCode })
 
-export const getUserCompanyId = (userId) => async (dispatch) => {
-    const response = await companyAPI.getUserCompanyId(userId)
+export const getUserCompanies = (userId) => async (dispatch) => {
+    const response = await companyAPI.getUserCompanies(userId)
 
     if (response.data.statusCode === 200) {
-        dispatch(setCompanyId(response.data.data))
+        dispatch(setUserCompanies(response.data.data))
     }
 }
 
@@ -124,6 +124,7 @@ export const buyBonus = (bonusId, userId, companyId, bonusAmount) => async (disp
 export const createCompany = (data) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
     const { userId, title, description, videoLink, targetAmount, expirationDate } = data
+    
     const response = await companyAPI.createCompany(
         userId,
         title,

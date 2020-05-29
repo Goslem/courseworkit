@@ -5,7 +5,23 @@ import TableCell from '@material-ui/core/TableCell'
 import Checkbox from '@material-ui/core/Checkbox'
 
 const TableBodyComponent = (props) => {
-    const { users, page, isSelected, handleClick } = props
+    const { selected, users, page, setSelected } = props
+
+    const rowClick = (event, id) => {
+        const selectedIndex = selected.indexOf(id)
+        let newSelected = [...selected]
+
+        if (selectedIndex === -1) {
+            newSelected.push(id)
+        } else {
+            newSelected.splice(selectedIndex, 1)
+        }
+        setSelected(newSelected)
+    }
+
+    const isSelected = (id) => {
+        return selected.indexOf(id) !== -1
+    }
 
     return (
         <TableBody>
@@ -16,7 +32,7 @@ const TableBodyComponent = (props) => {
                     <TableRow
                         hover
                         onClick={(event) => {
-                            handleClick(event, user.id)
+                            rowClick(event, user.id)
                         }}
                         role='checkbox'
                         selected={isItemSelected}
@@ -25,15 +41,19 @@ const TableBodyComponent = (props) => {
                         <TableCell padding='checkbox'>
                             <Checkbox checked={isItemSelected} />
                         </TableCell>
+
                         <TableCell component='th' scope='user' padding='none' id={user.id}>
                             {user.id}
                         </TableCell>
+
                         <TableCell align='right'>{user.name}</TableCell>
                         <TableCell align='right'>{user.isBlocked ? 'true' : 'false'}</TableCell>
                         <TableCell align='right'>{user.isAdmin ? 'true' : 'false'}</TableCell>
+
                         <TableCell align='right'>
                             {new Date(user.updatedAt).toLocaleDateString()}
                         </TableCell>
+
                         <TableCell align='right'>
                             {new Date(user.createdAt).toLocaleDateString()}
                         </TableCell>

@@ -65,8 +65,8 @@ export const profileAPI = {
 }
 
 export const companyAPI = {
-    getUserCompanyId(userId) {
-        return instance.post('company/userCompanyId/get', { userId })
+    getUserCompanies(userId) {
+        return instance.post('company/userCompanies/getId', { userId })
     },
     getCompany(companyId) {
         return instance.post('company/company/get', { companyId })

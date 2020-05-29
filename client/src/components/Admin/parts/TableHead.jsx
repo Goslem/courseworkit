@@ -6,7 +6,16 @@ import TableCell from '@material-ui/core/TableCell'
 import Checkbox from '@material-ui/core/Checkbox'
 
 const TableHeadComponent = (props) => {
-    const { numSelected, rowCount, onSelectAllClick } = props
+    const { numSelected, users, rowCount, setSelected } = props
+
+    const handleSelectAllClick = (event) => {
+        if (event.target.checked) {
+            const newSelected = users.map((user) => user.id)
+            setSelected(newSelected)
+        } else {
+            setSelected([])
+        }
+    }
 
     return (
         <TableHead>
@@ -15,7 +24,7 @@ const TableHeadComponent = (props) => {
                     <Checkbox
                         indeterminate={numSelected > 0 && numSelected < rowCount}
                         checked={rowCount > 0 && numSelected === rowCount}
-                        onChange={onSelectAllClick}
+                        onChange={handleSelectAllClick}
                     />
                 </TableCell>
                 <TableCell align='left' padding='none'>

@@ -13,23 +13,23 @@ import MenuItem from '@material-ui/core/MenuItem'
 const ProfileButton = (props) => {
     const [anchorEl, setAnchorEl] = useState(null)
 
-    const handleClick = (event) => {
+    const openMenu = (event) => {
         setAnchorEl(event.currentTarget)
     }
 
-    const handleClose = () => {
+    const closeMenu = () => {
         setAnchorEl(null)
     }
 
     const handleLogout = () => {
         props.logout()
-        handleClose()
+        closeMenu()
     }
 
     return (
         <>
             {props.isAuth ? (
-                <IconButton color='inherit' onClick={handleClick}>
+                <IconButton color='inherit' onClick={openMenu}>
                     <AccountCircle />
                 </IconButton>
             ) : (
@@ -43,9 +43,9 @@ const ProfileButton = (props) => {
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
-                onClose={handleClose}
+                onClose={closeMenu}
             >
-                <MenuItem component={RouterLink} to='/profile' onClick={handleClose}>
+                <MenuItem component={RouterLink} to='/profile' onClick={closeMenu}>
                     {translate('header.profile')}
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>{translate('header.logout')}</MenuItem>

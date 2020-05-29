@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import translate from '../../i18n/translate'
+import translate from '../../../i18n/translate'
 import { connect } from 'react-redux'
 import {
     getBonusesCount,
     getInitialBonuses,
     getBonuses,
     buyBonus,
-} from '../../redux/companyReducer'
-
+} from '../../../redux/companyReducer'
 import Paper from '@material-ui/core/Paper'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -64,6 +63,7 @@ const BonusList = (props) => {
                         {translate('company.bonusList.tableTitle')}
                     </Typography>
                 </Toolbar>
+
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
@@ -79,6 +79,7 @@ const BonusList = (props) => {
                             </TableCell>
                         </TableRow>
                     </TableHead>
+                    
                     <TableBody>
                         {props.bonuses.slice(page * 5, page * 5 + 5).map((bonus) => (
                             <TableRow key={bonus.id}>

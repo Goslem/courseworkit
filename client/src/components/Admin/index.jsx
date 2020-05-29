@@ -3,16 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import translate from '../../i18n/translate'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import {
-    getUsersCount,
-    getUsers,
-    setAdmins,
-    deleteAdmins,
-    blockUsers,
-    unblockUsers,
-    deleteUsers,
-    toggleStatus,
-} from '../../redux/adminReducer'
+import { getUsersCount, getUsers, toggleStatus } from '../../redux/adminReducer'
 import { withAdminRedirect } from '../../hoc/withAdminRedirect'
 import { Container } from '@material-ui/core'
 import Paper from '@material-ui/core/Paper'
@@ -50,72 +41,12 @@ const Admin = (props) => {
 
     const [selected, setSelected] = useState([])
     const [page, setPage] = useState(0)
-    const users = props.users
-
-    const handleSelectAllClick = (event) => {
-        if (event.target.checked) {
-            const newSelecteds = users.map((user) => user.id)
-            setSelected(newSelecteds)
-            return
-        }
-        setSelected([])
-    }
-
-    const handleClick = (event, id) => {
-        const selectedIndex = selected.indexOf(id)
-        let newSelected = [...selected]
-
-        if (selectedIndex === -1) {
-            newSelected.push(id)
-        } else {
-            newSelected.splice(selectedIndex, 1)
-        }
-
-        setSelected(newSelected)
-    }
-
-    const isSelected = (id) => {
-        return selected.indexOf(id) !== -1
-    }
 
     const handleChangePage = (event, newPage) => {
-        if (users.length <= newPage * 10) {
+        if (props.users.length <= newPage * 10) {
             props.getUsers(newPage * 10, 10)
         }
-
         setPage(newPage)
-    }
-
-    const onFollowing = () => {
-        if (selected.length === 0) return
-        window.open('profile/' + selected[0], '_blank')
-    }
-
-    const onAdminsAdd = () => {
-        if (selected.length === 0) return
-        props.setAdmins(selected)
-    }
-
-    const onAdminsDelete = () => {
-        if (selected.length === 0) return
-        props.deleteAdmins(selected)
-    }
-
-    const onUsersBlock = () => {
-        if (selected.length === 0) return
-        props.blockUsers(selected)
-    }
-
-    const onUsersUnblock = () => {
-        if (selected.length === 0) return
-        props.unblockUsers(selected)
-    }
-
-    const onUsersDelete = () => {
-        if (selected.length === 0) return
-        if (selected.length > 10) setPage(0)
-        props.deleteUsers(selected, users.length, props.usersCount)
-        setSelected([])
     }
 
     return (
@@ -123,29 +54,30 @@ const Admin = (props) => {
             <Paper className={classes.paper}>
                 <TableContainer>
                     <TableToolbarUsers
-                        numSelected={selected.length}
                         selected={selected}
-                        onFollowing={onFollowing}
-                        onAdminsAdd={onAdminsAdd}
-                        onAdminsDelete={onAdminsDelete}
-                        onUsersBlock={onUsersBlock}
-                        onUsersUnblock={onUsersUnblock}
-                        onUsersDelete={onUsersDelete}
+                        users={props.users}
+                        usersCount={props.usersCount}
+                        setSelected={setSelected}
+                        setPage={setPage}
                     />
+
                     <Table className={classes.table}>
                         <TableHeadUsers
                             numSelected={selected.length}
-                            rowCount={users.length}
-                            onSelectAllClick={handleSelectAllClick}
+                            users={props.users}
+                            rowCount={props.users.length}
+                            setSelected={setSelected}
                         />
+
                         <TableBodyUsers
-                            users={users}
+                            selected={selected}
+                            users={props.users}
                             page={page}
-                            isSelected={isSelected}
-                            handleClick={handleClick}
+                            setSelected={setSelected}
                         />
                     </Table>
                 </TableContainer>
+
                 <TablePagination
                     component='div'
                     count={props.usersCount}
@@ -174,15 +106,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-    connect(mapStateToProps, {
-        getUsersCount,
-        getUsers,
-        setAdmins,
-        deleteAdmins,
-        blockUsers,
-        unblockUsers,
-        deleteUsers,
-        toggleStatus,
-    }),
+    connect(mapStateToProps, { getUsersCount, getUsers, toggleStatus }),
     withAdminRedirect
 )(Admin)

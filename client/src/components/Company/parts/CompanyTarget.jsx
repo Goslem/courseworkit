@@ -1,6 +1,6 @@
 import React from 'react'
-import { makeStyles, withStyles, lighten } from '@material-ui/core/styles'
-import translate from '../../i18n/translate'
+import { makeStyles } from '@material-ui/core/styles'
+import translate from '../../../i18n/translate'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -26,14 +26,17 @@ const CompanyTarget = (props) => {
                         {translate('company.companyProgress')}
                     </Typography>
                 </Grid>
+
                 <Grid item xs={12}>
                     <LinearProgress variant='determinate' value={progress} color='secondary' />
                 </Grid>
+
                 <Grid item xs>
                     <Typography color='textSecondary' gutterBottom>
                         {props.currentAmount} y.e.
                     </Typography>
                 </Grid>
+                
                 <Grid item xs>
                     <Typography color='textSecondary' gutterBottom align='right'>
                         {props.targetAmount} y.e.

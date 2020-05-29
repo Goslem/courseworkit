@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Container } from '@material-ui/core'
 import { connect } from 'react-redux'
-import { getUserCompanyId, getCompany } from '../../redux/companyReducer'
-
-import CompanyTitle from './CompanyTitle'
-import BonusList from './BonusList'
-import ShortDescription from './ShortDescription'
-import CompanyVideo from './CompanyVideo'
-import CompanyTarget from './CompanyTarget'
+import { getUserCompanies, getCompany } from '../../redux/companyReducer'
+import { Container } from '@material-ui/core'
+import CompanyTitle from './parts/CompanyTitle'
+import BonusList from './parts/BonusList'
+import ShortDescription from './parts/ShortDescription'
+import CompanyVideo from './parts/CompanyVideo'
+import CompanyTarget from './parts/CompanyTarget'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,17 +19,20 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const Admin = (props) => {
+const Company = (props) => {
     const classes = useStyles()
-    const { company } = props
+    const { userCompanies, company } = props
 
-    const companyId = Math.abs(parseInt(props.match.params.companyId, 10))
-    const isOwner =
-        props.isAdmin || props.userCompanyId.includes((company) => company.id === companyId)
+    const companyId = Number(props.match.params.companyId)
+    const isOwner = props.isAdmin || userCompanies.includes((company) => {
+        return company.id === companyId
+    })
 
     useEffect(() => {
         props.getCompany(companyId)
-        if (props.isAuth) props.getUserCompanyId(props.userId)
+        if (props.isAuth) {
+            props.getUserCompanies(props.userId)
+        }
     }, [])
 
     return (
@@ -51,8 +53,8 @@ const mapStateToProps = (state) => ({
     userId: state.auth.userId,
     isAuth: state.auth.isAuth,
     isAdmin: state.auth.isAdmin,
-    userCompanyId: state.company.userCompanyId,
+    userCompanies: state.company.userCompanies,
     company: state.company.company,
 })
 
-export default connect(mapStateToProps, { getUserCompanyId, getCompany })(Admin)
+export default connect(mapStateToProps, { getUserCompanies, getCompany })(Company)

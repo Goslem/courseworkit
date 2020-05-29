@@ -2,7 +2,6 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { reducer as formReducer } from 'redux-form'
 import thunk from 'redux-thunk'
-
 import { themeReducer } from './themeReducer'
 import { localeReducer } from './localeReducer'
 import { authReducer } from './authReducer'
