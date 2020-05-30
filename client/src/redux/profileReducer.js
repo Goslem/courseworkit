@@ -8,6 +8,10 @@ const INITIAL_COMPANY = '/profile/INITIAL_COMPANY'
 const SET_COMPANY = '/profile/SET_COMPANY'
 const SET_USER_INFO = '/profile/SET_USER_INFO'
 const TOGGLE_EDIT_MODE = '/profile/TOGGLE_EDIT_MODE'
+const TOGGLE_USER_NAME = '/profile/TOGGLE_USER_NAME'
+const TOGGLE_USER_SURNAME = '/profile/TOGGLE_USER_SURNAME'
+const TOGGLE_USER_COUNTRY = '/profile/TOGGLE_USER_COUNTRY'
+const TOGGLE_USER_CITY = '/profile/TOGGLE_USER_CITY'
 
 const initialState = {
     bonusesCount: 0,
@@ -65,6 +69,38 @@ export const profileReducer = (state = initialState, action) => {
                 ...state,
                 editMode: action.editMode,
             }
+        case TOGGLE_USER_NAME:
+            return {
+                ...state,
+                userInfo: {
+                    ...state.userInfo,
+                    name: action.name,
+                },
+            }
+        case TOGGLE_USER_SURNAME:
+            return {
+                ...state,
+                userInfo: {
+                    ...state.userInfo,
+                    surname: action.surname,
+                },
+            }
+        case TOGGLE_USER_COUNTRY:
+            return {
+                ...state,
+                userInfo: {
+                    ...state.userInfo,
+                    country: action.country,
+                },
+            }
+        case TOGGLE_USER_CITY:
+            return {
+                ...state,
+                userInfo: {
+                    ...state.userInfo,
+                    city: action.city,
+                },
+            }
         default:
             return state
     }
@@ -78,6 +114,10 @@ const setInitialCompany = (company) => ({ type: INITIAL_COMPANY, company })
 const setCompany = (company) => ({ type: SET_COMPANY, company })
 const setUserInfo = (userInfo) => ({ type: SET_USER_INFO, userInfo })
 const toggleEditMode = (editMode) => ({ type: TOGGLE_EDIT_MODE, editMode })
+const toggleUserName = (name) => ({ type: TOGGLE_USER_NAME, name })
+const toggleUserSurname = (surname) => ({ type: TOGGLE_USER_SURNAME, surname })
+const toggleUserCountry = (country) => ({ type: TOGGLE_USER_COUNTRY, country })
+const toggleUserCity = (city) => ({ type: TOGGLE_USER_CITY, city })
 
 export const getBonusesCount = (userId) => async (dispatch) => {
     const response = await profileAPI.getBonusesCount(userId)
@@ -137,4 +177,36 @@ export const getUserInfo = (userId) => async (dispatch) => {
 
 export const setEditMode = (editMode) => (dispatch) => {
     dispatch(toggleEditMode(editMode))
+}
+
+export const setUserName = (userId, name) => async (dispatch) => {
+    const response = await profileAPI.setUserName(userId, name)
+
+    if (response.data.statusCode === 200) {
+        dispatch(toggleUserName(name))
+    }
+}
+
+export const setUserSurname = (userId, surname) => async (dispatch) => {
+    const response = await profileAPI.setUserSurname(userId, surname)
+
+    if (response.data.statusCode === 200) {
+        dispatch(toggleUserSurname(surname))
+    }
+}
+
+export const setUserCountry = (userId, country) => async (dispatch) => {
+    const response = await profileAPI.setUserCountry(userId, country)
+
+    if (response.data.statusCode === 200) {
+        dispatch(toggleUserCountry(country))
+    }
+}
+
+export const setUserCity = (userId, city) => async (dispatch) => {
+    const response = await profileAPI.setUserCity(userId, city)
+
+    if (response.data.statusCode === 200) {
+        dispatch(toggleUserCity(city))
+    }
 }

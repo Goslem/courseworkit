@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import translate from '../../i18n/translate'
 import { Field, reduxForm } from 'redux-form'

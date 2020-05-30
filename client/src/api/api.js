@@ -62,6 +62,18 @@ export const profileAPI = {
     getUserInfo(userId) {
         return instance.post('profile/user/get', { userId })
     },
+    setUserName(userId, name) {
+        return instance.post('profile/user/set/name', { userId, name })
+    },
+    setUserSurname(userId, surname) {
+        return instance.post('profile/user/set/surname', { userId, surname })
+    },
+    setUserCountry(userId, country) {
+        return instance.post('profile/user/set/country', { userId, country })
+    },
+    setUserCity(userId, city) {
+        return instance.post('profile/user/set/city', { userId, city })
+    },
 }
 
 export const companyAPI = {
