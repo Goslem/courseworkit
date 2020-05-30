@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const db = require('../models')
-const { response, isNumber } = require('../common/routeMiddleware')
+const { response, isNumber, isEmptyString } = require('../common/routeMiddleware')
 
 router.post('/bonuses/count', (req, res) => {
     const { userId } = req.body
@@ -100,6 +100,98 @@ router.post('/user/get', (req, res) => {
         })
         .catch((error) => {
             return res.send(response(401))
+        })
+})
+
+router.post('/user/set/name', (req, res) => {
+    const { userId, name } = req.body
+
+    if (!isNumber(userId)) {
+        return res.send(response(400))
+    }
+
+    if (isEmptyString(name)) {
+        return res.send(response(400))
+    }
+
+    db.users
+        .update(
+            { name: name },
+            {
+                where: { id: userId },
+            }
+        )
+        .then(() => {
+            res.send(response(200))
+        })
+})
+
+router.post('/user/set/surname', (req, res) => {
+    const { userId, surname } = req.body
+
+    if (!isNumber(userId)) {
+        return res.send(response(400))
+    }
+
+    if (isEmptyString(surname)) {
+        return res.send(response(400))
+    }
+
+    db.users
+        .update(
+            { surname: surname },
+            {
+                where: { id: userId },
+            }
+        )
+        .then(() => {
+            res.send(response(200))
+        })
+})
+
+router.post('/user/set/country', (req, res) => {
+    const { userId, country } = req.body
+
+    if (!isNumber(userId)) {
+        return res.send(response(400))
+    }
+
+    if (isEmptyString(country)) {
+        return res.send(response(400))
+    }
+
+    db.users
+        .update(
+            { country: country },
+            {
+                where: { id: userId },
+            }
+        )
+        .then(() => {
+            res.send(response(200))
+        })
+})
+
+router.post('/user/set/city', (req, res) => {
+    const { userId, city } = req.body
+
+    if (!isNumber(userId)) {
+        return res.send(response(400))
+    }
+
+    if (isEmptyString(city)) {
+        return res.send(response(400))
+    }
+
+    db.users
+        .update(
+            { city: city },
+            {
+                where: { id: userId },
+            }
+        )
+        .then(() => {
+            res.send(response(200))
         })
 })
 
