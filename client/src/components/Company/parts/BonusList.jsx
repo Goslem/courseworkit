@@ -56,8 +56,9 @@ const BonusList = (props) => {
         setPage(newPage)
     }
 
-    const onBonusSupport = (id, bonusAmount) => {
+    const onBonusBuy = (id, bonusAmount) => {
         props.buyBonus(id, props.userId, props.companyId, bonusAmount)
+        
     }
 
     const onFollowing = () => {
@@ -106,7 +107,7 @@ const BonusList = (props) => {
                                         variant='contained'
                                         color='primary'
                                         onClick={(event) => {
-                                            onBonusSupport(bonus.id, bonus.amount)
+                                            onBonusBuy(bonus.id, bonus.amount)
                                         }}
                                         disabled={!props.isAuth || props.isFetching}
                                     >

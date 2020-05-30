@@ -7,7 +7,8 @@ const INITIAL_BONUSES = '/company/INITIAL_BONUSES'
 const SET_BONUSES = '/company/SET_BONUSES'
 const TOGGLE_IS_FETCHING = '/company/TOGGLE_IS_FETCHING'
 const TOGGLE_STATUS = '/company/TOGGLE_STATUS'
-const TOGGLE_EDIT_MODE = '/profile/TOGGLE_EDIT_MODE'
+const TOGGLE_EDIT_MODE = '/company/TOGGLE_EDIT_MODE'
+const SET_COMPANY_CURRENT_AMOUNT = '/company/SET_COMPANY_CURRENT_AMOUNT'
 
 const initialState = {
     userCompanies: [],
@@ -68,6 +69,14 @@ export const companyReducer = (state = initialState, action) => {
                 ...state,
                 editMode: action.editMode,
             }
+        case SET_COMPANY_CURRENT_AMOUNT:
+            return {
+                ...state,
+                company: {
+                    ...state.company,
+                    currentAmount: state.company.currentAmount + action.currentAmount,
+                },
+            }
         default:
             return state
     }
@@ -81,6 +90,10 @@ const setBonuses = (bonuses) => ({ type: SET_BONUSES, bonuses })
 const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
 const setStatusCode = (statusCode) => ({ type: TOGGLE_STATUS, statusCode })
 const toggleEditMode = (editMode) => ({ type: TOGGLE_EDIT_MODE, editMode })
+const setCompanyCurrentAmount = (currentAmount) => ({
+    type: SET_COMPANY_CURRENT_AMOUNT,
+    currentAmount,
+})
 
 export const getUserCompanies = (userId) => async (dispatch) => {
     const response = await companyAPI.getUserCompanies(userId)
@@ -107,7 +120,10 @@ export const getBonusesCount = (companyId) => async (dispatch) => {
 }
 
 export const getInitialBonuses = (companyId) => async (dispatch) => {
+    dispatch(toggleIsFetching(true))
     const response = await companyAPI.getBonuses(companyId, 0, 5)
+
+    dispatch(toggleIsFetching(false))
 
     if (response.data.statusCode === 200) {
         dispatch(setInitialBonuses(response.data.data))
@@ -115,7 +131,10 @@ export const getInitialBonuses = (companyId) => async (dispatch) => {
 }
 
 export const getBonuses = (companyId, offset, limit) => async (dispatch) => {
+    dispatch(toggleIsFetching(true))
     const response = await companyAPI.getBonuses(companyId, offset, limit)
+
+    dispatch(toggleIsFetching(false))
 
     if (response.data.statusCode === 200) {
         dispatch(setBonuses(response.data.data))
@@ -124,9 +143,13 @@ export const getBonuses = (companyId, offset, limit) => async (dispatch) => {
 
 export const buyBonus = (bonusId, userId, companyId, bonusAmount) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-    await companyAPI.buyBonus(bonusId, userId, companyId, bonusAmount)
+    const response = await companyAPI.buyBonus(bonusId, userId, companyId, bonusAmount)
 
     dispatch(toggleIsFetching(false))
+
+    if (response.data.statusCode === 200) {
+        dispatch(setCompanyCurrentAmount(bonusAmount))
+    }
 }
 
 export const createCompany = (data) => async (dispatch) => {

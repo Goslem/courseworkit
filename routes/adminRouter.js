@@ -70,7 +70,7 @@ router.post('/admins/add', (req, res) => {
                 {
                     where: {
                         id: {
-                            [Sequelize.Op.and]: ids,
+                            [Sequelize.Op.or]: ids,
                         },
                     },
                 }
@@ -95,7 +95,7 @@ router.post('/admins/delete', (req, res) => {
                 {
                     where: {
                         id: {
-                            [Sequelize.Op.and]: ids,
+                            [Sequelize.Op.or]: ids,
                         },
                     },
                 }
@@ -120,7 +120,7 @@ router.post('/users/block', (req, res) => {
                 {
                     where: {
                         id: {
-                            [Sequelize.Op.and]: ids,
+                            [Sequelize.Op.or]: ids,
                         },
                     },
                 }
@@ -145,7 +145,7 @@ router.post('/users/unblock', (req, res) => {
                 {
                     where: {
                         id: {
-                            [Sequelize.Op.and]: ids,
+                            [Sequelize.Op.or]: ids,
                         },
                     },
                 }
@@ -168,7 +168,7 @@ router.post('/users/delete', (req, res) => {
             .destroy({
                 where: {
                     id: {
-                        [Sequelize.Op.and]: ids,
+                        [Sequelize.Op.or]: ids,
                     },
                 },
             })
