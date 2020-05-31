@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { getCompaniesId, createBonus } from '../../redux/createBonusReducer'
+import { withLogoutRedirect } from '../../hoc/withAuthRedirect'
 import { Container } from '@material-ui/core'
 import Paper from '@material-ui/core/Paper'
 import translate from '../../i18n/translate'
 import CreateBonusForm from './CreateBonusForm'
-import { connect } from 'react-redux'
 import Typography from '@material-ui/core/Typography'
-import { withLogoutRedirect } from '../../hoc/withAuthRedirect'
-import { compose } from 'redux'
-import { getCompaniesId, createBonus } from '../../redux/bonusReducer'
 
 const useStyles = makeStyles((theme) => ({
     root: {

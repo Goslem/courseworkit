@@ -128,12 +128,30 @@ router.post('/create', (req, res) => {
             expirationDate,
             userId,
         })
-        .then(() => {
-            res.send(response(200))
+        .then(({ id }) => {
+            res.send(response(200, { id }))
         })
 })
 
-router.post('/companyimages/get', (req, res) => {
+router.post('/images/set', (req, res) => {
+    const { companyId, images } = req.body
+
+    if (isEmptyString(...images)) {
+        return res.send(response(400))
+    }
+
+    if (!isNumber(companyId)) {
+        return res.send(response(400))
+    }
+
+    const condition = images.map((image) => ({ src: image, companyId }))
+
+    db.companyImages.bulkCreate(condition).then(() => {
+        res.send(response(200))
+    })
+})
+
+router.post('/images/get', (req, res) => {
     const { companyId } = req.body
 
     if (!isNumber(companyId)) {

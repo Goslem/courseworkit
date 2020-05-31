@@ -22,6 +22,12 @@ export const authAPI = {
     },
 }
 
+export const homeAPI = {
+    getCompany() {
+        return instance.post('home/company/get')
+    },
+}
+
 export const adminAPI = {
     getUsersCount() {
         return instance.get('admin/users/count')
@@ -92,6 +98,23 @@ export const companyAPI = {
     buyBonus(bonusId, userId, companyId, bonusAmount) {
         return instance.post('company/bonuses/buy', { bonusId, userId, companyId, bonusAmount })
     },
+    getCompanyImages(companyId) {
+        return instance.post('company/images/get', { companyId })
+    },
+}
+
+export const createCompanyAPI = {
+    uploadImage(image) {
+        const data = new FormData()
+        data.append('file', image)
+        data.append('upload_preset', 'courseworkit')
+
+        return axios.post('https://api.cloudinary.com/v1_1/hnpgflfup/image/upload', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+    },
     createCompany(userId, title, description, videoLink, targetAmount, expirationDate) {
         return instance.post('company/create', {
             userId,
@@ -102,18 +125,12 @@ export const companyAPI = {
             expirationDate,
         })
     },
-    getCompanyImages(companyId) {
-        return instance.post('company/companyimages/get', { companyId })
+    createCompanyImages(companyId, images) {
+        return instance.post('company/images/set', { companyId, images })
     },
 }
 
-export const homeAPI = {
-    getCompany() {
-        return instance.post('home/company/get')
-    },
-}
-
-export const bonusAPI = {
+export const createBonusAPI = {
     getCompaniesId(userId) {
         return instance.post('bonus/companiesId/get', { userId })
     },

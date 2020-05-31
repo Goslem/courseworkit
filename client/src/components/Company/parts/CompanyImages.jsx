@@ -28,7 +28,7 @@ const CompanyImages = (props) => {
     }, [])
 
     const [activeStep, setActiveStep] = React.useState(0)
-    const maxSteps = props.images.length || 1
+    const maxSteps = props.images.length
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1)

@@ -3,19 +3,14 @@ import { makeStyles } from '@material-ui/core/styles'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { Field, FieldArray, reduxForm } from 'redux-form'
-import {
-    toggleStatus,
-    getCreateCompanyImages,
-    createCompanyImages,
-} from '../../redux/companyReducer'
+import { uploadImage, nullifyStatus } from '../../redux/createCompanyReducer'
+import { arrayPush } from 'redux-form'
 import translate from '../../i18n/translate'
 import { renderField } from '../common/Fields'
 import { useDropzone } from 'react-dropzone'
 import Button from '@material-ui/core/Button'
 import { required, maxLengthCreator } from '../../validators/index'
 import { InfoAlert } from '../common/InfoAlert'
-import { change } from 'redux-form'
-import { arrayPush } from 'redux-form'
 
 const useStyles = makeStyles((theme) => ({
     createForm: {
@@ -81,26 +76,10 @@ const CreateCompanyForm = (props) => {
         })
     }, [])
 
-
-    const uploadImage = async (image) => {
-        const data = new FormData()
-        data.append('file', image)
-        data.append('upload_preset', 'courseworkit')
-
-        const response = await fetch('https://api.cloudinary.com/v1_1/hnpgflfup/image/upload', {
-            method: 'POST',
-            body: data,
-        })
-
-        const file = await response.json()
-        props.getCreateCompanyImages(file.secure_url)
-
-        props.dispatch(arrayPush('company', 'images', file.secure_url))
-    }
-
     const onDrop = useCallback((acceptedFiles) => {
-        acceptedFiles.forEach((image) => {
-            uploadImage(image)
+        acceptedFiles.forEach(async (image) => {
+            const url = await props.uploadImage(image)
+            props.dispatch(arrayPush('createCompany', 'images', url))
         })
     }, [])
 
@@ -109,7 +88,6 @@ const CreateCompanyForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit} className={classes.createForm}>
             <Field name='userId' component='input' type='hidden' />
-
             <FieldArray name='images' component='input' type='hidden' />
 
             <Field
@@ -165,8 +143,8 @@ const CreateCompanyForm = (props) => {
             </div>
 
             <div className={classes.companyImages}>
-                {props.images.map((image) => (
-                    <img src={image} alt='' key={image} className={classes.companyImage} />
+                {props.images.map((image, index) => (
+                    <img src={image} alt='' key={index} className={classes.companyImage} />
                 ))}
             </div>
 
@@ -184,7 +162,7 @@ const CreateCompanyForm = (props) => {
                 open={!!props.statusCode}
                 message={translate(`companyCreate.message${props.statusCode}`)}
                 severity={props.statusCode === 200 ? 'success' : 'error'}
-                onClose={props.toggleStatus}
+                onClose={props.nullifyStatus}
             />
         </form>
     )
@@ -192,12 +170,12 @@ const CreateCompanyForm = (props) => {
 
 const mapStateToProps = (state) => ({
     userId: state.auth.userId,
-    isFetching: state.company.isFetching,
-    statusCode: state.company.statusCode,
-    images: state.company.createCompanyImages,
+    images: state.createCompany.images,
+    isFetching: state.createCompany.isFetching,
+    statusCode: state.createCompany.statusCode,
 })
 
 export default compose(
-    connect(mapStateToProps, { toggleStatus, getCreateCompanyImages, createCompanyImages }),
-    reduxForm({ form: 'company' })
+    connect(mapStateToProps, { uploadImage, nullifyStatus }),
+    reduxForm({ form: 'createCompany' })
 )(CreateCompanyForm)

@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { createCompany } from '../../redux/companyReducer'
+import { createCompany } from '../../redux/createCompanyReducer'
 import { withLogoutRedirect } from '../../hoc/withAuthRedirect'
 import translate from '../../i18n/translate'
 import { Container } from '@material-ui/core'
@@ -35,17 +35,10 @@ const CreateCompany = (props) => {
                 <Typography variant='h5' component='h1' className={classes.createTitle}>
                     {translate('companyCreate.title')}
                 </Typography>
-                <CreateCompanyForm onSubmit={props.createCompany} userId={props.userId} />
+                <CreateCompanyForm onSubmit={props.createCompany} />
             </Paper>
         </Container>
     )
 }
 
-const mapStateToProps = (state) => ({
-    images: state.company.createCompanyImages,
-})
-
-export default compose(
-    connect(mapStateToProps, { createCompany }),
-    withLogoutRedirect
-)(CreateCompany)
+export default compose(connect(null, { createCompany }), withLogoutRedirect)(CreateCompany)

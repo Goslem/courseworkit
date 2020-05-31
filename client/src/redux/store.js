@@ -10,7 +10,8 @@ import { adminReducer } from './adminReducer'
 import { profileReducer } from './profileReducer'
 import { companyReducer } from './companyReducer'
 import { homeReducer } from './homeReducer'
-import { bonusReducer } from './bonusReducer'
+import { createCompanyReducer } from './createCompanyReducer'
+import { createBonusReducer } from './createBonusReducer'
 
 const reducers = combineReducers({
     form: formReducer,
@@ -22,7 +23,8 @@ const reducers = combineReducers({
     profile: profileReducer,
     company: companyReducer,
     home: homeReducer,
-    bonus: bonusReducer,
+    createCompany: createCompanyReducer,
+    createBonus: createBonusReducer,
 })
 
 let store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)))

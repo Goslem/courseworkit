@@ -1,16 +1,16 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import translate from '../../i18n/translate'
-import { Field, reduxForm } from 'redux-form'
-import { renderField } from '../common/Fields'
-import Button from '@material-ui/core/Button'
-import { required, maxLengthCreator } from '../../validators/index'
-import MenuItem from '@material-ui/core/MenuItem'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { InfoAlert } from '../common/InfoAlert'
+import { toggleStatus } from '../../redux/createBonusReducer'
+import { Field, reduxForm } from 'redux-form'
+import translate from '../../i18n/translate'
+import MenuItem from '@material-ui/core/MenuItem'
+import { renderField } from '../common/Fields'
 import { renderSelectField } from '../common/Fields'
-import { toggleStatus } from '../../redux/bonusReducer'
+import { required, maxLengthCreator } from '../../validators/index'
+import Button from '@material-ui/core/Button'
+import { InfoAlert } from '../common/InfoAlert'
 
 const useStyles = makeStyles((theme) => ({
     createForm: {
@@ -93,12 +93,12 @@ const CreateBonusForm = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-    companiesId: state.bonus.companiesId,
-    isFetching: state.bonus.isFetching,
-    statusCode: state.bonus.statusCode,
+    companiesId: state.createBonus.companiesId,
+    isFetching: state.createBonus.isFetching,
+    statusCode: state.createBonus.statusCode,
 })
 
 export default compose(
     connect(mapStateToProps, { toggleStatus }),
-    reduxForm({ form: 'bonus' })
+    reduxForm({ form: 'createBonus' })
 )(CreateBonusForm)
