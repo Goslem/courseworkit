@@ -64,6 +64,7 @@ const messages = {
 
     'profile.editMode': 'Режим редактирования',
 
+    'company.editMode': 'Режим редактирования',
     'company.companyTerm': 'Срок — ',
     'company.bonusList.tableTitle': 'Бонусы',
     'company.bonusList.bonusTitle': 'Название',
@@ -73,8 +74,8 @@ const messages = {
     'company.bonusList.supportButton': 'Купить',
     'company.companyDescription': 'Описание',
     'company.companyProgress': 'Прогресс',
-
-    'company.editMode': 'Режим редактирования',
+    'company.back': 'назад',
+    'company.next': 'вперед',
 
     'home.homeTitle': 'Последние обновленные компании',
     'home.updatedAt': 'Обновлено: ',
@@ -86,6 +87,8 @@ const messages = {
     'companyCreate.inputVideoId': 'Код видео',
     'companyCreate.inputTargetAmount': 'Целевая сумма',
     'companyCreate.inputDate': 'Дата',
+    'companyCreate.dropzone': 'Оставьте изображения здесь ...',
+    'companyCreate.dragzone': 'Перетащите сюда несколько картинок или нажмите, чтобы выбрать картинку',
     'companyCreate.create': 'Создать',
     'companyCreate.message0': ' ',
     'companyCreate.message200': 'Компания создана',

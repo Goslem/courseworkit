@@ -1,14 +1,14 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Container } from '@material-ui/core'
-import Paper from '@material-ui/core/Paper'
-import translate from '../../i18n/translate'
-import CreateCompanyForm from './CreateCompanyForm'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { createCompany } from '../../redux/companyReducer'
-import Typography from '@material-ui/core/Typography'
 import { withLogoutRedirect } from '../../hoc/withAuthRedirect'
-import { compose } from 'redux'
+import translate from '../../i18n/translate'
+import { Container } from '@material-ui/core'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
+import CreateCompanyForm from './CreateCompanyForm'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,4 +41,11 @@ const CreateCompany = (props) => {
     )
 }
 
-export default compose(connect(null, { createCompany }), withLogoutRedirect)(CreateCompany)
+const mapStateToProps = (state) => ({
+    images: state.company.createCompanyImages,
+})
+
+export default compose(
+    connect(mapStateToProps, { createCompany }),
+    withLogoutRedirect
+)(CreateCompany)

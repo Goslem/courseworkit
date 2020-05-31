@@ -8,6 +8,7 @@ import CompanyTitle from './parts/CompanyTitle'
 import BonusList from './parts/BonusList'
 import ShortDescription from './parts/ShortDescription'
 import CompanyVideo from './parts/CompanyVideo'
+import CompanyImages from './parts/CompanyImages'
 import CompanyTarget from './parts/CompanyTarget'
 
 const useStyles = makeStyles((theme) => ({
@@ -29,6 +30,7 @@ const Company = (props) => {
 
     useEffect(() => {
         props.getCompany(companyId)
+
         if (props.isAuth) {
             props.getUserCompanies(props.userId)
         }
@@ -41,6 +43,7 @@ const Company = (props) => {
             <BonusList companyId={companyId} isAuth={props.isAuth} userId={props.userId} />
             <ShortDescription description={company.description} />
             <CompanyVideo videoSrc={company.videoLink} />
+            <CompanyImages companyId={companyId} />
             <CompanyTarget
                 currentAmount={company.currentAmount}
                 targetAmount={company.targetAmount}

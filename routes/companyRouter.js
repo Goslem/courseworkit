@@ -133,4 +133,23 @@ router.post('/create', (req, res) => {
         })
 })
 
+router.post('/companyimages/get', (req, res) => {
+    const { companyId } = req.body
+
+    if (!isNumber(companyId)) {
+        return res.send(response(400))
+    }
+
+    db.companyImages
+        .findAll({
+            where: {
+                companyId: companyId,
+            },
+            attributes: ['src'],
+        })
+        .then((images) => {
+            res.send(response(200, images))
+        })
+})
+
 module.exports = router

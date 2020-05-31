@@ -102,6 +102,9 @@ export const companyAPI = {
             expirationDate,
         })
     },
+    getCompanyImages(companyId) {
+        return instance.post('company/companyimages/get', { companyId })
+    },
 }
 
 export const homeAPI = {

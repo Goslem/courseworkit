@@ -1,14 +1,21 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import translate from '../../i18n/translate'
-import { Field, reduxForm } from 'redux-form'
-import { renderField } from '../common/Fields'
-import Button from '@material-ui/core/Button'
-import { required, maxLengthCreator } from '../../validators/index'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { Field, FieldArray, reduxForm } from 'redux-form'
+import {
+    toggleStatus,
+    getCreateCompanyImages,
+    createCompanyImages,
+} from '../../redux/companyReducer'
+import translate from '../../i18n/translate'
+import { renderField } from '../common/Fields'
+import { useDropzone } from 'react-dropzone'
+import Button from '@material-ui/core/Button'
+import { required, maxLengthCreator } from '../../validators/index'
 import { InfoAlert } from '../common/InfoAlert'
-import { toggleStatus } from '../../redux/companyReducer'
+import { change } from 'redux-form'
+import { arrayPush } from 'redux-form'
 
 const useStyles = makeStyles((theme) => ({
     createForm: {
@@ -20,6 +27,41 @@ const useStyles = makeStyles((theme) => ({
         '& > *:last-child': {
             marginTop: 5,
             marginBottom: 0,
+        },
+    },
+    dragZone: {
+        height: 200,
+        padding: 20,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+
+        fontSize: 18,
+        border: '1px dashed',
+        borderColor: theme.palette.primary.main,
+    },
+    dropZone: {
+        height: 200,
+        padding: 20,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+
+        fontSize: 18,
+        border: '1px dashed',
+        borderColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.type === 'light' ? '#F0F2F5' : '#202124',
+    },
+    companyImages: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+    },
+    companyImage: {
+        width: '49.9%',
+        marginTop: 1,
+        [theme.breakpoints.down('xs')]: {
+            width: '100%',
         },
     },
 }))
@@ -39,9 +81,36 @@ const CreateCompanyForm = (props) => {
         })
     }, [])
 
+
+    const uploadImage = async (image) => {
+        const data = new FormData()
+        data.append('file', image)
+        data.append('upload_preset', 'courseworkit')
+
+        const response = await fetch('https://api.cloudinary.com/v1_1/hnpgflfup/image/upload', {
+            method: 'POST',
+            body: data,
+        })
+
+        const file = await response.json()
+        props.getCreateCompanyImages(file.secure_url)
+
+        props.dispatch(arrayPush('company', 'images', file.secure_url))
+    }
+
+    const onDrop = useCallback((acceptedFiles) => {
+        acceptedFiles.forEach((image) => {
+            uploadImage(image)
+        })
+    }, [])
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+
     return (
         <form onSubmit={props.handleSubmit} className={classes.createForm}>
             <Field name='userId' component='input' type='hidden' />
+
+            <FieldArray name='images' component='input' type='hidden' />
 
             <Field
                 name='title'
@@ -86,6 +155,21 @@ const CreateCompanyForm = (props) => {
                 validate={[required]}
             />
 
+            <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                {isDragActive ? (
+                    <div className={classes.dropZone}>{translate('companyCreate.dropzone')}</div>
+                ) : (
+                    <div className={classes.dragZone}>{translate('companyCreate.dragzone')}</div>
+                )}
+            </div>
+
+            <div className={classes.companyImages}>
+                {props.images.map((image) => (
+                    <img src={image} alt='' key={image} className={classes.companyImage} />
+                ))}
+            </div>
+
             <Button
                 type='submit'
                 variant='contained'
@@ -110,9 +194,10 @@ const mapStateToProps = (state) => ({
     userId: state.auth.userId,
     isFetching: state.company.isFetching,
     statusCode: state.company.statusCode,
+    images: state.company.createCompanyImages,
 })
 
 export default compose(
-    connect(mapStateToProps, { toggleStatus }),
+    connect(mapStateToProps, { toggleStatus, getCreateCompanyImages, createCompanyImages }),
     reduxForm({ form: 'company' })
 )(CreateCompanyForm)

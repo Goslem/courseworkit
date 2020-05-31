@@ -64,6 +64,7 @@ const messages = {
 
     'profile.editMode': 'Edit mode',
 
+    'company.editMode': 'Edit mode',
     'company.companyTerm': 'Term — ',
     'company.bonusList.tableTitle': 'Bonuses',
     'company.bonusList.bonusTitle': 'Title',
@@ -73,8 +74,8 @@ const messages = {
     'company.bonusList.supportButton': 'Buy',
     'company.companyDescription': 'Description',
     'company.companyProgress': 'Progress',
-
-    'company.editMode': 'Edit mode',
+    'company.back': 'back',
+    'company.next': 'next',
 
     'home.homeTitle': 'Latest updated companies',
     'home.updatedAt': 'Updated at: ',
@@ -86,6 +87,8 @@ const messages = {
     'companyCreate.inputVideoId': 'Video id',
     'companyCreate.inputTargetAmount': 'Target amount',
     'companyCreate.inputDate': 'Date',
+    'companyCreate.dropzone': 'Drop the images here ...',
+    'companyCreate.dragzone': 'Drag \'n\' drop some images here, or click to select images',
     'companyCreate.create': 'Create',
     'companyCreate.message0': ' ',
     'companyCreate.message200': 'Company created',

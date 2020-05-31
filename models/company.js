@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     Company.associate = (models) => {
         Company.belongsTo(models.users)
         Company.hasMany(models.bonuses)
+        Company.hasMany(models.companyImages)
     }
 
     return Company

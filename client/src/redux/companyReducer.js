@@ -9,6 +9,8 @@ const TOGGLE_IS_FETCHING = '/company/TOGGLE_IS_FETCHING'
 const TOGGLE_STATUS = '/company/TOGGLE_STATUS'
 const TOGGLE_EDIT_MODE = '/company/TOGGLE_EDIT_MODE'
 const SET_COMPANY_CURRENT_AMOUNT = '/company/SET_COMPANY_CURRENT_AMOUNT'
+const SET_COMPANY_IMAGES = '/company/SET_COMPANY_IMAGES'
+const SET_CREATE_COMPANY_IMAGES = '/company/SET_CREATE_COMPANY_IMAGES'
 
 const initialState = {
     userCompanies: [],
@@ -22,6 +24,8 @@ const initialState = {
     },
     bonusesCount: 0,
     bonuses: [],
+    companyImages: [],
+    createCompanyImages: [],
     isFetching: false,
     statusCode: 0,
     editMode: false,
@@ -77,6 +81,16 @@ export const companyReducer = (state = initialState, action) => {
                     currentAmount: state.company.currentAmount + action.currentAmount,
                 },
             }
+        case SET_COMPANY_IMAGES:
+            return {
+                ...state,
+                companyImages: [...action.companyImages],
+            }
+        case SET_CREATE_COMPANY_IMAGES:
+            return {
+                ...state,
+                createCompanyImages: [...state.createCompanyImages].concat(action.image),
+            }
         default:
             return state
     }
@@ -94,6 +108,8 @@ const setCompanyCurrentAmount = (currentAmount) => ({
     type: SET_COMPANY_CURRENT_AMOUNT,
     currentAmount,
 })
+const setCompanyImages = (companyImages) => ({ type: SET_COMPANY_IMAGES, companyImages })
+const setCreateCompanyImages = (image) => ({ type: SET_CREATE_COMPANY_IMAGES, image })
 
 export const getUserCompanies = (userId) => async (dispatch) => {
     const response = await companyAPI.getUserCompanies(userId)
@@ -156,22 +172,43 @@ export const createCompany = (data) => async (dispatch) => {
     dispatch(toggleIsFetching(true))
     const { userId, title, description, videoLink, targetAmount, expirationDate } = data
 
-    const response = await companyAPI.createCompany(
-        userId,
-        title,
-        description,
-        videoLink,
-        targetAmount,
-        expirationDate
-    )
+    console.log('data', data)
+
+    // const response = await companyAPI.createCompany(
+    //     userId,
+    //     title,
+    //     description,
+    //     videoLink,
+    //     targetAmount,
+    //     expirationDate
+    // )
+
+    // dispatch(toggleIsFetching(false))
+
+    // if (response.data.statusCode === 200) {
+    //     dispatch(setStatusCode(200))
+    // } else {
+    //     dispatch(setStatusCode(204))
+    // }
+}
+
+export const createCompanyImages = (images) => async () => {
+    console.log('images', images)
+}
+
+export const getCompanyImages = (companyId) => async (dispatch) => {
+    dispatch(toggleIsFetching(true))
+    const response = await companyAPI.getCompanyImages(companyId)
 
     dispatch(toggleIsFetching(false))
 
     if (response.data.statusCode === 200) {
-        dispatch(setStatusCode(200))
-    } else {
-        dispatch(setStatusCode(204))
+        dispatch(setCompanyImages(response.data.data))
     }
+}
+
+export const getCreateCompanyImages = (image) => async (dispatch) => {
+    dispatch(setCreateCompanyImages(image))
 }
 
 export const toggleStatus = () => (dispatch) => {
