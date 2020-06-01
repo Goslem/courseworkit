@@ -10,6 +10,7 @@ import ShortDescription from './parts/ShortDescription'
 import CompanyVideo from './parts/CompanyVideo'
 import CompanyImages from './parts/CompanyImages'
 import CompanyTarget from './parts/CompanyTarget'
+import CompanyNotFound from './parts/CompanyNotFound'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,18 +38,27 @@ const Company = (props) => {
     }, [])
 
     return (
-        <Container maxWidth='md' className={classes.root}>
-            {isOwner && <EditMode />}
-            <CompanyTitle companyName={company.title} expirationDate={company.expirationDate} />
-            <BonusList companyId={companyId} isAuth={props.isAuth} userId={props.userId} />
-            <ShortDescription description={company.description} />
-            <CompanyVideo videoSrc={company.videoLink} />
-            <CompanyImages companyId={companyId} />
-            <CompanyTarget
-                currentAmount={company.currentAmount}
-                targetAmount={company.targetAmount}
-            />
-        </Container>
+        <>
+            {company.title ? (
+                <Container maxWidth='md' className={classes.root}>
+                    {isOwner && <EditMode />}
+                    <CompanyTitle
+                        companyName={company.title}
+                        expirationDate={company.expirationDate}
+                    />
+                    <BonusList companyId={companyId} isAuth={props.isAuth} userId={props.userId} />
+                    <ShortDescription description={company.description} />
+                    <CompanyVideo videoSrc={company.videoLink} />
+                    <CompanyImages companyId={companyId} />
+                    <CompanyTarget
+                        currentAmount={company.currentAmount}
+                        targetAmount={company.targetAmount}
+                    />
+                </Container>
+            ) : (
+                <CompanyNotFound />
+            )}
+        </>
     )
 }
 

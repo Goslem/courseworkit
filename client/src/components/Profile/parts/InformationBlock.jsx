@@ -251,7 +251,6 @@ const InformationBlock = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-    userId: state.auth.userId,
     name: state.profile.userInfo.name,
     surname: state.profile.userInfo.surname,
     country: state.profile.userInfo.country,

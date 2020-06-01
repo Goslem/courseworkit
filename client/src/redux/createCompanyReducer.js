@@ -63,7 +63,7 @@ export const createCompany = (data) => async (dispatch) => {
     dispatch(toggleIsFetching(false))
 
     if (response.data.statusCode === 200) {
-        if (images.length > 0) {
+        if (images) {
             await createCompanyAPI.createCompanyImages(response.data.data.id, images)
         }
 

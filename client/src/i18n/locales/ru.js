@@ -44,6 +44,7 @@ const messages = {
     'admin.message0': ' ',
     'admin.message204': 'Упс. Одна из записей не существует в базе данных',
 
+    'profile.editMode': 'Режим редактирования',
     'profile.bonusList.tableTitle': 'Список оплаченных бонусов',
     'profile.bonusList.bonusTitle': 'Название',
     'profile.bonusList.bonusAmount': 'Сумма',
@@ -61,8 +62,7 @@ const messages = {
     'profile.informationBlock.surname': 'Фамилия:',
     'profile.informationBlock.country': 'Страна:',
     'profile.informationBlock.city': 'Город:',
-
-    'profile.editMode': 'Режим редактирования',
+    'profile.notFound': 'Профиль не найден',
 
     'company.editMode': 'Режим редактирования',
     'company.companyTerm': 'Срок — ',
@@ -76,6 +76,7 @@ const messages = {
     'company.companyProgress': 'Прогресс',
     'company.back': 'назад',
     'company.next': 'вперед',
+    'company.notFound': 'Компания не найдена',
 
     'home.homeTitle': 'Последние обновленные компании',
     'home.updatedAt': 'Обновлено: ',
@@ -88,7 +89,8 @@ const messages = {
     'companyCreate.inputTargetAmount': 'Целевая сумма',
     'companyCreate.inputDate': 'Дата',
     'companyCreate.dropzone': 'Оставьте изображения здесь ...',
-    'companyCreate.dragzone': 'Перетащите сюда несколько картинок или нажмите, чтобы выбрать картинку',
+    'companyCreate.dragzone':
+        'Перетащите сюда несколько картинок или нажмите, чтобы выбрать картинку',
     'companyCreate.create': 'Создать',
     'companyCreate.message0': ' ',
     'companyCreate.message200': 'Компания создана',

@@ -44,6 +44,7 @@ const messages = {
     'admin.message0': ' ',
     'admin.message204': 'Oops. One of the records does not exist in the database',
 
+    'profile.editMode': 'Edit mode',
     'profile.bonusList.tableTitle': 'Paid bonuses list',
     'profile.bonusList.bonusTitle': 'Title',
     'profile.bonusList.bonusAmount': 'Amount',
@@ -61,8 +62,7 @@ const messages = {
     'profile.informationBlock.surname': 'Surname:',
     'profile.informationBlock.country': 'Country:',
     'profile.informationBlock.city': 'City:',
-
-    'profile.editMode': 'Edit mode',
+    'profile.notFound': 'Profile not found',
 
     'company.editMode': 'Edit mode',
     'company.companyTerm': 'Term — ',
@@ -76,6 +76,7 @@ const messages = {
     'company.companyProgress': 'Progress',
     'company.back': 'back',
     'company.next': 'next',
+    'company.notFound': 'Company not found',
 
     'home.homeTitle': 'Latest updated companies',
     'home.updatedAt': 'Updated at: ',
@@ -88,7 +89,7 @@ const messages = {
     'companyCreate.inputTargetAmount': 'Target amount',
     'companyCreate.inputDate': 'Date',
     'companyCreate.dropzone': 'Drop the images here ...',
-    'companyCreate.dragzone': 'Drag \'n\' drop some images here, or click to select images',
+    'companyCreate.dragzone': "Drag 'n' drop some images here, or click to select images",
     'companyCreate.create': 'Create',
     'companyCreate.message0': ' ',
     'companyCreate.message200': 'Company created',
